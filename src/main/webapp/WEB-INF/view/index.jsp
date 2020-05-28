@@ -6,7 +6,7 @@
 <body>
 
     <c:if test="${empty authInfo}">
-    <p>환영합니다.!!!!!</p>
+    <p>환영합니다.!!!!!!!!!~~~~~</p>
     <p>
         <a href="<c:url value="/register/step1" />">[회원 가입하기]</a>
         <a href="<c:url value="/login" />">[로그인]</a>
@@ -14,7 +14,7 @@
     </c:if>
     
     <c:if test="${! empty authInfo}">
-    <p>${authInfo.memberName}님, 환영합니다. 방가방가</p>
+    <p>${authInfo.memberName}님, 환영합니다.</p>
     <p>
 	   <a href="<c:url value="/cart" />">[장바구니]</a>
 	   <a href="<c:url value="/mypage" />">[마이페이지]</a>
