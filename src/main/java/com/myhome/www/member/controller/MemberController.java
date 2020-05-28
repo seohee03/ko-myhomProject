@@ -39,19 +39,15 @@ public class MemberController {
 
 	@PostMapping("/register/step2")
 	public String handleStep2(
-			@RequestParam(value = "agree") Boolean agree,
 			@ModelAttribute RegisterRequest registerRequest) {
-		if (!agree) {
-			return "register/step1";
-		}
 		
 		return "register/step2";
 	}
 
-	@GetMapping("/register/step2")
-	public String handleStep2Get() {
-		return "redirect:/register/step1";
-	}
+//	@GetMapping("/register/step2")
+//	public String handleStep2Get() {
+//		return "redirect:/register/step1";
+//	}
 
 	//폼에서 submint 누르면
 	@ResponseBody

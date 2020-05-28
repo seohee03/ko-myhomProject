@@ -4,16 +4,20 @@
     
 <script type="text/javascript">
 
-var chk_obj = document.getElementsByName("agree").attr;
-var chk_leng = chk_obj.length;
-var checked = 0; 
+$(function(){
+    $('#agreeBtn').click(function(){
 
-for(i=0;i<chk_leng;i++){
-	if(chk_obj[i].checked==true){
-	
-		checked +=1;
-		alert(chk_obj[i].value);
-	}
+		var checkbox = $("#agree").prop('checked'); 
+		if(!checkbox){
+			alert("약관 동의를 눌러주세요.");
+			return false;
+		}else{
+			$("#regForm").attr("action", "/www/register/step2");
+			$("#regForm").submit();
+		}
+		
+    });
+});
 
 
 
@@ -23,7 +27,7 @@ for(i=0;i<chk_leng;i++){
 <body>
     <h2>회원가입</h2>
     <p>약관 내용</p>
-    <form action="step2" method="post">
+    <form method="post" id="regForm">
     <label>
         <input type="checkbox" name="agree" id="agree" value="true" > 
         	동의
