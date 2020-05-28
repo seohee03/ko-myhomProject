@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="com.myhome.www.member.service.impl.MemberDao">
+
+<!-- 로그인용 -->
+	<select id="selecetByMemberId" resultType="member">
+<!-- 	SELECT * FROM member WHERE member_id = #{memberId} -->
+	SELECT member_no, member_id, cast(AES_DECRYPT(UNHEX(member_pw), #{key}) as char(50)) as member_pw, member_name, agree, power FROM member where member_id = #{memberId}
+	</select>
+
+	<insert id="insertMember">
+	insert into member(member_id, member_pw, member_name, regdate, agree) 
+	values(#{memberId},  HEX(AES_ENCRYPT(#{memberPw}, #{key})), #{memberName}, #{regdate}, #{agree})
+	</insert>
+	
+	<select id="selectMemberByNo" resultType="member">
+	SELECT * FROM member WHERE member_no = #{memberNo}
+	</select>
+	
+	
+	<select id="idCheck" resultType="int">
+	SELECT count(*) FROM member where member_id = #{memberId}
+	</select>
+	
+</mapper>
+
+

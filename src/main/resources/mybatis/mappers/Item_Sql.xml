@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="com.myhome.www.item.service.impl.ItemDao">
+
+	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 있습니다. -->
+	<select id="selectItemList" resultType="item"> 
+	SELECT ITEM_NO, ITEM_CODE, ITEM_NAME, ITEM_DETAIL, PRICE, STOCK FROM ITEM ORDER BY ITEM_NO DESC
+	</select>
+	
+	<insert id="insertItem" parameterType="item">
+	INSERT INTO ITEM(ITEM_CODE, ITEM_NAME, ITEM_DETAIL, PRICE, STOCK) VALUES (#{itemCode}, #{itemName}, #{itemDetail}, #{price}, #{stock})
+	</insert>
+	
+	<select id="selectItemByItemNo" resultType="item">
+	SELECT * FROM ITEM WHERE ITEM_NO = #{itemNo}
+	</select>
+	
+	<update id="updateItem" parameterType="item">
+	update item set item_name=#{itemName}, item_detail=#{itemDetail}, price=#{price}, stock=#{stock} where item_no=#{itemNo}
+	</update>
+	
+	<delete id="itemDelete" parameterType="item" >
+	delete from item where item_no=#{itemNo}
+	</delete>
+	
+</mapper>
