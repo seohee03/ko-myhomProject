@@ -18,11 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myhome.www.member.dto.Member;
 import com.myhome.www.member.service.AuthInfo;
-import com.myhome.www.member.service.DuplicateMemberException;
 import com.myhome.www.member.service.LoginCommand;
 import com.myhome.www.member.service.MemberService;
 import com.myhome.www.member.service.RegisterRequest;
-import com.myhome.www.member.service.RegisterRequestValidator;
 
 
 
@@ -75,10 +73,6 @@ public class MemberController {
 			memberService.insertMember(newRegReq);
 			//memberService.insertMember(newRegReq);
 			return "register/step3";
-//		} catch (DuplicateMemberException ex) {
-//			//errors.rejectValue("memberId", "duplicate");
-//			return "register/step2";
-//		}
 	}
 	
 	// 아이디 중복 체크
@@ -101,10 +95,11 @@ public class MemberController {
 			@RequestParam("memberId") String memberId,
 			@RequestParam("memberPw") String memberPw,
 			@RequestParam("memberName") String memberName,
-			@RequestParam("confirmPassword") String confirmPassword,
+			//@RequestParam("confirmPassword") String confirmPassword,
 			RegisterRequest registerRequest) throws Exception {
 		registerRequest.setMemberid(memberId);
-//		logger.info("post register");
+		registerRequest.setPassword(memberPw);
+		registerRequest.setName(memberName);
 		int result = memberService.idCheck(registerRequest);
 		try {
 			if(result == 1) {

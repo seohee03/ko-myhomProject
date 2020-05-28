@@ -1,11 +1,7 @@
-<%@ page contentType="text/html; charset=utf-8" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>오늘의집</title>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<jsp:include page="/WEB-INF/view/include/header.jsp"/>
+
 <script type="text/javascript">
 $(function(){
     $('#submit').click(function(){
@@ -51,6 +47,7 @@ $(function(){
     	var idChkVal = $("#idChk").val();
 		if(idChkVal == "N"){
 			alert("중복확인 버튼을 눌러주세요.");
+			return false;
 		}else if(idChkVal == "Y"){
 			$("#regForm").submit();
 		}
@@ -91,28 +88,24 @@ function fn_idChk(){
         <label>아이디:<br>
         <form:input path="memberId" id="memberId" />
         <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
-        <form:errors path="memberId"/>
         <span class="errStr memberId"></span>
         </label>
     </p>
     <p>
         <label>이름:<br>
         <form:input path="memberName" />
-        <form:errors path="memberName" />
         <span class="errStr memberName"></span>
         </label>
     </p>
     <p>
         <label>비밀번호:<br>
         <form:password path="memberPw" />
-        <form:errors path="memberPw" />
         <span class="errStr memberPw"></span>
         </label>
     </p>
     <p>
         <label>비밀번호 확인:<br>
         <form:password path="confirmPassword" />
-        <form:errors path="confirmPassword" />
         <span class="errStr confirmPassword"></span>
         </label>
     </p>

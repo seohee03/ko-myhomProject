@@ -1,9 +1,7 @@
-<%@ page contentType="text/html; charset=utf-8" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>오늘의집</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<jsp:include page="/WEB-INF/view/include/header.jsp"/>
+    
 </head>
 <body>
     <h2>회원가입</h2>
@@ -13,7 +11,7 @@
         <input type="checkbox" name="agree" value="true"> 
         	동의
     </label>
-    <input type="submit" value="다음" />
+    <input type="submit" id="agreeBtn" value="다음" />
     </form>
 </body>
 </html>
