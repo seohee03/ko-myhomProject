@@ -6,7 +6,6 @@ public class Categorie {
 	private String categorieName;
 	
 //	public Categorie() {
-//		// TODO Auto-generated constructor stub
 //	}
 //
 //	public Categorie(String categorieName) {
