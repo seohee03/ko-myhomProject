@@ -1,5 +1,7 @@
 package com.myhome.www.item.dto;
 
+import java.time.LocalDateTime;
+
 public class Item {
 	private int itemNo;
 	private String itemCode;
@@ -7,17 +9,27 @@ public class Item {
 	private String itemDetail;
 	private int price;
 	private int stock;
-
+	private LocalDateTime itemRegDateTime;
+	private int categorieNo;
+	
 //	public Item() {
 //	}
 //	
-//	public Item(String itemName, String itemDetail, int price, int stock) {
-//
+//	public Item(String itemName, String itemDetail, 
+//			int price, int stock, int categorieNo) {
 //		this.itemName = itemName;
 //		this.itemDetail = itemDetail;
 //		this.price = price;
 //		this.stock = stock;
+//		this.categorieNo = categorieNo;
 //	}
+	
+	public void setItemRegDateTime(LocalDateTime itemRegDateTime) {
+		this.itemRegDateTime = itemRegDateTime;
+	}
+	public LocalDateTime getItemRegDateTime() {
+		return itemRegDateTime;
+	}
 	
 	public int getItemNo() {
 		return itemNo;
@@ -55,4 +67,19 @@ public class Item {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+
+	public int getCategorieNo() {
+		return categorieNo;
+	}
+
+	public void setCategorieNo(int categorieNo) {
+		this.categorieNo = categorieNo;
+	}
+	@Override
+	public String toString() {
+		return "Item [itemNo=" + itemNo + ", itemCode=" + itemCode + ", itemName=" + itemName + ", itemDetail="
+				+ itemDetail + ", price=" + price + ", stock=" + stock + ", itemRegDateTime=" + itemRegDateTime
+				+ ", categorieNo=" + categorieNo + "]";
+	}
+	
 }

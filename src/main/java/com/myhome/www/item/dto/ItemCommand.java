@@ -9,6 +9,7 @@ public class ItemCommand {
 	private int amount;
 	private int memberNo;
 	private int totalPrice;
+	
 	public int getCartNo() {
 		return cartNo;
 	}

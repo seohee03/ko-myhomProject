@@ -11,6 +11,12 @@
 	<!-- 별칭 -->
 	<typeAliases>
 		<typeAlias alias="item" type="com.myhome.www.item.dto.Item"/>
+		<typeAlias alias="option1" type="com.myhome.www.item.dto.Option1"/>
+		<typeAlias alias="option2" type="com.myhome.www.item.dto.Option2"/>
+		<typeAlias alias="itemImg" type="com.myhome.www.item.dto.ItemImg"/>
+		<typeAlias alias="categorie" type="com.myhome.www.item.dto.Categorie"/>
+		<typeAlias alias="itemCommand" type="com.myhome.www.item.service.ItemCommand"/>
+		
 		<typeAlias alias="member" type="com.myhome.www.member.dto.Member"/>
 		<typeAlias alias="cart" type="com.myhome.www.cart.dto.Cart"/>
 	</typeAliases>

@@ -11,5 +11,3 @@ public interface ItemMapper {
 	public int deleteItem(@Param("itemNo") int itemNo);
 	
 }
-
-

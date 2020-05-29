@@ -17,7 +17,7 @@ public class ContextDataSource {
 	@Bean(destroyMethod="close")
 	public DataSource dataSource() {
 		DataSource dataSource = new DataSource();
-		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/project1?serverTimezone=UTC");
 		dataSource.setUsername("root");
 		dataSource.setPassword("admin");
