@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="com.myhome.www.article.service.impl.ArticleDao">
+
+	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 있습니다. -->
+	<select id="selectArticleList" resultType="articleDTO"> 
+	SELECT * FROM project1.ARTICLE ORDER BY ARTICLE_NO DESC
+	</select>
+	
+	<insert id="insertArticle" parameterType="com.myhome.www.article.dto.Article">
+		INSERT
+			INTO project1.ARTICLE
+				(WRITER_ID, WRITER_NAME, ARTICLE_TITLE, ARTICLE_CONTENT, REGDATE)
+			VALUES
+				(#{writerId}, #{writerName}, #{articleTitle}, #{articleContent}, now())
+	</insert>
+	
+	<select id="selectArticleByNo" resultType="articleDTO">
+		SELECT * FROM project1.ARTICLE
+			WHERE ARTICLE_NO = #{articleNo}
+	</select>
+
+	<select id="selectLastArticleNo" resultType="int">
+		SELECT DISTINCT LAST_INSERT_ID() FROM project1.ARTICLE
+	</select>
+	
+	<update id="updateArticle" parameterType="com.myhome.www.article.dto.Article">
+		UPDATE project1.ARTICLE
+			SET ARTICLE_TITLE=#{articleTitle}, ARTICLE_CONTENT=#{articleContent}, MODDATE=now()
+		 WHERE ARTICLE_NO=#{articleNo}
+	</update>
+
+	<update id="increaseReadCount" parameterType="com.myhome.www.article.dto.Article">
+		UPDATE project1.ARTICLE
+			SET READ_COUNT = READ_COUNT + 1
+			WHERE ARTICLE_NO = #{articleNo}
+	</update>
+	
+	<delete id="deleteArticle" parameterType="int" >
+		DELETE
+			FROM project1.ARTICLE
+			WHERE ARTICLE_NO=#{articleNo}
+	</delete>
+	
+</mapper>
