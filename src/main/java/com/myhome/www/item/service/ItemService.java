@@ -3,6 +3,7 @@ package com.myhome.www.item.service;
 import java.util.List;
 
 import com.myhome.www.item.dto.Item;
+import com.myhome.www.item.dto.ItemCommand;
 
 public interface ItemService {
 

@@ -1,5 +1,6 @@
 package com.myhome.www.item.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myhome.www.item.dto.Item;
+import com.myhome.www.item.dto.ItemCommand;
 import com.myhome.www.item.service.ItemService;
 
 @Service("itemService")
@@ -25,6 +27,17 @@ public class ItemServiceImpl implements ItemService{
 	public List<Item> selectItemList() throws Exception {
 		return itemDao.selectItemList();
 	}
+//	//상품 전체 리스트
+//		@Override
+//		public List<ItemCommand> selectItemList() throws Exception {
+//			 List<Item> item = itemDao.selectItemList();
+//			 List<ItemCommand> itemCommand = new ArrayList<ItemCommand>();
+//			 
+//			 for(Item i : item) {
+//				 itemCommand.set()
+//			 }
+//			 return itemCommand;
+//		}
 
 	//상품 등록
 	@Override

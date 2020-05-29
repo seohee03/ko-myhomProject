@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.myhome.www.cart.dto.Cart;
 import com.myhome.www.item.dto.Item;
+import com.myhome.www.item.dto.ItemCommand;
 import com.myhome.www.item.service.ItemService;
 import com.myhome.www.member.service.AuthInfo;
 
@@ -35,8 +36,15 @@ public class ItemController {
 		 model.addAttribute("itemList", itemList);
 		 return "admin/itemManager/itemList"; 
 	 }
+//	//상품 리스트
+//	 @RequestMapping(value = "/admin/itemList") 
+//	 public String itemListForAdmin(Model model) throws Exception { 
+//		 List<ItemCommand> itemList = itemService.selectItemList();
+//		 model.addAttribute("itemList", itemList);
+//		 return "admin/itemManager/itemList"; 
+//	 }
 	 
-	//관리자 상품 등록폼 
+	//관리자 페이지 상품 등록폼 
 	@RequestMapping(value = "/admin/itemRegister", method = RequestMethod.GET)
 	public String itemRegistForm(@ModelAttribute("item") Item item) {
 		//System.out.println("컨트롤러 진입 ");

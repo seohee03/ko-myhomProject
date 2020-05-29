@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int insertMember(RegisterRequest regReq) throws Exception {
-		
+		System.out.println("값 넘어오냐>>>>>>> 안넘어옴~~~  넘어와라 >>>>>> service:  " + regReq);
 		
 		Member member = new Member();
 		member.setMemberId(regReq.getMemberId());

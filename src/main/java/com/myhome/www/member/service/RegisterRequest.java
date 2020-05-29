@@ -3,36 +3,44 @@ package com.myhome.www.member.service;
 public class RegisterRequest {
 
 	private String memberId;
+	private String memberName;
 	private String memberPw;
 	private String confirmPassword;
-	private String memberName;
+	
 	//private boolean agree;
 	
 	public RegisterRequest() {
 	}
 
-	public RegisterRequest(String memberId, String memberPw, String confirmPassword, String memberName) {
+	public RegisterRequest(String memberId, String memberName, String memberPw, String confirmPassword) {
+		super();
 		this.memberId = memberId;
+		this.memberName = memberName;
 		this.memberPw = memberPw;
 		this.confirmPassword = confirmPassword;
-		this.memberName = memberName;
-
 	}
-
 
 	public String getMemberId() {
 		return memberId;
 	}
 
-	public void setMemberid(String memberId) {
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 	public String getMemberPw() {
 		return memberPw;
 	}
 
-	public void setPassword(String memberPw) {
+	public void setMemberPw(String memberPw) {
 		this.memberPw = memberPw;
 	}
 
@@ -44,17 +52,16 @@ public class RegisterRequest {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public String getMemberName() {
-		return memberName;
+	@Override
+	public String toString() {
+		return "RegisterRequest [memberId=" + memberId + ", memberName=" + memberName + ", memberPw=" + memberPw
+				+ ", confirmPassword=" + confirmPassword + "]";
 	}
 
-	public void setName(String memberName) {
-		this.memberName = memberName;
-	}
+	
 
 
-	public boolean isPasswordEqualToConfirmPassword() {
-		return memberPw.equals(confirmPassword);
-	}
+	
+	
 }
 

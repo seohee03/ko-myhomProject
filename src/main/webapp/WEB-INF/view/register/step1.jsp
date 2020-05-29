@@ -7,7 +7,7 @@
 $(function(){
     $('#agreeBtn').click(function(){
 
-		var checkbox = $("#agree").prop('checked'); 
+		var checkbox = $('#agree').prop('checked'); 
 		if(!checkbox){
 			alert("약관 동의를 눌러주세요.");
 			return false;
@@ -18,8 +18,6 @@ $(function(){
 		
     });
 });
-
-
 
 </script>
     
