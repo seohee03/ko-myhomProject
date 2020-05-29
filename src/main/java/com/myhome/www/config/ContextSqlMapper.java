@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan(basePackages = {
 		"com.myhome.www.item.service.impl",
 		"com.myhome.www.member.service.impl",
-		"com.myhome.www.cart.service.impl",
+		"com.myhome.www.store.service.impl",
 		"com.myhome.www.article.service.impl"
 		})
 public class ContextSqlMapper {

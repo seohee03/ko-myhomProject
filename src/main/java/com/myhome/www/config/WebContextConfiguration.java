@@ -28,7 +28,7 @@ import com.myhome.www.util.AuthCheckInterceptor;
 @ComponentScan(basePackages = {
 		"com.myhome.www.item.controller",
 		"com.myhome.www.member.controller",
-		"com.myhome.www.cart.controller",
+		"com.myhome.www.store.controller",
 		"com.myhome.www.article.controller"
 		})
 public class WebContextConfiguration  implements WebMvcConfigurer {
