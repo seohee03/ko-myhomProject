@@ -1,4 +1,4 @@
-package com.myhome.www.cart.dto;
+package com.myhome.www.store.dto;
 
 public class Cart {
 	

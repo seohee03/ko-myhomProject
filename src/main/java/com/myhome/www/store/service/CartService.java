@@ -1,6 +1,6 @@
-package com.myhome.www.cart.service;
+package com.myhome.www.store.service;
 
-import com.myhome.www.cart.dto.Cart;
+import com.myhome.www.store.dto.Cart;
 
 
 public interface CartService {

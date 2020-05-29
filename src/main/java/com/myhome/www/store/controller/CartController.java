@@ -1,4 +1,4 @@
-package com.myhome.www.cart.controller;
+package com.myhome.www.store.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.myhome.www.cart.dto.Cart;
-import com.myhome.www.cart.service.CartService;
 import com.myhome.www.member.service.AuthInfo;
+import com.myhome.www.store.dto.Cart;
+import com.myhome.www.store.service.CartService;
 
 @Controller
 public class CartController {

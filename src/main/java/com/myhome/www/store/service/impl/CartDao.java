@@ -1,8 +1,8 @@
-package com.myhome.www.cart.service.impl;
+package com.myhome.www.store.service.impl;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.myhome.www.cart.dto.Cart;
+import com.myhome.www.store.dto.Cart;
 
 public interface CartDao {
 	
