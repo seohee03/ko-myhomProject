@@ -4,9 +4,9 @@
 
 </head>
 <body>
-
+	
     <c:if test="${empty authInfo}">
-    <p>환영합니다.</p>
+    <p>환영합니다.ggggggg</p>
     <p>
         <a href="<c:url value="/register/step1" />">[회원 가입하기]</a>
         <a href="<c:url value="/login" />">[로그인]</a>
