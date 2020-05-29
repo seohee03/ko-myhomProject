@@ -1,12 +1,15 @@
 package com.myhome.www.member.controller;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -98,4 +101,31 @@ public class MemberController {
 		return "redirect:/mypage/modify"; // 수정완료되면 alert창 띄우기
 	}
 
+	
+	//*******************************************************************************************************
+	
+	//회원 리스트
+	@RequestMapping(value = "/admin/memberList", method = RequestMethod.GET)
+	public String memberListForAdmin(Model model) throws Exception {
+		System.out.println(">>>>>>>>>>>>>>>>컨트롤러 진입");
+		List<Member> memberList = memberService.selectMemberList();
+		model.addAttribute("memberList",memberList);
+		System.out.println("memberList"+memberList);
+	return "admin/memberManager/memberList";
+		}
+	
+	//회원 탈퇴
+	@RequestMapping(value = "/admin/memberDelete/{memberNo}", method = RequestMethod.GET)
+	   public String memberDeleteForAmin(@PathVariable("memberNo") int memberNo)throws Exception{
+		System.out.println(">>>>>>>>>>>>>>>>컨트롤러 진입" +memberNo);
+	      int result = memberService.deleteMember(memberNo);
+	      if(result>0) {
+	    	  return "redirect:/admin/memberList";
+	      } else {
+	    	  return "admin/memberManager/memberList/memberNo";
+	      }
+	   }
+
+	
+	
 }

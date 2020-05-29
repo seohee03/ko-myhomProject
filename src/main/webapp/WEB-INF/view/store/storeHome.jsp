@@ -18,21 +18,33 @@
 		<thead>
 			<tr>
 				<th>번호</th>
+				<th>카테고리</th>
 				<th>상품코드</th>
 				<th>상품명</th>
 				<th>가격</th>
 				<th>재고</th>
+				<th>옵션1</th>
+				<th>옵션2</th>
+				<th>이미지</th>
+				<th>등록일</th>
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach var="item" items="${itemList}">
-			<tr onclick="location.href='store/itemDetail/${item.itemNo}'">
-				<td><c:out value="${item.itemNo}" /></td>
-				<td><c:out value="${item.itemCode}" /></td>
-				<td><c:out value="${item.itemName}" /></td>
-				<td><c:out value="${item.price}" /></td>
-				<td><c:out value="${item.stock}" /></td>
+		<c:forEach var="itemC" items="${itemList}">
+		
+			<tr onclick="location.href='itemModify/${itemC.item.itemNo}'">
+				<td><c:out value="${itemC.item.itemNo}" /></td>
+				<td><c:out value="${itemC.categorie.categorieName}" /></td>
+				<td><c:out value="${itemC.item.itemCode}" /></td>
+				<td><c:out value="${itemC.item.itemName}" /></td>
+				<td><c:out value="${itemC.item.price}" /></td>
+				<td><c:out value="${itemC.item.stock}" /></td>
+				<td><c:out value="${itemC.option1.option1Name}" /></td>
+				<td><c:out value="${itemC.option2.option2Name}" /></td>
+				<td><c:out value="${itemC.itemImg.imgName}" /></td>
+				<td><tf:formatDateTime value="${itemC.item.itemRegDateTime }" pattern="yyyy-MM-dd"/></td>
 			</tr>
+				
 		</c:forEach>
 		</tbody>
 	</table>

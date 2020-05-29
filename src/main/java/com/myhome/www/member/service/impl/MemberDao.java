@@ -1,5 +1,7 @@
 package com.myhome.www.member.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.myhome.www.member.dto.Member;
@@ -12,6 +14,12 @@ public interface MemberDao {
 	int insertMember(Member member) throws Exception;
 	//회원 번호로 조회
 	Member selectMemberByNo(int memberNo) throws Exception;
+	//회원 출력
+	List<Member> selectMemberList() throws Exception;
+	//회원 수정
+	int updateMember(Member member) throws Exception;
+	// 회원 삭제
+	int deleteMember(int memberNo) throws Exception;
 
 	//아이디 중복 체크
 	int idCheck(String memberId) throws Exception;

@@ -1,6 +1,7 @@
 package com.myhome.www.member.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -21,6 +22,7 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private Environment env;
 
+	//회원 등록
 	@Override
 	public int insertMember(RegisterRequest regReq) throws Exception {
 		System.out.println("값 넘어오냐>>>>>>> 안넘어옴~~~  넘어와라 >>>>>> service:  " + regReq);
@@ -35,6 +37,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.insertMember(member);
 	}
 
+	//번호로 회원 조회
 	@Override
 	public Member selectMemberByNo(int memberNo) throws Exception {
 		return memberDao.selectMemberByNo(memberNo);
@@ -46,5 +49,36 @@ public class MemberServiceImpl implements MemberService{
 		String memberId = registerRequest.getMemberId();
 		return memberDao.idCheck(memberId);
 	}
+	
+	//회원 리스트 조회
+	@Override
+	public List<Member> selectMemberList() throws Exception {
+		System.out.println(">>>>서비스 진입");
+		return memberDao.selectMemberList();
+	}
+
+	//회원 수정
+	@Override
+	public int updateMember(Member member) throws Exception {
+		System.out.println(">>>>서비스 진입");
+		return memberDao.updateMember(member);
+	}
+	
+	/****************************************************************/
+	//회원 삭제
+	@Override
+	public int deleteMember(int memberNo) throws Exception {
+		System.out.println(">>>>서비스 진입");
+		System.out.println("memberNo"+memberNo);
+		return memberDao.deleteMember(memberNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

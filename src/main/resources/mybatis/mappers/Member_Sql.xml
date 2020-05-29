@@ -4,22 +4,34 @@
 <!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
 <mapper namespace="com.myhome.www.member.service.impl.MemberDao">
 
+<!-- 회원 리스트 조회 -->	
+	<select id="selectMemberList" resultType="member">
+	select * from member
+	</select>
 <!-- 로그인용 -->
 	<select id="selecetByMemberId" resultType="member">
-<!-- 	SELECT * FROM member WHERE member_id = #{memberId} -->
 	SELECT member_no, member_id, cast(AES_DECRYPT(UNHEX(member_pw), #{key}) as char(50)) as member_pw, member_name, agree, power FROM member where member_id = #{memberId}
 	</select>
-
+<!-- 회원 등록 -->
 	<insert id="insertMember">
 	insert into member(member_id, member_pw, member_name, regdate, agree) 
 	values(#{memberId},  HEX(AES_ENCRYPT(#{memberPw}, #{key})), #{memberName}, #{regdate}, #{agree})
 	</insert>
-	
+<!-- 번호로 조회 -->
 	<select id="selectMemberByNo" resultType="member">
 	SELECT * FROM member WHERE member_no = #{memberNo}
 	</select>
+<!-- 회원 정보 수정 -->	
+	<update id="updateMember" parameterType="member">
+	update member set member_id = #{memberId}, member_name = #{memberName}, member_pw = #{memberPw} where member_no = #{memberNo}
+	</update>
+<!-- 회원 삭제 -->	
+	<delete id="deleteMember" parameterType="int" >
+	delete from member where member_no=#{memberNo}
+	</delete>
 	
 	
+<!-- 중복회원 카운트 조회 -->
 	<select id="idCheck" resultType="int">
 	SELECT count(*) FROM member where member_id = #{memberId}
 	</select>
