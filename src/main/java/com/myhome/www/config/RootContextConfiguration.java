@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Import;
 		"com.myhome.www.item.service.impl",
 		"com.myhome.www.member.service.impl",
 		"com.myhome.www.cart.service.impl",
+		"com.myhome.www.article.service.impl"
 		})//"com.myhome.www"	//db 관련한 부분만 읽는거임
 public class RootContextConfiguration {
 }

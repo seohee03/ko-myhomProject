@@ -10,6 +10,8 @@
 	
 	<!-- 별칭 -->
 	<typeAliases>
+		<typeAlias alias="member" type="com.myhome.www.member.dto.Member"/>
+	
 		<typeAlias alias="item" type="com.myhome.www.item.dto.Item"/>
 		<typeAlias alias="option1" type="com.myhome.www.item.dto.Option1"/>
 		<typeAlias alias="option2" type="com.myhome.www.item.dto.Option2"/>
@@ -17,7 +19,8 @@
 		<typeAlias alias="categorie" type="com.myhome.www.item.dto.Categorie"/>
 		<typeAlias alias="itemCommand" type="com.myhome.www.item.service.ItemCommand"/>
 		
-		<typeAlias alias="member" type="com.myhome.www.member.dto.Member"/>
 		<typeAlias alias="cart" type="com.myhome.www.cart.dto.Cart"/>
+		
+		<typeAlias type="com.myhome.www.article.dto.Article" alias="articleDTO"/>
 	</typeAliases>
 </configuration>

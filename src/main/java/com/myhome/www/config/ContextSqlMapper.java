@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 		"com.myhome.www.item.service.impl",
 		"com.myhome.www.member.service.impl",
 		"com.myhome.www.cart.service.impl",
+		"com.myhome.www.article.service.impl"
 		})
 public class ContextSqlMapper {
 	
