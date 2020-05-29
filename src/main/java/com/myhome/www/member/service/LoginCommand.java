@@ -6,12 +6,11 @@ public class LoginCommand {
 	private String memberPw;
 	private boolean rememberId;
 	
-	
-
 	public LoginCommand() {
 	}
 
 	public LoginCommand(String memberId, String memberPw, boolean rememberId) {
+		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
 		this.rememberId = rememberId;
@@ -21,7 +20,7 @@ public class LoginCommand {
 		return memberId;
 	}
 
-	public void setMemberid(String memberId) {
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 
@@ -29,7 +28,7 @@ public class LoginCommand {
 		return memberPw;
 	}
 
-	public void MemberPw(String memberPw) {
+	public void setMemberPw(String memberPw) {
 		this.memberPw = memberPw;
 	}
 
@@ -40,4 +39,6 @@ public class LoginCommand {
 	public void setRememberId(boolean rememberId) {
 		this.rememberId = rememberId;
 	}
+
+	
 }

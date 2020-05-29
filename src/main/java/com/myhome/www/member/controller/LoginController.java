@@ -30,7 +30,7 @@ public class LoginController {
     public String form(LoginCommand loginCommand,
     		@CookieValue(value = "REMEMBER", required = false) Cookie rCookie) {
 		if (rCookie != null) {
-			loginCommand.setMemberid(rCookie.getValue());
+			loginCommand.setMemberId(rCookie.getValue());
 			loginCommand.setRememberId(true);
 		}
     	return "login/loginForm";
@@ -38,21 +38,17 @@ public class LoginController {
     
     //로그인 폼에서 submit 눌렀을 때
     @RequestMapping(value = "/login", method = RequestMethod.POST )
-    public String submit(@RequestParam("memberId") String memberId, 
-    		@RequestParam("memberPw") String memberPw, 
-    		@RequestParam(name = "rememberId", required = false) boolean rememberId, 
-    		@ModelAttribute("loginCommand") LoginCommand loginCommand, 
-    		HttpSession session,
+	public String submit(LoginCommand loginCommand, HttpSession session,
     		HttpServletResponse response) throws Exception {
         try {
-            AuthInfo authInfo = loginServie.authenticate(memberId, memberPw);
+            AuthInfo authInfo = loginServie.authenticate(loginCommand.getMemberId(), loginCommand.getMemberPw());
             
             session.setAttribute("authInfo", authInfo);
 
 			Cookie rememberCookie = 
-					new Cookie("REMEMBER", memberId);
+					new Cookie("REMEMBER", loginCommand.getMemberId());
 			rememberCookie.setPath("/");
-			if (rememberId) {
+			if (loginCommand.isRememberId()) {
 				rememberCookie.setMaxAge(60 * 60 * 24 * 30);
 			} else {
 				rememberCookie.setMaxAge(0);
@@ -71,7 +67,7 @@ public class LoginController {
     
     //관리자 로그인 폼
     @RequestMapping(value = "/admin", method=RequestMethod.GET)
-    public String adminForm(@ModelAttribute("loginCommand") LoginCommand loginCommand, @CookieValue(value = "REMEMBER", required = false) Cookie rCookie, HttpSession session) {
+    public String adminForm(LoginCommand loginCommand, @CookieValue(value = "REMEMBER", required = false) Cookie rCookie, HttpSession session) {
 		
   
     	//로그인 한 회원 세션 삭제
@@ -83,7 +79,7 @@ public class LoginController {
 				session.invalidate();
 				
 				if (rCookie != null) {
-					loginCommand.setMemberid(rCookie.getValue());
+					loginCommand.setMemberId(rCookie.getValue());
 					loginCommand.setRememberId(true);
 				}
 				return "admin/adminLoginForm";
@@ -97,22 +93,19 @@ public class LoginController {
     
     //관리자 로그인 폼에서 버튼 눌렀을 때
     @RequestMapping(value = "/admin", method = RequestMethod.POST )
-    public String adminSubmit(
-    		@RequestParam("memberId") String memberId, 
-    		@RequestParam("memberPw") String memberPw, 
-    		@RequestParam(name = "rememberId", required = false) boolean rememberId, 
+    public String adminSubmit( 
     		LoginCommand loginCommand, HttpSession session, 
     		HttpServletResponse response) throws Exception {
         
     	try {
-    		AuthInfo authInfo = loginServie.authenticate(memberId, memberPw);
+    		AuthInfo authInfo = loginServie.authenticate(loginCommand.getMemberId(), loginCommand.getMemberPw());
             
             session.setAttribute("authInfo", authInfo);
 
             Cookie rememberCookie = 
-					new Cookie("REMEMBER", memberId);
+					new Cookie("REMEMBER", loginCommand.getMemberId());
 			rememberCookie.setPath("/");
-			if (rememberId) {
+			if (loginCommand.isRememberId()) {
 				rememberCookie.setMaxAge(60 * 60 * 24 * 30);
 			} else {
 				rememberCookie.setMaxAge(0);
