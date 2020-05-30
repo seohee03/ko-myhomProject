@@ -19,7 +19,7 @@
 		<tbody>
 		<c:forEach var="cartCommand" items="${cartCommandList}">
 		
-			<tr onclick="location.href='itemDetail/${itemC.item.itemNo}'">
+			<tr">
 				<td><c:out value="${cartCommand.cartNo}" /></td>
 				<td><c:out value="${cartCommand.itemName}" /></td>
 				<td><c:out value="${cartCommand.amount}" /></td>
