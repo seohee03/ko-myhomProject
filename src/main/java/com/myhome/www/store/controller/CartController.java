@@ -2,18 +2,21 @@ package com.myhome.www.store.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.myhome.www.member.service.AuthInfo;
 import com.myhome.www.store.dto.Cart;
+import com.myhome.www.store.dto.CartCommand;
 import com.myhome.www.store.service.CartService;
 
 @Controller
@@ -48,7 +51,7 @@ public class CartController {
 			
 			
 			if(result > 0) {
-				 writer.println("<script>alert('장바구니 추가 성공!'); location.href='/www/store/itemDetail/"+cart.getItemNo()+"';</script>");
+				 writer.println("<script>alert('장바구니 추가 성공!'); location.href='/www/itemDetail/"+cart.getItemNo()+"';</script>");
 			}
 //			return "redirect:/";
 		}else {
@@ -72,19 +75,21 @@ public class CartController {
 			writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='/www/login';</script>");
 			//return "login/loginForm";
 		}
-		
-		//return "cart/cart";
 	}
 	
-	
+
+	//장바구니 리스트 보여줌
 	@RequestMapping(value = "/mycart")
-	public String myCart(Cart cart) {
-		
-		
+	public String myCart(HttpSession session, Model model) throws Exception {
+		AuthInfo authInfo = null;
+		authInfo = (AuthInfo) session.getAttribute("authInfo");
+
+		//로그인 한 회원의 번호로 장바구니 리스트 조회
+		List<CartCommand> cartCommandList = cartService.selectCartList(authInfo.getMemberNo());
+		model.addAttribute("cartCommandList", cartCommandList);
 		
 		return "cart/cart";
 	}
-	
 	
 	
 	

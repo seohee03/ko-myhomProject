@@ -20,6 +20,8 @@
 		<typeAlias alias="itemCommand" type="com.myhome.www.item.service.ItemCommand"/>
 		
 		<typeAlias alias="cart" type="com.myhome.www.store.dto.Cart"/>
+		<typeAlias alias="cartCommand" type="com.myhome.www.store.dto.CartCommand"/>
+		
 		
 		<typeAlias type="com.myhome.www.article.dto.Article" alias="articleDTO"/>
 	</typeAliases>

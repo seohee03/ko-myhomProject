@@ -4,8 +4,6 @@
 <!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
 <mapper namespace="com.myhome.www.store.service.impl.CartDao">
 
-
-
 	<insert id="insertItemInCart" parameterType="cart">
 	insert into cart(member_no, amount, item_no, price) values(#{memberNo}, #{amount}, #{itemNo}, #{price})
 	</insert>
@@ -20,4 +18,8 @@
 	set amount = amount + #{amount}
 	where member_no = #{memberNo} and item_no = #{itemNo}
 	</update>
+	
+	<select id="selectCartList" resultType="cartCommand">
+	select c.cart_no, c.amount, i.item_name, i.price, i.item_no, c.member_no from cart c, item i where c.item_no = i.item_no and c.member_no = #{cartNo}
+	</select>
 </mapper>

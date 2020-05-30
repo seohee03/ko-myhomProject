@@ -32,7 +32,7 @@
 		<tbody>
 		<c:forEach var="itemC" items="${itemList}">
 		
-			<tr onclick="location.href='itemModify/${itemC.item.itemNo}'">
+			<tr onclick="location.href='itemDetail/${itemC.item.itemNo}'">
 				<td><c:out value="${itemC.item.itemNo}" /></td>
 				<td><c:out value="${itemC.categorie.categorieName}" /></td>
 				<td><c:out value="${itemC.item.itemCode}" /></td>
