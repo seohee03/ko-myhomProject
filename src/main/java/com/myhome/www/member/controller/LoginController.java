@@ -131,11 +131,12 @@ public class LoginController {
     }
     
     //관리자 로그인 폼에서 버튼 눌렀을 때
+    @ResponseBody
     @RequestMapping(value = "/admin", method = RequestMethod.POST )
-    public String adminSubmit( 
+    public int adminSubmit( 
     		LoginCommand loginCommand, HttpSession session, 
     		HttpServletResponse response) throws Exception {
-        
+        int result = 0;
     	try {
     		AuthInfo authInfo = loginServie.authenticate(loginCommand.getMemberId(), loginCommand.getMemberPw());
             
@@ -151,12 +152,16 @@ public class LoginController {
 			}
 			response.addCookie(rememberCookie);
 
-            return "admin/adminHome";
+            //return "admin/adminHome";
         } catch (WrongIdPasswordException e) {
-            return "admin/adminLoginForm";
+        	result = 9;
         }
+    	return result;
     }
     
-    
+    @RequestMapping(value = "/adminHome")
+    public String adminHome() {
+    	return "admin/adminHome";
+    }
     
 }

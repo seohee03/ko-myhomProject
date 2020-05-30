@@ -7,7 +7,6 @@ $(function(){
 	var $loginForm = $('#loginForm');
 	
     $('#submit').click(function(){
-    	//상품명, 가격, 재고
     	var memberId = $('#memberId').val();
     	var memberPw = $('#memberPw').val();
     	
