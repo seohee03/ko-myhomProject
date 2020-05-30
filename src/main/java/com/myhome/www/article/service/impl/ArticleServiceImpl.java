@@ -22,8 +22,8 @@ public class ArticleServiceImpl implements ArticleService{
 	@Autowired
 	private ArticleDao articleDao;
 	
-	@Autowired
-	private ArticleMapper ArticleMapper;
+//	@Autowired
+//	private ArticleMapper ArticleMapper;
 	
 	@Override
 	public List<Article> selectArticleList() throws Exception {
