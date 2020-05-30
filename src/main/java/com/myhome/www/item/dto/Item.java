@@ -3,14 +3,14 @@ package com.myhome.www.item.dto;
 import java.time.LocalDateTime;
 
 public class Item {
-	private int itemNo;
-	private String itemCode;
-	private String itemName;
-	private String itemDetail;
-	private int price;
-	private int stock;
-	private LocalDateTime itemRegDateTime;
-	private int categorieNo;
+	private int itemNo;						//상품번호
+	private String itemCode;				//상품코드
+	private String itemName;				//상품명
+	private String itemDetail;				//상품 설명
+	private int price;						//가격
+	private int stock;						//재고
+	private LocalDateTime itemRegDateTime;	//등록일
+	private int categorieNo;				//카테고리 번호
 	
 //	public Item() {
 //	}

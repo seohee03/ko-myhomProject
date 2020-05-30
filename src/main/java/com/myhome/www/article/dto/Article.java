@@ -5,13 +5,13 @@ import java.util.Date;
 
 public class Article {
 
-	private int articleNo;
-	private String writerId;
-	private String writerName;
-	private String articleTitle;
-	private String articleContent;
-	private LocalDateTime regdate;
-	private LocalDateTime moddate;
+	private int articleNo;			//글번호
+	private String writerId;		//작성자 id
+	private String writerName;		//작성자 이름
+	private String articleTitle;	//글제목
+	private String articleContent;	//글내용
+	private LocalDateTime regdate;	//작성일
+	private LocalDateTime moddate;	//수정일
 	private int readCount;
 	
 	public Article() {

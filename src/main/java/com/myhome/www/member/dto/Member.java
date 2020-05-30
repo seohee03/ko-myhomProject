@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 
 public class Member {
 
-	private int memberNo;
-	private String memberId;
-	private String memberName;
-	private String memberPw;
-	private LocalDateTime regdate;
-	private String power;
-	private boolean agree;
-	private String key;
+	private int memberNo;			//회원 번호
+	private String memberId;		//회원 아이디
+	private String memberName;		//회원 이름	
+	private String memberPw;		//회원 비밀번호
+	private LocalDateTime regdate;	//가입날짜
+	private String power;			//권한
+	private boolean agree;			//동의여부(사용안함)
+	private String key;				//비밀번호 복호화 키
 
 //	public Member(String memberId, String name, String memberPw, LocalDateTime regdate) {
 //		this.memberId = memberId;

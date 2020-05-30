@@ -76,7 +76,7 @@ public class ArticleController {
 	}
 
 //		
-	// 관리자 페이지 상품 수정 버튼 누르면
+	// 해당 게시글의 작성자가 수정 버튼 누르면
 	@RequestMapping(value = "/community/modifyDo", method = RequestMethod.POST)
 	public void modArticleSubmit(@ModelAttribute("article") Article article, HttpSession session,
 			HttpServletResponse response) throws Exception {
@@ -97,7 +97,7 @@ public class ArticleController {
 		}
 	}
 
-	// 관리자 상품 삭제
+	// 해당 게시글의 작성자가 상품 삭제
 	@RequestMapping(value = "/community/delArticle", method = RequestMethod.POST)
 	public void delArticleSubmit(@ModelAttribute Article article, Model model, HttpServletResponse response) throws Exception {
 		System.out.println("====================>del");
