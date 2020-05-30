@@ -10,21 +10,21 @@ import com.myhome.www.member.service.AuthInfo;
 
 public class AdminAuthCheckInterceptor implements HandlerInterceptor {
 
-//	@Override
-//	public boolean preHandle(
-//			HttpServletRequest request,
-//			HttpServletResponse response,
-//			Object handler) throws Exception {
-//		HttpSession session = request.getSession(false);
-//		if (session != null) {
-//			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-//			if (authInfo.getPower().equals("admin")) {
-//				
-//				return true;
-//			}
-//		}
-//		response.sendRedirect(request.getContextPath() + "/admin");
-//		return false;
-//	}
+	@Override
+	public boolean preHandle(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Object handler) throws Exception {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+			if (authInfo != null && authInfo.getPower().equals("admin")) {
+				
+				return true;
+			}
+		}
+		response.sendRedirect(request.getContextPath() + "/admin");
+		return false;
+	}
 
 }

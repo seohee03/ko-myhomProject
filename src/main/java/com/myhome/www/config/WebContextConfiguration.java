@@ -75,7 +75,7 @@ public class WebContextConfiguration  implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/mypage/**");
-		//registry.addInterceptor(adminauthCheckInterceptor()).addPathPatterns("/admin/**");
+		registry.addInterceptor(adminauthCheckInterceptor()).addPathPatterns("/admin/*");
 	}
 
 	@Bean
@@ -83,11 +83,11 @@ public class WebContextConfiguration  implements WebMvcConfigurer {
 		return new AuthCheckInterceptor();
 	}
 	
-//	@Bean
-//	public AdminAuthCheckInterceptor adminauthCheckInterceptor() {
-//		return new AdminAuthCheckInterceptor();
-//	}
-//
+	@Bean
+	public AdminAuthCheckInterceptor adminauthCheckInterceptor() {
+		return new AdminAuthCheckInterceptor();
+	}
+
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
