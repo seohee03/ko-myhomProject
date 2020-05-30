@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myhome.www.member.service.AuthInfo;
 import com.myhome.www.member.service.LoginCommand;
@@ -36,10 +37,38 @@ public class LoginController {
     	return "login/loginForm";
     }
     
-    //로그인 폼에서 submit 눌렀을 때
+//    //로그인 폼에서 submit 눌렀을 때
+//    @RequestMapping(value = "/login", method = RequestMethod.POST )
+//	public String submit(LoginCommand loginCommand, HttpSession session,
+//    		HttpServletResponse response) throws Exception {
+//        try {
+//            AuthInfo authInfo = loginServie.authenticate(loginCommand.getMemberId(), loginCommand.getMemberPw());
+//            
+//            session.setAttribute("authInfo", authInfo);
+//
+//			Cookie rememberCookie = 
+//					new Cookie("REMEMBER", loginCommand.getMemberId());
+//			rememberCookie.setPath("/");
+//			if (loginCommand.isRememberId()) {
+//				rememberCookie.setMaxAge(60 * 60 * 24 * 30);
+//			} else {
+//				rememberCookie.setMaxAge(0);
+//			}
+//			response.addCookie(rememberCookie);
+//
+//            return "login/loginSuccess";
+//        } catch (WrongIdPasswordException e) {
+//        	//errors.reject("idPasswordNotMatching");
+//            return "login/loginForm";
+//        }
+//    }
+    
+  //로그인 폼에서 submit 눌렀을 때
+    @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST )
-	public String submit(LoginCommand loginCommand, HttpSession session,
-    		HttpServletResponse response) throws Exception {
+	public int submit(LoginCommand loginCommand, HttpSession session,
+			HttpServletResponse response) throws Exception {
+    	int result = 0;
         try {
             AuthInfo authInfo = loginServie.authenticate(loginCommand.getMemberId(), loginCommand.getMemberPw());
             
@@ -54,13 +83,23 @@ public class LoginController {
 				rememberCookie.setMaxAge(0);
 			}
 			response.addCookie(rememberCookie);
-
-            return "login/loginSuccess";
         } catch (WrongIdPasswordException e) {
         	//errors.reject("idPasswordNotMatching");
-            return "login/loginForm";
+        	result = 9;
         }
+        return result;
     }
+    
+    @RequestMapping(value = "/loginSuccess")
+    public String loginSuccess() {
+    	return "index";
+    }
+    
+    
+    
+    
+    
+    
     
 	/***********************************************************************************************************************/
     

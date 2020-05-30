@@ -5,7 +5,6 @@
 <script type="text/javascript">
 $(function(){
     $('#submit').click(function(){
-    	//상품명, 가격, 재고
     	var memberId = $('#memberId').val();
     	var memberName = $('#memberName').val();
     	var memberPw = $('#memberPw').val();

@@ -4,6 +4,8 @@
 
 <script type="text/javascript">
 $(function(){
+	var $loginForm = $('#loginForm');
+	
     $('#submit').click(function(){
     	//상품명, 가격, 재고
     	var memberId = $('#memberId').val();
@@ -23,15 +25,29 @@ $(function(){
     	}else{
     		$('.errStr').text("");
     	}
-
+    	
+    	$.ajax({
+    		url : "/www/login",
+    		type : "post",
+    		dataType : "json",
+    		data : $loginForm.serialize(),
+    		success : function(data){
+    			if(data == 9){
+    				$('#resultMSG').text('아이디 혹은 비밀번호가 맞지 않습니다');
+    				return false;
+    			}else if(data == 0){
+    				location.href = "/www/loginSuccess";
+    			}
+    		}
+    	})
     });
-
 });
+
 </script>
 </head>
 <body>
 <p>회원 로그인</p>
-    <form:form modelAttribute="loginCommand">
+    <form:form modelAttribute="loginCommand" id="loginForm">
     <form:errors />
     <p>
         <label>아이디:<br>
@@ -50,7 +66,8 @@ $(function(){
         <form:checkbox path="rememberId"/> 
         </label>
     </p>
-    <input type="submit" id="submit" value="로그인">
+    <span id="resultMSG"></span>
+    <input type="button" id="submit" value="로그인">
     </form:form>
 </body>
 </html>
