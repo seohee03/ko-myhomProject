@@ -17,5 +17,6 @@ public interface CartDao {
 	int updateItemInCart(Cart cart);
 	//회원의 장바구니 리스트 조회
 	List<CartCommand> selectCartList(int memberNo) throws Exception;
-
+	//카트에 있는 상품 수량 변경
+	int updateItemAmountInCart(@Param("cartNo") int cartNo, @Param("amount") int amount);
 }

@@ -22,4 +22,8 @@
 	<select id="selectCartList" resultType="cartCommand">
 	select c.cart_no, c.amount, i.item_name, i.price, i.item_no, c.member_no from cart c, item i where c.item_no = i.item_no and c.member_no = #{cartNo}
 	</select>
+	
+	<update id="updateItemAmountInCart" parameterType="int">
+	update cart set amount = #{amount} where cart_no = #{cartNo}
+	</update>
 </mapper>

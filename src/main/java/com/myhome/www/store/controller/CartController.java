@@ -8,11 +8,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myhome.www.member.service.AuthInfo;
 import com.myhome.www.store.dto.Cart;
@@ -91,7 +94,62 @@ public class CartController {
 		return "cart/cart";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/updateCart", method = RequestMethod.POST)
+	public int updateCartItemAmount(@RequestParam("updateCartNo") int cartNo, @RequestParam("updateAmount") int newAmount){
+		System.out.println(">>>>>>>>>>>>>>"+cartNo);
+		System.out.println(">>>>>>>>>>>>>>"+newAmount);
+		int result = 0;
+		//int cartNo = cartCommand.getCartNo();
+
+		//카트 수량 업데이트 해주기
+		int res = cartService.updateItemAmountInCart(cartNo, newAmount);
+		if(res > 0) {
+			result = 0;
+		}else {
+			result = 9;
+		}
+		return result;
+	}
 	
+	
+	
+//	//장바구니에서 수량변경 버튼 누르면
+//	@ResponseBody
+//	@RequestMapping(value = "/updateCart")
+//	public int updateCartItemAmount(CartCommand cartCommand) {
+//		System.out.println("cartCommand.getAmount()"+cartCommand.getAmount());
+//		
+//		int result = 0;
+//		//카트 수량 업데이트 해주기
+//		int res = cartService.updateItemAmountInCart(cartCommand);
+//		if(res > 0) {
+//			result = 0;
+//		}else {
+//			result = 9;
+//		}
+//		return result;
+//	}
+	
+	
+//	@RequestMapping(value="/cart/update.do")
+//	public ModelAndView updateCart(Cart cart, HttpServletRequest request){
+//		ModelAndView mav = new ModelAndView("redirect:/cart/list.do");
+//		HttpSession loginSession = request.getSession();
+//		cart.setUser_id((String)loginSession.getAttribute("user_id"));
+//		int chk = cartService.searchCnt(cart.getProduct_id());
+//		System.out.println(chk);
+//		if(chk < cart.getCart_cnt()){
+//			mav.addObject("update_msg", "fail");
+//			mav.addObject("max_cnt", chk);
+//			return mav;
+//		}else{
+//			cartService.updateCart(cart);
+//			mav.addObject("update_msg", "success");
+//			return mav;
+//		}
+//		
+//	}
 	
 	
 	

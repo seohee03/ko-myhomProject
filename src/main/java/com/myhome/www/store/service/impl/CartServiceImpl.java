@@ -42,9 +42,12 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public List<CartCommand> selectCartList(int memberNo) throws Exception {
 		List<CartCommand> cartCommandList = cartDao.selectCartList(memberNo);
-	
-		
 		return cartCommandList;
+	}
+	//카트에 있는 상품 수량 변경
+	@Override
+	public int updateItemAmountInCart(int cartNo, int amount) {
+		return cartDao.updateItemAmountInCart(cartNo, amount);
 	}
 	
 	

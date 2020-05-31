@@ -37,32 +37,6 @@ public class LoginController {
     	return "login/loginForm";
     }
     
-//    //로그인 폼에서 submit 눌렀을 때
-//    @RequestMapping(value = "/login", method = RequestMethod.POST )
-//	public String submit(LoginCommand loginCommand, HttpSession session,
-//    		HttpServletResponse response) throws Exception {
-//        try {
-//            AuthInfo authInfo = loginServie.authenticate(loginCommand.getMemberId(), loginCommand.getMemberPw());
-//            
-//            session.setAttribute("authInfo", authInfo);
-//
-//			Cookie rememberCookie = 
-//					new Cookie("REMEMBER", loginCommand.getMemberId());
-//			rememberCookie.setPath("/");
-//			if (loginCommand.isRememberId()) {
-//				rememberCookie.setMaxAge(60 * 60 * 24 * 30);
-//			} else {
-//				rememberCookie.setMaxAge(0);
-//			}
-//			response.addCookie(rememberCookie);
-//
-//            return "login/loginSuccess";
-//        } catch (WrongIdPasswordException e) {
-//        	//errors.reject("idPasswordNotMatching");
-//            return "login/loginForm";
-//        }
-//    }
-    
   //로그인 폼에서 submit 눌렀을 때
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST )
