@@ -64,7 +64,7 @@ function amountUpdate(num){
 	<input type="hidden" id="updateCartNo" name="updateCartNo" />
 	<input type="hidden" id="updateAmount" name="updateAmount"  />
 	<!-- 전체 주문하기 -->
-	<input type="button" onclick="location.href='/www/mycart'">
+	<input type="button" onclick="location.href='/www/mycart?type=1'">
 </form>
 
 </body>

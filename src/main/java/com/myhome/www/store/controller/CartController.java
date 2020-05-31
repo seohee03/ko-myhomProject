@@ -73,7 +73,7 @@ public class CartController {
 		
 		if(authInfo != null) {
 			//로그인 한거면
-			writer.println("<script>location.href='/www/mycart';</script>");
+			writer.println("<script>location.href='/www/mycart?type=0';</script>");
 		} else {
 			writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='/www/login';</script>");
 			//return "login/loginForm";
@@ -83,7 +83,11 @@ public class CartController {
 
 	//장바구니 리스트 보여줌
 	@RequestMapping(value = "/mycart")
-	public String myCart(HttpSession session, Model model) throws Exception {
+	public String myCart(@Param("type") int type, HttpSession session, Model model) throws Exception {
+		String urlStr = "cart/cart";
+		if(type > 0) {
+			urlStr = "store/order";
+		}
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
 
@@ -91,7 +95,7 @@ public class CartController {
 		List<CartCommand> cartCommandList = cartService.selectCartList(authInfo.getMemberNo());
 		model.addAttribute("cartCommandList", cartCommandList);
 		
-		return "cart/cart";
+		return urlStr;
 	}
 	
 	@ResponseBody
