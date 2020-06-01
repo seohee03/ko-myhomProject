@@ -59,12 +59,30 @@ function sample4_execDaumPostcode() {
         }
     }).open();
 }
+
+function orderBtn(){
+	var cartNoArr = new Array();
+	var cartNoArr = $('input[name=cartNoArr]');
+	$.ajax({
+		url : "/www/order",
+		type : "post",
+		dataType : "json",
+		data : $('#orderForm').serialize(),
+		success : function(data){
+			if(data == 9){
+				alert('주문 실패');
+			}else if(data == 0){
+				location.href='/www/orderSuccess';
+			}
+		}
+	})
+}
 </script>
 
 </head>
 <body>
 <p>order page</p>
-<form id="cartForm">
+<form id="orderForm">
 
 <table border="1">
 	<thead>
@@ -83,18 +101,19 @@ function sample4_execDaumPostcode() {
 				<td><c:out value="${cartCommand.itemName}" /></td>
 				<td><c:out value="${cartCommand.amount}" /></td>
 				<td><c:out value="${cartCommand.price}" /></td>
-				<td><c:out value="${cartCommand.price * cartCommand.amount}" /></td>
+				<td><c:out value="${cartCommand.price * cartCommand.amount}" />
+				<input type="hidden" value="${cartCommand.cartNo}" id="cartNo${cartCommand.cartNo}" name="cartNo" ></td>
 			</tr>
-
 		</c:forEach>
 		<!-- 주문서 작성 -->
 		<!-- 카트 넘버만 보내서 조회해서 insert -->
 		<!-- 배열로 보냄
 		배열 갯수만큼 서비스나 다오에서 insert -->
 		<!-- hidden값으로 cartNo를 배열로 보내고 나머지 주문 상세 내용은 입력값으로 보냄 -->
-		
 	</tbody>
 </table>
+<!-- cartNo 배열로 -->
+<!--  	<input type="hidden" id="cartNoArr" name="cartNoArr" />  -->
 	이름 : <input type="text" >
 	<br />
 	전화번호 : <input type="text" >
