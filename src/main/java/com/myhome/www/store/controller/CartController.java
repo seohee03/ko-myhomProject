@@ -25,7 +25,6 @@ import com.myhome.www.store.service.CartService;
 @Controller
 public class CartController {
 
-	
 	@Resource(name = "cartService")
 	private CartService cartService;
 	
@@ -111,6 +110,7 @@ public class CartController {
 		return result;
 	}
 	
+	//카트에 있는 상품 삭제
 	@ResponseBody
 	@RequestMapping(value = "/deleteCart")
 	public int deleteCart(@RequestParam("updateCartNo") int cartNo) {
@@ -123,7 +123,6 @@ public class CartController {
 			result = 9;
 		}
 		return result;
-		
 	}
 
 	
