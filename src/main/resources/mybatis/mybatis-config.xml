@@ -23,6 +23,7 @@
 		<typeAlias alias="cartCommand" type="com.myhome.www.store.dto.CartCommand"/>
 		
 		<typeAlias alias="orderDetail" type="com.myhome.www.store.dto.OrderDetail"/>
+		<typeAlias alias="orderHistory" type="com.myhome.www.store.dto.OrderHistory"/>
 		
 		<typeAlias type="com.myhome.www.article.dto.Article" alias="articleDTO"/>
 	</typeAliases>

@@ -5,9 +5,18 @@
 <mapper namespace="com.myhome.www.store.service.impl.OrderDao">
 
 	
-	<insert id="insertOrder">
+	<insert id="insertOrder" parameterType="orderDetail">
+		
 	insert into project1.order(member_no, member_name, member_tel, order_date, postcode, address, detail_addr, order_message)
 	values(#{memberNo}, #{memberName}, #{memberTel}, #{orderDate}, #{postcode}, #{address}, #{detailAddr}, #{orderMessage})
+	<selectKey keyProperty="orderNo" resultType="Integer" order="AFTER">
+		select LAST_INSERT_ID()
+	</selectKey>
+	</insert>
+	
+	<insert id="insertOrderHistory" parameterType="orderHistory">
+	insert into project1.order_history(member_no, item_no, item_name, order_date, price, amount, order_no)
+	values(#{memberNo}, #{itemNo}, #{itemName}, #{orderDate}, #{price}, #{amount}, #{orderNo})
 	</insert>
 	
 	

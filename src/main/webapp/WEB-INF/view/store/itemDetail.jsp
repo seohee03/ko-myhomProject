@@ -43,7 +43,7 @@ $(function(){
 		<form:options items="${numArr}"/>
 	</form:select>
 	<form:hidden path="price" value="${itemCommand.item.price }"/> 
-	<form:hidden path="itemNo" value="${itemCommand.item.itemName }"/> 
+	<form:hidden path="itemName" value="${itemCommand.item.itemName }"/> 
 	<p>수량 : <span id="selAmount"></span></p>
 	<p>가격 : <span id="totalPrice"></span></p>
 	

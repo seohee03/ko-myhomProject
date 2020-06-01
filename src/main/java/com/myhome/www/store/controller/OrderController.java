@@ -21,20 +21,18 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/order")
 	public int order(OrderDetail orderDetail, HttpSession session) {	//@RequestParam(value="cartNo") int[] cartNoArr
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + orderDetail.getMemberName());
-		
+		int result = 0;
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
 		
 		orderDetail.setMemberNo(authInfo.getMemberNo());
-		System.out.println(">>>>>>>>>>>>>>>>>authInfo.getMemberNo()" + authInfo.getMemberNo());
 		
-		//배열 값 넘어오나 확인
-		System.out.println(">>>>>>>cartNoArr : " + orderDetail.getCartNoArr()[0]);
 		//주문서 테이블, 주문내역 테이블 둘 다 insert, 장바구니는 삭제
-		orderService.order(orderDetail);
+		int res = orderService.order(orderDetail);
+		if(res == 0) {
+			result = 9;
+		}
 		
-		int result = 0;
 		
 		return result;
 	}

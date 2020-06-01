@@ -21,4 +21,6 @@ public interface CartDao {
 	int updateItemAmountInCart(@Param("cartNo") int cartNo, @Param("amount") int amount);
 	//카트에 있는 상품 삭제
 	int deleteItemInCart(@Param("cartNo") int cartNo);
+	//카트 번호에 해당하는 카트객체 반환
+	List<Cart> selectCartItemByNo(@Param("cartNo") int cartNo);
 }
