@@ -93,6 +93,7 @@ public class CartController {
 		return urlStr;
 	}
 	
+	//장바구니에 있는 상품 수량 변경
 	@ResponseBody
 	@RequestMapping(value = "/updateCart", method = RequestMethod.POST)
 	public int updateCartItemAmount(@RequestParam("updateCartNo") int cartNo, @RequestParam("updateAmount") int newAmount){
@@ -110,6 +111,20 @@ public class CartController {
 		return result;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/deleteCart")
+	public int deleteCart(@RequestParam("updateCartNo") int cartNo) {
+		int result = 0;
+		
+		int res = cartService.deleteItemInCart(cartNo);
+		if(res > 0) {
+			result = 0;
+		}else {
+			result = 9;
+		}
+		return result;
+		
+	}
 
 	
 	

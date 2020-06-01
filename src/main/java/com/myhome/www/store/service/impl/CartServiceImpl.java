@@ -49,6 +49,12 @@ public class CartServiceImpl implements CartService{
 	public int updateItemAmountInCart(int cartNo, int amount) {
 		return cartDao.updateItemAmountInCart(cartNo, amount);
 	}
+
+	//카트에 있는 상품 삭제
+	@Override
+	public int deleteItemInCart(int cartNo) {
+		return cartDao.deleteItemInCart(cartNo);
+	}
 	
 	
 

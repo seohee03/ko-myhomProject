@@ -26,6 +26,25 @@ function amountUpdate(num){
 			
 	});
 }
+
+function amountDelete(num){
+	$("#updateCartNo").val(num);
+	
+	$.ajax({
+		url : "/www/deleteCart",
+		type : "post",
+		dataType : "json",
+		data : $("#cartForm").serialize(),
+		success : function(data){
+			if(data == 9){
+				alert('삭제 실패');
+			}else if(data == 0){
+				alert('선택하신 상품이 삭제되었습니다');
+				location.reload();
+			}
+		}
+	});
+}
 	
 </script>
 </head>
@@ -52,6 +71,7 @@ function amountUpdate(num){
 				<td><c:out value="${cartCommand.amount}" />
 				<input type="number" id="updateAmount${cartCommand.cartNo}" name="newAmount${cartCommand.cartNo}" min="0" />
 				<input type="button" onclick="javascript:amountUpdate(${cartCommand.cartNo});" value="변경"/>
+				<input type="button" onclick="javascript:amountDelete(${cartCommand.cartNo});" value="삭제"/>
 				</td>
 				<td><c:out value="${cartCommand.price}" /></td>
 				<td><c:out value="${cartCommand.price * cartCommand.amount}" /></td>
@@ -64,7 +84,7 @@ function amountUpdate(num){
 	<input type="hidden" id="updateCartNo" name="updateCartNo" />
 	<input type="hidden" id="updateAmount" name="updateAmount"  />
 	<!-- 전체 주문하기 -->
-	<input type="button" onclick="location.href='/www/mycart?type=1'">
+	<input type="button" onclick="location.href='/www/mycart?type=1'" value="전체주문">
 </form>
 
 </body>

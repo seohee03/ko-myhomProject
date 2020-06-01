@@ -26,4 +26,8 @@
 	<update id="updateItemAmountInCart" parameterType="int">
 	update cart set amount = #{amount} where cart_no = #{cartNo}
 	</update>
+	
+	<delete id="deleteItemInCart" parameterType="int">
+	delete from cart where cart_no = #{cartNo}
+	</delete>
 </mapper>

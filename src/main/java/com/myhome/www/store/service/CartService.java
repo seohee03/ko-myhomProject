@@ -19,4 +19,6 @@ public interface CartService {
 	List<CartCommand> selectCartList(int memberNo) throws Exception;
 	//카트에 있는 상품 수량 변경
 	int updateItemAmountInCart(int cartNo, int amount);
+	//카트에 있는 상품 삭제
+	int deleteItemInCart(int cartNo);
 }
