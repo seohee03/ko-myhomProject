@@ -82,7 +82,7 @@ function orderBtn(){
 </head>
 <body>
 <p>order page</p>
-<form id="orderForm" >
+<form id="orderForm" modelAttribute="orderDetail">
 
 <table border="1">
 	<thead>
@@ -102,7 +102,7 @@ function orderBtn(){
 				<td><c:out value="${cartCommand.amount}" /></td>
 				<td><c:out value="${cartCommand.price}" /></td>
 				<td><c:out value="${cartCommand.price * cartCommand.amount}" />
-				<input type="hidden" value="${cartCommand.cartNo}" id="cartNo${cartCommand.cartNo}" name="cartNo" ></td>
+				<input type="hidden" value="${cartCommand.cartNo}" id="cartNo${cartCommand.cartNo}" name="cartNoArr" ></td>
 			</tr>
 		</c:forEach>
 		<!-- 주문서 작성 -->

@@ -13,7 +13,7 @@ public class OrderDetail {
     private String address;				// 주소
     private String detailAddr;			// 상세주소
     private String orderMessage;		// 배송 메모
-    private int[] cartNoArr;
+    private int[] cartNoArr;			// cartNo 담을 배열
     
 	public int getOrderNo() {
 		return orderNo;
@@ -74,6 +74,12 @@ public class OrderDetail {
 	}
 	public void setCartNoArr(int[] cartNoArr) {
 		this.cartNoArr = cartNoArr;
+	}
+	@Override
+	public String toString() {
+		return "OrderDetail [orderNo=" + orderNo + ", memberNo=" + memberNo + ", memberName=" + memberName
+				+ ", memberTel=" + memberTel + ", orderDate=" + orderDate + ", postcode=" + postcode + ", address="
+				+ address + ", detailAddr=" + detailAddr + ", orderMessage=" + orderMessage + "]";
 	}
     
 }
