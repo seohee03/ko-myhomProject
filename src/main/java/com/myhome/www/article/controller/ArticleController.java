@@ -126,4 +126,19 @@ public class ArticleController {
 		model.addAttribute("article", article);
 		return "community/readArticle";
 	}
+	
+	
+	/* ********************************** */
+	
+	// 리스트
+   @RequestMapping(value = "/admin/articleList", method = RequestMethod.GET)
+   public String articleListForAdim(Model model) throws Exception {
+      List<Article> articleList = articleService.selectArticleList();
+      System.out.println(">>>>>>>>>>>>>>>>>>>>>>");
+      /*
+       * for(Article a : articleList) { System.out.println(a.toString()); }
+       */
+      model.addAttribute("articleList", articleList);
+      return "admin/articleManager/articleList";
+   }
 }

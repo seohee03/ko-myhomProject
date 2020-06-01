@@ -82,7 +82,7 @@ function orderBtn(){
 </head>
 <body>
 <p>order page</p>
-<form id="orderForm">
+<form id="orderForm" >
 
 <table border="1">
 	<thead>

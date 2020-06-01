@@ -7,5 +7,6 @@
 관리자페이지 
 <a href="<c:url value="/admin/itemList" />">[상품관리]</a>
  <a href="<c:url value="/admin/memberList" />">[회원관리]</a>
+ <a href="<c:url value="/admin/articleList" />">[게시글 관리]</a>
 </body>
 </html>

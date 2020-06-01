@@ -33,6 +33,7 @@
     <hr/>
     <a href="<c:url value="/admin/itemList" />">[상품관리]</a>
     <a href="<c:url value="/admin/itemRegister" />">[상품등록]</a>
+    <a href="<c:url value="/admin/articleList" />">[게시글 관리]</a>
     <a href="<c:url value="/admin" />">[관리자페이지]</a>
 </body>
 </html>

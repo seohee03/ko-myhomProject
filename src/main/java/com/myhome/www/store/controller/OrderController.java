@@ -16,10 +16,10 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/order")
 	public int order(@RequestParam(value="cartNo") int[] cartNoArr) {
+		//배열 값 넘어오나 확인
 		System.out.println(">>>>>>>cartNoArr : " + cartNoArr[0]);
-		System.out.println(">>>>>>>cartNoArr : " + cartNoArr[1]);
+		
 		int result = 0;
-		System.out.println("controller 진입");
 		
 		return result;
 	}
