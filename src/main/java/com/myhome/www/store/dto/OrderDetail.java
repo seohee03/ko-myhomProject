@@ -11,8 +11,9 @@ public class OrderDetail {
     private LocalDateTime orderDate;	// 주문 날짜
 	private int postcode;				// 우편번호
     private String address;				// 주소
-    private String detail_addr;			// 상세주소
-    private String order_message;		// 배송 메모
+    private String detailAddr;			// 상세주소
+    private String orderMessage;		// 배송 메모
+    
 	public int getOrderNo() {
 		return orderNo;
 	}
@@ -55,18 +56,17 @@ public class OrderDetail {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getDetail_addr() {
-		return detail_addr;
+	public String getDetailAddr() {
+		return detailAddr;
 	}
-	public void setDetail_addr(String detail_addr) {
-		this.detail_addr = detail_addr;
+	public void setDetailAddr(String detailAddr) {
+		this.detailAddr = detailAddr;
 	}
-	public String getOrder_message() {
-		return order_message;
+	public String getOrderMessage() {
+		return orderMessage;
 	}
-	public void setOrder_message(String order_message) {
-		this.order_message = order_message;
+	public void setOrderMessage(String orderMessage) {
+		this.orderMessage = orderMessage;
 	}
-    
     
 }

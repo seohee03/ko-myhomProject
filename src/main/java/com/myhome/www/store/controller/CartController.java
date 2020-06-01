@@ -28,6 +28,7 @@ public class CartController {
 	@Resource(name = "cartService")
 	private CartService cartService;
 	
+	//장바구니에 상품 추가
 	@RequestMapping(value = "/cart/cartAdd", method = RequestMethod.POST)
 	public void cartAddItem(@ModelAttribute("cart") Cart cart, HttpSession session, HttpServletResponse response) throws Exception {
 		//itemDetail에서 '장바구니에 추가' 누르면 alert
@@ -73,7 +74,6 @@ public class CartController {
 			writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='/www/login';</script>");
 		}
 	}
-	
 
 	//장바구니 리스트 보여줌
 	@RequestMapping(value = "/mycart")
@@ -124,7 +124,5 @@ public class CartController {
 		}
 		return result;
 	}
-
-	
 	
 }
