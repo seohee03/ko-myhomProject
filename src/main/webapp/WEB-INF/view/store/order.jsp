@@ -114,9 +114,9 @@ function orderBtn(){
 </table>
 <!-- cartNo 배열로 -->
 <!--  	<input type="hidden" id="cartNoArr" name="cartNoArr" />  -->
-	이름 : <input type="text" >
+	이름 : <input type="text" name="memberName" value="">
 	<br />
-	전화번호 : <input type="text" >
+	전화번호 : <input type="text" name="memberTel" >
 	<br />
 	<input type="text" id="sample4_postcode" name="postcode" placeholder="우편번호">
 	<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>

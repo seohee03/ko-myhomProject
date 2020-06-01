@@ -1,10 +1,13 @@
 package com.myhome.www.store.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.myhome.www.member.service.AuthInfo;
 import com.myhome.www.store.dto.OrderDetail;
 import com.myhome.www.store.service.OrderService;
 
@@ -17,7 +20,14 @@ public class OrderController {
 	//주문폼에서 주문 누르면
 	@ResponseBody
 	@RequestMapping(value = "/order")
-	public int order(OrderDetail orderDetail) {	//@RequestParam(value="cartNo") int[] cartNoArr
+	public int order(OrderDetail orderDetail, HttpSession session) {	//@RequestParam(value="cartNo") int[] cartNoArr
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>" + orderDetail.getMemberName());
+		
+		AuthInfo authInfo = null;
+		authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		orderDetail.setMemberNo(authInfo.getMemberNo());
+		System.out.println(">>>>>>>>>>>>>>>>>authInfo.getMemberNo()" + authInfo.getMemberNo());
 		
 		//배열 값 넘어오나 확인
 		System.out.println(">>>>>>>cartNoArr : " + orderDetail.getCartNoArr()[0]);

@@ -20,6 +20,7 @@ import com.myhome.www.article.dto.Article;
 import com.myhome.www.article.service.ArticleService;
 import com.myhome.www.item.dto.Item;
 import com.myhome.www.member.service.AuthInfo;
+import com.myhome.www.member.service.LoginCommand;
 
 @Controller
 public class ArticleController {
@@ -41,8 +42,20 @@ public class ArticleController {
 
 	// 게시글 등록 폼
 	@RequestMapping(value = "/community/writeDo", method = RequestMethod.GET)
-	public String writeArticle(@ModelAttribute Article article) {
-		return "community/writeArticle";
+	public String writeArticle(@ModelAttribute Article article, @ModelAttribute LoginCommand loginCommand, HttpSession session) {
+		AuthInfo authInfo = null;
+		authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		String url = "";
+		
+		if(authInfo != null) {
+			url = "community/writeArticle";
+		}else {
+			System.out.println("로그인 하세요");
+			url = "login/loginForm";
+		}
+		
+		return url;
 	}
 
 	// 글등록 버튼 누르면
