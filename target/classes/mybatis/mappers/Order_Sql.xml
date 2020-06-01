@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="com.myhome.www.store.service.impl.OrderDao">
+
+	
+	<insert id="insertOrder">
+	insert into project1.order(member_no, member_name, member_tel, order_date, postcode, address, detail_addr, order_message)
+	values(#{memberNo}, #{memberName}, #{memberTel}, #{orderDate}, #{postcode}, #{address}, #{detailAddr}, #{orderMessage})
+	</insert>
+	
+	
+	<!-- <insert id="insertItemInCart" parameterType="cart">
+	insert into cart(member_no, amount, item_no, price) values(#{memberNo}, #{amount}, #{itemNo}, #{price})
+	</insert>
+	
+	장바구니에 동일한 상품 있는지 확인
+	<select id="countCart" resultType="int">
+	select count(*) from cart where item_no = #{itemNo} and member_no = #{memberNo}
+	</select>
+	
+	<update id="updateItemInCart" parameterType="cart">
+	update cart 
+	set amount = amount + #{amount}
+	where member_no = #{memberNo} and item_no = #{itemNo}
+	</update>
+	
+	<select id="selectCartList" resultType="cartCommand">
+	select c.cart_no, c.amount, i.item_name, i.price, i.item_no, c.member_no from cart c, item i where c.item_no = i.item_no and c.member_no = #{cartNo}
+	</select>
+	
+	<update id="updateItemAmountInCart" parameterType="int">
+	update cart set amount = #{amount} where cart_no = #{cartNo}
+	</update>
+	
+	<delete id="deleteItemInCart" parameterType="int">
+	delete from cart where cart_no = #{cartNo}
+	</delete> -->
+</mapper>
