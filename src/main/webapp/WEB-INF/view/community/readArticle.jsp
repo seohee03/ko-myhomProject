@@ -31,7 +31,6 @@
 <body>
 	글보기페이지
 	<br />
-	<form:form modelAttribute="article" method="POST" id="frm">
 		<a href="<c:url value="/cart" />">[장바구니]</a>
 		<a href="<c:url value="/mypage" />">[마이페이지]</a>
 		<br />
@@ -57,7 +56,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%-- <c:forEach var="article" items="${articleList}"> --%>
 				<c:set var="article" value="${article}" />
 				<tr>
 					<td><c:out value="${article.articleNo}" /></td>
@@ -67,9 +65,7 @@
 					<td><c:out value="${article.regdate}" /></td>
 					<td><c:out value="${article.readCount}" /></td>
 				</tr>
-				<%-- </c:forEach> --%>
 			</tbody>
 		</table>
-	</form:form>
 </body>
 </html>

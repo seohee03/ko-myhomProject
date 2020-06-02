@@ -26,9 +26,9 @@
 		</thead>
 		<tbody>
 		<c:forEach var="article" items="${articleList}">
-			<tr>
+			<tr onclick="location.href='community/readArticle/${article.articleNo}'">
 				<td><c:out value="${article.articleNo}" /></td>
-				<td><a href="<c:url value="community/readArticle/${article.articleNo}"/>">${article.articleTitle}</td>
+				<td>${article.articleTitle}</td>
 				<td><c:out value="${article.writerId}" /></td>
 				<td><c:out value="${article.regdate}" /></td>
 				<td><c:out value="${article.readCount}" /></td>
