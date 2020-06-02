@@ -42,6 +42,7 @@ $(function(){
     });
 });
 
+
 </script>
 </head>
 <body>
@@ -67,6 +68,7 @@ $(function(){
     </p>
     <span id="resultMSG"></span>
     <input type="button" id="submit" value="로그인">
+    <!-- <a href="/oauth/authorize?client_id={7f5e40851f7ba4a73047e1af6ce22531}&redirect_uri={http://localhost:8085/www/}&response_type=code">카카오로그인</a> -->
     </form:form>
 </body>
 </html>

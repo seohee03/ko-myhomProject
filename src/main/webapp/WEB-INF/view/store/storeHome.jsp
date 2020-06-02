@@ -14,6 +14,10 @@
     <br />
 
 <h1>Item List</h1>
+<form action="searchItem">
+<input type="text" placeholder="검색" name="keyword">
+<input type="submit" value="검색">
+</form>
 	<table border="1">
 		<thead>
 			<tr>

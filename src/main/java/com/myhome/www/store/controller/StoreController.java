@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myhome.www.item.dto.Item;
 import com.myhome.www.item.service.ItemCommand;
@@ -41,6 +42,12 @@ public class StoreController {
 		
 		 return "store/itemDetail";
 		 
-		 }
+	 }
+	 
+	 @RequestMapping(value = "/searchItem")
+	 public String searchItem(@RequestParam("keyword") String keyword) {
+		 System.out.println(">>>>>>>>>>>>>>keyword : " + keyword);
+		 return "search";
+	 }
 	
 }

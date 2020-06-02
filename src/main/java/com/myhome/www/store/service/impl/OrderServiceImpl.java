@@ -25,11 +25,11 @@ public class OrderServiceImpl implements OrderService{
 	public int order(OrderDetail orderDetail) {
 		orderDetail.setOrderDate(LocalDateTime.now());
 		//주문서 저장
-		//상품 ㅇㅇ 외 n개 주문완료, 주문번호 *******
-		int orderNo = orderDao.insertOrder(orderDetail);
-		
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>orderNo : " + orderNo);
+		int insertRs = orderDao.insertOrder(orderDetail);
 		int result = 0;
+		if(insertRs > 0) {
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>orderNo : " + orderDetail.getOrderNo());
+		
 		//주문 내역 테이블에 구매 정보 insert(cartNo로 정보 넣음)
 		System.out.println("orderDetail.getCartNoArr().length="+orderDetail.getCartNoArr().length);
 		for(int i = 0; i < orderDetail.getCartNoArr().length; i++) {
@@ -39,11 +39,12 @@ public class OrderServiceImpl implements OrderService{
 			
 			OrderHistory orderHistory = new OrderHistory();
 			orderHistory.setMemberNo(cart.get(0).getMemberNo());
+			orderHistory.setItemNo(cart.get(0).getItemNo());
 			orderHistory.setItemName(cart.get(0).getItemName());
 			orderHistory.setOrderDate(LocalDateTime.now());
 			orderHistory.setPrice(cart.get(0).getPrice());
 			orderHistory.setAmount(cart.get(0).getAmount());
-			orderHistory.setOrderNo(orderNo);
+			orderHistory.setOrderNo(orderDetail.getOrderNo());
 			orderDao.insertOrderHistory(orderHistory);
 		}
 		
@@ -51,7 +52,7 @@ public class OrderServiceImpl implements OrderService{
 		for(int i = 0; i < orderDetail.getCartNoArr().length; i++) {
 			result += cartDao.deleteItemInCart(orderDetail.getCartNoArr()[i]);
 		}
-		
+		}
 		return result;
 	}
 
