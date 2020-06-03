@@ -153,15 +153,15 @@
 		delete from item_img where item_no = #{itemNo} 
 	</delete>
 	
-	<select id="selectSearchItemList" parameterType="String" resultType="itemCommand">
+	<select id="selectSearchItemList" parameterType="String" resultMap="itemCommand">
 	select distinct(i.item_no) as item_no, item_img.thumb_url, categorie.categorie_name, i.item_name, i.price 
 		from ITEM i
 		left join categorie on categorie.categorie_no = i.categorie_no
-		left join option1 on option1.item_no = i.item_no
-		left join option2 on option1.option1_no = option2.option1_no
 		left join item_img on i.item_no = item_img.item_no 
         where is_thumb = 1
-		and i.item_name like '%' || #{keyword} || '%'
+        <if test="keyword != ''">
+			and i.item_name like concat('%',#{keyword},'%')
+		</if>
 		order by i.item_no desc;
 	</select>
 	

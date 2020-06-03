@@ -82,7 +82,9 @@ public class StoreController {
 		 System.out.println(">>>>>>>>>>>>>>keyword : " + keyword);
 		 
 		 List<ItemCommand> itemList = itemService.selectSearchItemList(keyword);
-		 
+		 for(ItemCommand i : itemList) {
+			 System.out.println(i.toString());
+		 }
 		 model.addAttribute("itemList", itemList);
 		 return "search";
 	 }
