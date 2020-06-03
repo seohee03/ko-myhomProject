@@ -45,9 +45,12 @@ public class StoreController {
 	 }
 	 
 	 @RequestMapping(value = "/searchItem")
-	 public String searchItem(@RequestParam("keyword") String keyword) {
+	 public String searchItem(@RequestParam("keyword") String keyword, Model model) throws Exception {
 		 System.out.println(">>>>>>>>>>>>>>keyword : " + keyword);
-		 return "search";
+		 List<ItemCommand> itemList = itemService.selectSearchItemList(keyword);
+		 
+		 model.addAttribute("itemList", itemList);
+		 return "store/storeHome";
 	 }
 	
 }

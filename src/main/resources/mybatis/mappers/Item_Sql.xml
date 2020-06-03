@@ -4,7 +4,7 @@
 <!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
 <mapper namespace="com.myhome.www.item.service.impl.ItemDao">
 	
-	<!-- itemCommand에 들어있는 객체마다 result맵핑 -->
+	<!-- 객체의 속성(필드)값과 DB의 필드명을 맞춰준다 -->
 	<resultMap id="item" type="item">
 			<result property="itemNo"  column="item_no" />
             <result property="itemCode"  column="item_code" />
@@ -34,11 +34,12 @@
              <result property="categorieName"  column="categorie_name" />
 	</resultMap>
 	<resultMap type="itemImg" id="itemImg">
-             <result property="imgNo"  column="img_no" />
-             <result property="imgName"  column="img_name" />
+             <result property="imgUrl"  column="img_url" />
+             <result property="thumbUrl"  column="thumb_url" />
+             <result property="isThumb"  column="is_thumb" />
              <result property="itemNo"  column="item_no" />
 	</resultMap>
-	<!--  -->
+	
 	<resultMap type="itemCommand" id="itemCommand">
 			<collection property="item" resultMap="item" />
 			<collection property="option1" resultMap="option1" />
@@ -50,12 +51,27 @@
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
 		있습니다. -->
 	<!-- 전체 조회 -->
-	<select id="selectItemList" resultType="itemCommand" resultMap="itemCommand" >
+	<!-- <select id="selectItemList" resultType="itemCommand" resultMap="itemCommand" >
 		select * from ITEM
 		left join categorie on categorie.categorie_no = item.categorie_no
 		left join option1 on option1.item_no = item.item_no
 		left join option2 on option1.option1_no = option2.option1_no
 		left join item_img on item.item_no = item_img.item_no order by item.item_no desc
+	</select> -->
+	<!-- 페이징 처리하여 리스트 출력 -->
+	<select id="selectItemList" resultType="itemCommand" resultMap="itemCommand" parameterType="itemPageSize">
+		select * from item i
+		left join categorie c on c.categorie_no = i.categorie_no
+		left join item_img ii on i.item_no = ii.item_no
+		left join option1 o1 on o1.item_no = i.item_no
+		left join option2 o2 on o1.option1_no = o2.option1_no
+		where is_thumb = 1
+		order by i. item_no desc limit #{startRow}, #{size};
+	</select>
+	
+	<!-- 상품 개수 -->
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(*) from item;
 	</select>
 	
 	<!-- 등록 -->
@@ -76,11 +92,7 @@
 	</insert>
 	<insert id="insertItemImg"
 		parameterType="itemImg">
-		INSERT INTO item_img(item_no, img_name) VALUES (#{itemNo}, #{imgName})
-	</insert>
-	<insert id="insertCategorie"
-		parameterType="categorie">
-		INSERT INTO categorie(categorie_name) VALUES (#{categorieName})
+		INSERT INTO item_img(img_url, thumb_url, is_thumb, item_no) VALUES (#{imgUrl}, #{thumbUrl}, #{isThumb}, #{itemNo})
 	</insert>
 	
 	<!-- insert 할때  필요한 객체 가져올떄 사용 -->
@@ -98,7 +110,6 @@
 	<select id="selectItemByItemNo" resultType="itemCommand" resultMap="itemCommand">
 		select * from item i
 		left join categorie c on c.categorie_no = i.categorie_no
-		left join item_img ii on i.item_no = ii.item_no
 		left join option1 o1 on o1.item_no = i.item_no
 		left join option2 o2 on o1.option1_no = o2.option1_no
 		where i.item_no = #{itemNo} 
@@ -121,11 +132,11 @@
 		set option2_name = #{option2Name}, option2_price = #{option2Price}, option2_stock = #{option2Stock}
 		where option1_no = #{option1No}
 	</update>	
-	<update id="updateItemImg" parameterType="itemImg">
+	<!-- <update id="updateItemImg" parameterType="itemImg">
 		update item_img
-		set img_name = #{imgName}
+		set img_url = #{imgUrl}, thumb_url = #{thumbUrl}, is_thumb = #{isThumb}
 		where item_no = #{itemNo}
-	</update>
+	</update> -->
 	
 	<!-- 삭제 -->
 	<delete id="deleteItem" parameterType="item">
@@ -138,5 +149,18 @@
 		on o1.option1_no = o2.option1_no
 		where item_no = #{itemNo};
 	</delete>
-
+	<delete id="deleteImg" parameterType="itemImg">
+		delete from item_img where item_no = #{itemNo} 
+	</delete>
+	
+	<select id="selectSearchItemList" parameterType="String" resultType="itemCommand">
+	select * from ITEM
+		left join categorie on categorie.categorie_no = item.categorie_no
+		left join option1 on option1.item_no = item.item_no
+		left join option2 on option1.option1_no = option2.option1_no
+		left join item_img on item.item_no = item_img.item_no 
+		where item.item_name = #{keyword}
+		order by item.item_no desc
+	</select>
+	
 </mapper>

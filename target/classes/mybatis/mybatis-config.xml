@@ -12,12 +12,14 @@
 	<typeAliases>
 		<typeAlias alias="member" type="com.myhome.www.member.dto.Member"/>
 	
-		<typeAlias alias="item" type="com.myhome.www.item.dto.Item"/>
-		<typeAlias alias="option1" type="com.myhome.www.item.dto.Option1"/>
-		<typeAlias alias="option2" type="com.myhome.www.item.dto.Option2"/>
-		<typeAlias alias="itemImg" type="com.myhome.www.item.dto.ItemImg"/>
-		<typeAlias alias="categorie" type="com.myhome.www.item.dto.Categorie"/>
-		<typeAlias alias="itemCommand" type="com.myhome.www.item.service.ItemCommand"/>
+		<typeAlias type="com.myhome.www.item.dto.Item" alias="item"/>
+		<typeAlias type="com.myhome.www.item.dto.Option1" alias="option1"/>
+		<typeAlias type="com.myhome.www.item.dto.Option2" alias="option2"/>
+		<typeAlias type="com.myhome.www.item.dto.ItemImg" alias="itemImg"/>
+		<typeAlias type="com.myhome.www.item.dto.Categorie" alias="categorie"/>
+		<typeAlias type="com.myhome.www.item.service.ItemCommand" alias="itemCommand"/>
+		<typeAlias type="com.myhome.www.item.service.ItemPage" alias="itemPage"/>
+		<typeAlias type="com.myhome.www.item.service.ItemPageSize" alias="itemPageSize"/>
 		
 		<typeAlias alias="cart" type="com.myhome.www.store.dto.Cart"/>
 		<typeAlias alias="cartCommand" type="com.myhome.www.store.dto.CartCommand"/>

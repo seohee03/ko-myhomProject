@@ -2,6 +2,7 @@ package com.myhome.www.item.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.myhome.www.item.dto.Categorie;
@@ -10,17 +11,23 @@ import com.myhome.www.item.dto.ItemImg;
 import com.myhome.www.item.dto.Option1;
 import com.myhome.www.item.dto.Option2;
 import com.myhome.www.item.service.ItemCommand;
+import com.myhome.www.item.service.ItemPageSize;
 @Repository
 public interface ItemDao {
 
 	//상품 전체 리스트
 	List<ItemCommand> selectItemList() throws Exception;
 	
+	//상품 페이징하여 리스트 출력
+	List<ItemCommand> selectItemList(ItemPageSize itemPageSize) throws Exception;
+	
+	//상품 개수 조회
+	public int selectCount() throws Exception; 
+	
 	//상품 등록
 	int insertItem(Item item) throws Exception;
 	int insertOption1(Option1 option1) throws Exception;
 	int insertOption2(Option2 option2) throws Exception;
-	int insertCategorie(Categorie categorie) throws Exception;
 	int insertItemImg(ItemImg itemImg) throws Exception;
 	
 	//상품 코드로 번호 조회(insert때 사용)
@@ -42,5 +49,8 @@ public interface ItemDao {
 	//상품 삭제
 	int deleteItem(int itemNo) throws Exception;
 	int deleteOption(int itemNo) throws Exception;
+	int deleteImg(int itemNo) throws Exception;
 	
+	//키워드로 상품 조회
+	List<ItemCommand> selectSearchItemList(@Param("keyword") String keyword) throws Exception;
 }

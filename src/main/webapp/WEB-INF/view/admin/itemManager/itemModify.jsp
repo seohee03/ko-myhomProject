@@ -16,7 +16,7 @@ $(function(){
     	var result = confirm('수정하시겠습니까?'); 
     	if(result) { 
     		//액션 경로 지정
-    		$("#frm").attr("action", "${pageContext.request.contextPath}/admin/itemModify");
+    		$("#frm").attr("action", "/myhome/admin/itemModify");
     		$("#frm").submit();
    		} else {
    			return;
@@ -27,7 +27,7 @@ $(function(){
     	var result = confirm('삭제하시겠습니까?'); 
     	if(result) { 
     		//액션 경로 지정
-    		$("#frm").attr("action", "${pageContext.request.contextPath}/admin/itemDelete");
+    		$("#frm").attr("action", "/myhome/admin/itemDelete");
     		$("#frm").submit();
    		} else {
    			return;
@@ -41,7 +41,8 @@ $(function(){
 <h1>상품수정</h1>
 <a href="<c:url value="/admin/itemList" />">[상품목록]</a>
 
- <form:form modelAttribute="itemCommand" id="frm" action="post">
+ <form:form modelAttribute="itemCommand" id="frm" enctype="multipart/form-data">
+
     <form:errors />
 	<p>
     <label><spring:message code="categorie.categorieName" />
@@ -85,8 +86,7 @@ $(function(){
 	</p>
 	<p>
         <label><spring:message code="itemImg.imgName" />:<br>
-        <form:input type="file" path="itemImg.imgName" value="${itemCommand.itemImg.imgName }"/>
-       <%--  <form:errors path="itemCommand.item.itemName"/> --%>
+         <input multiple="multiple" type="file" name="files" />
         </label>
     </p>  
     <p>
@@ -114,8 +114,10 @@ $(function(){
         </label>
     </p>
 	<form:hidden path="item.itemNo" value="${itemCommand.item.itemNo }"/>
-    <input type="button" id="modifyBtn" value="<spring:message code="item.btn.modify" />">
+    <input type="submit" id="modifyBtn" value="<spring:message code="item.btn.modify" />">
     <input type="button" id="deleteBtn" value="<spring:message code="item.btn.delete" />">
+
     </form:form> 
+   
 </body>
 </html>

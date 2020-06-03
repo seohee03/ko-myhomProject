@@ -11,6 +11,13 @@
 <script type="text/javascript">
 $(function(){
     $('#submit').click(function(){
+    	var result = confirm('등록하시겠습니까?'); 
+    	if(result) { 
+    		//액션 경로 지정
+    		$("#submit").submit();
+   		} else {
+   			return;
+   		}
     	//상품명, 가격, 재고
     	var itemName = $('#itemName').val();
     	var price = $('#price').val();
@@ -31,7 +38,6 @@ $(function(){
     	}else{
     		$('.errStr').text("");
     	}
-
     });
 });
 </script>
@@ -40,8 +46,7 @@ $(function(){
 <body>
 
 <h1>상품등록</h1>
-
- <form:form modelAttribute="itemCommand">
+<form:form  modelAttribute="itemCommand" method="POST" enctype="multipart/form-data">
     <form:errors />
     <p>
     <label><spring:message code="categorie.categorieName" />
@@ -59,7 +64,7 @@ $(function(){
 	<p>
 	<label><spring:message code="option1.option1Name" />:
        <form:input path="option1.option1Name" />
-<%--         <form:errors path="itemCommand.item.itemName"/> --%>
+       <%--  <form:errors path="itemCommand.item.itemName"/> --%>
     </label>
     <label><spring:message code="option1.price" />:
        <form:input path="option1.option1Price" />
@@ -67,17 +72,17 @@ $(function(){
     </label>
     <label><spring:message code="option1.stock" />:
        <form:input path="option1.option1Stock" />
-<%--         <form:errors path="itemCommand.item.itemName"/> --%>
+       <%--  <form:errors path="itemCommand.item.itemName"/> --%>
     </label>
      </p>
      <p>
 	   <label><spring:message code="option2.option2Name" />:
        <form:input path="option2.option2Name" />
-<%--         <form:errors path="itemCommand.item.itemName"/> --%>
+     <%--    <form:errors path="itemCommand.item.itemName"/> --%>
     </label>
 	<label><spring:message code="option2.price" />:
        <form:input path="option2.option2Price" />
-<%--         <form:errors path="itemCommand.item.itemName"/> --%>
+      <%--   <form:errors path="itemCommand.item.itemName"/> --%>
     </label>
     <label><spring:message code="option2.stock" />:
        <form:input path="option2.option2Stock" />
@@ -85,38 +90,41 @@ $(function(){
     </label> 
 	</p>
 	
-	 <p>
+	<p>
         <label><spring:message code="itemImg.imgName" />:<br>
-        <form:input type="file" path="itemImg.imgName" />
-       <%--  <form:errors path="itemCommand.item.itemName"/> --%>
+        <form:input type="file" path="files" multiple="multiple"/>
+       <!--  <input multiple="multiple" type="file" name="files" /> -->
+     <%--    <form:errors path="item.stock"/> --%>
         </label>
-    </p>  
+    </p>
+	
     <p>
         <label><spring:message code="item.itemName" />:<br>
         <form:input path="item.itemName" />
-        <form:errors path="item.itemName"/>
+       <%--  <form:errors path="item.itemName"/> --%>
         </label>
     </p>
     <p>
         <label><spring:message code="item.itemDetail" />:<br>
         <form:input path="item.itemDetail" />
-        <form:errors path="item.itemDetail"/>
+   <%--      <form:errors path="item.itemDetail"/> --%>
         </label>
     </p>
      <p>
         <label><spring:message code="item.price" />:<br>
         <form:input path="item.price" />
-        <form:errors path="item.price"/>
+     <%--    <form:errors path="item.price"/> --%>
         </label>
     </p>
      <p>
         <label><spring:message code="item.stock" />:<br>
         <form:input path="item.stock" />
-        <form:errors path="item.stock"/>
+     <%--    <form:errors path="item.stock"/> --%>
         </label>
     </p>
-
-    <input type="submit" value="<spring:message code="item.btn" />">
+	
+    <input type="submit" id="submit" value="<spring:message code="item.btn" />">
+   
     </form:form>  
 </body>
 </html>
