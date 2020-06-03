@@ -137,29 +137,6 @@ public class ItemController {
 		}
 	}
 	
-	/**
-	 * @throws Exception ******************************************************************************************************************************/
-	
-	
-//	//스토어 상품 리스트
-//	@RequestMapping(value = "/store", method = RequestMethod.GET)
-//	public String itemListForStore(Item item, Model model) throws Exception {
-//		List<Item> itemList = itemService.selectItemList();
-//		 model.addAttribute("itemList", itemList);	
-//		return "store/storeHome";
-//	}
-//	
-	//스토어 상품 번호로 상세 페이지 들어가기
-//	@RequestMapping(value = "/store/itemDetail/{itemNo}", method = RequestMethod.GET)
-//	public String itemDetail(@PathVariable("itemNo") int itemNo, Model model) throws Exception {
-//		
-//		System.out.println(itemNo);
-//		Item item = itemService.selectItemByItemNo(itemNo);
-//		Cart cart = new Cart();
-//		model.addAttribute("item", item);
-//		model.addAttribute("cart", cart);
-//		return "store/itemDetail";
-//	}
-//	
+
 	
 }

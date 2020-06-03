@@ -7,9 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.myhome.www.item.dto.Item;
 
 public interface ItemService {
-
-	//상품 전체 리스트 조회(페이징x)
-	List<ItemCommand> selectItemList() throws Exception;
 	
 	//상품 전체 리스트 조회(페이징)
 	ItemPage getItemPage(int pageNo) throws Exception;

@@ -21,6 +21,7 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/order")
 	public int order(OrderDetail orderDetail, HttpSession session) {	//@RequestParam(value="cartNo") int[] cartNoArr
+		System.out.println(">>>>>>>>>>>>>>>>>" + orderDetail);
 		int result = 0;
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");

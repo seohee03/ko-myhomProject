@@ -16,7 +16,7 @@ import com.myhome.www.item.service.ItemPageSize;
 public interface ItemDao {
 
 	//상품 전체 리스트
-	List<ItemCommand> selectItemList() throws Exception;
+	//List<ItemCommand> selectItemList() throws Exception;
 	
 	//상품 페이징하여 리스트 출력
 	List<ItemCommand> selectItemList(ItemPageSize itemPageSize) throws Exception;

@@ -33,7 +33,7 @@ public class CartController {
 	@RequestMapping(value = "/cart/cartAdd", method = RequestMethod.POST)
 	public void cartAddItem(@ModelAttribute("cart") Cart cart, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		//itemDetail에서 '장바구니에 추가' 누르면 alert
-		
+		System.out.println("cart>>>>>>>>>>>>>>>>>>>>>>" + cart.getItemName());
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
 		response.setContentType("text/html; charset=UTF-8");

@@ -1,6 +1,7 @@
 package com.myhome.www.store.dto;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 public class OrderDetail {
 
@@ -14,7 +15,6 @@ public class OrderDetail {
     private String detailAddr;			// 상세주소
     private String orderMessage;		// 배송 메모
     private int[] cartNoArr;			// cartNo 담을 배열
-    
 	public int getOrderNo() {
 		return orderNo;
 	}
@@ -79,7 +79,9 @@ public class OrderDetail {
 	public String toString() {
 		return "OrderDetail [orderNo=" + orderNo + ", memberNo=" + memberNo + ", memberName=" + memberName
 				+ ", memberTel=" + memberTel + ", orderDate=" + orderDate + ", postcode=" + postcode + ", address="
-				+ address + ", detailAddr=" + detailAddr + ", orderMessage=" + orderMessage + "]";
+				+ address + ", detailAddr=" + detailAddr + ", orderMessage=" + orderMessage + ", cartNoArr="
+				+ Arrays.toString(cartNoArr) + "]";
 	}
+    
     
 }

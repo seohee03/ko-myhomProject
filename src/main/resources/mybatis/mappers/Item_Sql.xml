@@ -66,12 +66,12 @@
 		left join option1 o1 on o1.item_no = i.item_no
 		left join option2 o2 on o1.option1_no = o2.option1_no
 		where is_thumb = 1
-		order by i. item_no desc limit #{startRow}, #{size};
+		order by i. item_no desc limit #{startRow}, #{size}
 	</select>
 	
 	<!-- 상품 개수 -->
 	<select id="selectCount" resultType="java.lang.Integer">
-		select count(*) from item;
+		select count(*) from item
 	</select>
 	
 	<!-- 등록 -->
@@ -154,13 +154,15 @@
 	</delete>
 	
 	<select id="selectSearchItemList" parameterType="String" resultType="itemCommand">
-	select * from ITEM
-		left join categorie on categorie.categorie_no = item.categorie_no
-		left join option1 on option1.item_no = item.item_no
+	select distinct(i.item_no) as item_no, item_img.thumb_url, categorie.categorie_name, i.item_name, i.price 
+		from ITEM i
+		left join categorie on categorie.categorie_no = i.categorie_no
+		left join option1 on option1.item_no = i.item_no
 		left join option2 on option1.option1_no = option2.option1_no
-		left join item_img on item.item_no = item_img.item_no 
-		where item.item_name = #{keyword}
-		order by item.item_no desc
+		left join item_img on i.item_no = item_img.item_no 
+        where is_thumb = 1
+		and i.item_name like '%' || #{keyword} || '%'
+		order by i.item_no desc;
 	</select>
 	
 </mapper>

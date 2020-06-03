@@ -257,11 +257,6 @@ public class ItemServiceImpl implements ItemService{
 		return null;
 	}
 	
-	//상품 리스트 
-	@Override
-	public List<ItemCommand> selectItemList() throws Exception {
-		return itemDao.selectItemList();
-	}
 	
 	//키워드로 상품 조회
 	@Override

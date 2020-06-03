@@ -35,7 +35,7 @@ $(function(){
 <span>상품 번호<c:out value="${item.itemNo}" /></span>
 
 <!-- 카트 추가 : 상품번호, 가격, 수량-->
-<form:form modelAttribute="cart" method="POST" action="/${pageContext.request.contextPath}/cart/cartAdd">
+<form:form modelAttribute="cart" method="POST" action="${pageContext.request.contextPath}/cart/cartAdd">
  	<c:set var="numArr" value="<%= new int[]{1,2,3,4,5,6,7,8,9}%>" />
 	<form:hidden path="itemNo" value="${itemCommand.item.itemNo }"/>
 	<form:select path="amount">

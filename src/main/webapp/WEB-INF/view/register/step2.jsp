@@ -59,7 +59,7 @@ $(function(){
 
 function fn_idChk(){
 	$.ajax({
-		url : "/${pageContext.request.contextPath}/idChk",
+		url : "${pageContext.request.contextPath}/idChk",
 		type : "post",
 		dataType : "json",
 		data : {"memberId" : $("#memberId").val()},

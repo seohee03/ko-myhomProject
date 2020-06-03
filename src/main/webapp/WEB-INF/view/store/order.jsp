@@ -64,7 +64,7 @@ function orderBtn(){
 	var cartNoArr = new Array();
 	var cartNoArr = $('input[name=cartNoArr]');
 	$.ajax({
-		url : "/${pageContext.request.contextPath}/order",
+		url : "${pageContext.request.contextPath}/order",
 		type : "post",
 		dataType : "json",
 		data : $('#orderForm').serialize(),
@@ -72,7 +72,7 @@ function orderBtn(){
 			if(data == 9){
 				alert('주문 실패');
 			}else if(data == 0){
-				location.href='/${pageContext.request.contextPath}/orderSuccess';
+				location.href='${pageContext.request.contextPath}/orderSuccess';
 			}
 		}
 	})
@@ -82,7 +82,7 @@ function orderBtn(){
 </head>
 <body>
 <p>order page</p>
-<form id="orderForm" modelAttribute="orderDetail">
+<form id="orderForm" method="post">
 
 <table border="1">
 	<thead>
@@ -105,10 +105,6 @@ function orderBtn(){
 				<input type="hidden" value="${cartCommand.cartNo}" id="cartNo${cartCommand.cartNo}" name="cartNoArr" ></td>
 			</tr>
 		</c:forEach>
-		<!-- 주문서 작성 -->
-		<!-- 카트 넘버만 보내서 조회해서 insert -->
-		<!-- 배열로 보냄
-		배열 갯수만큼 서비스나 다오에서 insert -->
 		<!-- hidden값으로 cartNo를 배열로 보내고 나머지 주문 상세 내용은 입력값으로 보냄 -->
 	</tbody>
 </table>
