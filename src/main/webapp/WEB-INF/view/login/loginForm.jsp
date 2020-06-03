@@ -84,7 +84,6 @@ $(function(){
 	      {
 	         clientId: "tJYAbvknm5tqkNMeY_HI",
 	         callbackUrl: "http://localhost:8085/myhome/loginSuccess",
-	         isPopup: false,
 	         loginButton: {color: "green", type: 3, height: 60}
 	      }
    );
