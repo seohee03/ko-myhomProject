@@ -76,17 +76,17 @@ public class StoreController {
 //		 return "forward:/store/storeHome/1";
 //	 }
 	 
-	 //상품명 검색하기
-	 @RequestMapping(value = "/searchItem")
-	 public String searchItem(@RequestParam("keyword") String keyword, Model model) throws Exception {
-		 System.out.println(">>>>>>>>>>>>>>keyword : " + keyword);
-		 
-		 List<ItemCommand> itemList = itemService.selectSearchItemList(keyword);
-		 for(ItemCommand i : itemList) {
-			 System.out.println(i.toString());
-		 }
-		 model.addAttribute("itemList", itemList);
-		 return "search";
-	 }
+//	 //상품명 검색하기
+//	 @RequestMapping(value = "/searchItem")
+//	 public String searchItem(@RequestParam("keyword") String keyword, Model model) throws Exception {
+//		 System.out.println(">>>>>>>>>>>>>>keyword : " + keyword);
+//		 
+//		 List<ItemCommand> itemList = itemService.selectSearchItemList(keyword);
+//		 for(ItemCommand i : itemList) {
+//			 System.out.println(i.toString());
+//		 }
+//		 model.addAttribute("itemList", itemList);
+//		 return "search";
+//	 }
 	
 }

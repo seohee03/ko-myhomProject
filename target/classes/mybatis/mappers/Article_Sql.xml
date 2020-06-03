@@ -45,4 +45,12 @@
 			WHERE ARTICLE_NO=#{articleNo}
 	</delete>
 	
+	<select id="selectSearchArticleList" resultType="articleDTO" parameterType="String"> 
+	SELECT * FROM project1.ARTICLE
+	<if test="keyword != ''">
+		where article_title like concat('%', #{keyword}, '%')
+	</if>
+	 ORDER BY ARTICLE_NO DESC
+	</select>
+	
 </mapper>

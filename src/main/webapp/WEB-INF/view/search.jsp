@@ -47,6 +47,31 @@
 		</c:if> --%>
 		</tbody>
 	</table>
+	
+	<hr/>
+	<table border="1">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>게시일</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="article" items="${articleList}">
+						<tr
+							onclick="location.href='community/readArticle/${article.articleNo}'">
+							<td>${article.articleNo}</td>
+							<td>${article.articleTitle}</td>
+							<td>${article.writerId}</td>
+							<td>${article.regdate}</td>
+							<td>${article.readCount}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 
 </body>
 </html>

@@ -18,5 +18,7 @@ public interface ArticleService {
 	int deleteArticle(Article article) throws Exception;
 	//등록한 글번호로 보기
 	int selectLastArticleNo() throws Exception;
+	//키워드로 게시글 조회
+	List<Article> selectSearchArticleList(String keyword) throws Exception;
 	
 }

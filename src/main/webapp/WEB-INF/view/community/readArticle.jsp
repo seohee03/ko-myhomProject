@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/include/header.jsp" %>
+<%@ include file="/WEB-INF/view/include/header.jsp"%>
 
 <script type="text/javascript">
 	$(function() {
@@ -8,7 +8,7 @@
 			var result = confirm('수정하시겠습니까?');
 			if (result) {
 				//액션 경로 지정
-				$("#frm").attr("action", "/${pageContext.request.contextPath}/community/modifyDo");
+				$("#frm").attr("action", "${pageContext.request.contextPath}/community/modifyDo");
 				$("#frm").submit();
 			} else {
 				return;
@@ -19,7 +19,7 @@
 			var result = confirm('삭제하시겠습니까?');
 			if (result) {
 				//액션 경로 지정
-				$("#frm").attr("action", "/${pageContext.request.contextPath}/community/delArticle");
+				$("#frm").attr("action", "${pageContext.request.contextPath}/community/delArticle");
 				$("#frm").submit();
 			} else {
 				return;
@@ -28,44 +28,41 @@
 	});
 </script>
 </head>
-<body>
-	글보기페이지
-	<br />
-		<a href="<c:url value="/cart" />">[장바구니]</a>
-		<a href="<c:url value="/mypage" />">[마이페이지]</a>
-		<br />
-		<a href="<c:url value="/community" />">[커뮤니티]</a>
-		<a href="<c:url value="/store" />">[스토어]</a>
-		<a href="<c:url value='/'/>">[메인]</a>
-		<a href="<c:url value='/community/modifyDo/${article.articleNo}'/>">[수정]</a>
-		<%-- <a href="<c:url value='/community/delArticle'/>" id="deleteBtn">[삭제]</a> --%>
-		<input type="button" id="deleteBtn" value="삭제">
-		<%-- <a href="<c:url value='/community/delArticle'/>">[삭제]</a> --%>
-		<br />
-		<hr />
-
-		<table border="1">
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>내용</th>
-					<th>작성자</th>
-					<th>게시일</th>
-					<th>조회수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:set var="article" value="${article}" />
-				<tr>
-					<td><c:out value="${article.articleNo}" /></td>
-					<td><c:out value="${article.articleTitle}" /></td>
-					<td><c:out value="${article.articleContent}" /></td>
-					<td><c:out value="${article.writerId}" /></td>
-					<td><c:out value="${article.regdate}" /></td>
-					<td><c:out value="${article.readCount}" /></td>
-				</tr>
-			</tbody>
-		</table>
+<%@ include file="/WEB-INF/view/include/nav.jsp"%>
+<section id="features" style="width: 60%; margin: auto;">
+	<div class="container">
+		<form:form modelAttribute="article" method="POST" id="frm">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>작성자</th>
+						<th>게시일</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<c:set var="article" value="${article}" />
+						<td><c:out value="${article.articleNo}" /></td>
+						<td><c:out value="${article.articleTitle}" /></td>
+						<td>${article.articleContent}</td>
+						<td><c:out value="${article.writerId}" /></td>
+						<td><c:out value="${article.regdate}" /></td>
+						<td><c:out value="${article.readCount}" /></td>
+					</tr>
+				</tbody>
+			</table>
+				<a href="<c:url value="/community/writeDo" />">[글쓰기]</a>
+				<form:hidden path="articleNo" value="${article.articleNo }" />
+				<c:if test="${authInfo.memberId == article.writerId}">
+					<a href="<c:url value='/community/modifyDo/${article.articleNo}'/>">[수정]</a>
+					<a href="<c:url value='#'/>" id="deleteBtn">[삭제]</a>
+				</c:if>
+		</form:form>
+	</div>
+</section>
 </body>
 </html>

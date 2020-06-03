@@ -33,7 +33,8 @@ import com.myhome.www.util.AuthCheckInterceptor;
 		"com.myhome.www.item.controller",
 		"com.myhome.www.member.controller",
 		"com.myhome.www.store.controller",
-		"com.myhome.www.article.controller"
+		"com.myhome.www.article.controller",
+		"com.myhome.www.controller"
 		})
 public class WebContextConfiguration  implements WebMvcConfigurer {
 	

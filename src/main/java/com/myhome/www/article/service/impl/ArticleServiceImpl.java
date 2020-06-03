@@ -74,4 +74,10 @@ public class ArticleServiceImpl implements ArticleService{
 		return res.get(0);
 		
 	}
+
+	@Override
+	public List<Article> selectSearchArticleList(String keyword) throws Exception {
+
+		return articleDao.selectSearchArticleList(keyword);
+	}
 }

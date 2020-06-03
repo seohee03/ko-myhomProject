@@ -79,7 +79,7 @@ public class CartController {
 	//장바구니 리스트 보여줌
 	@RequestMapping(value = "/mycart")
 	public String myCart(@Param("type") int type, HttpSession session, Model model) throws Exception {
-		String urlStr = "cart/cart";
+		String urlStr = "store/cart";
 		if(type > 0) {
 			urlStr = "store/order";
 		}
