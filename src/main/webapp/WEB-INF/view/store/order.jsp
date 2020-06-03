@@ -64,7 +64,7 @@ function orderBtn(){
 	var cartNoArr = new Array();
 	var cartNoArr = $('input[name=cartNoArr]');
 	$.ajax({
-		url : "/www/order",
+		url : "/${pageContext.request.contextPath}/order",
 		type : "post",
 		dataType : "json",
 		data : $('#orderForm').serialize(),
@@ -72,7 +72,7 @@ function orderBtn(){
 			if(data == 9){
 				alert('주문 실패');
 			}else if(data == 0){
-				location.href='/www/orderSuccess';
+				location.href='/${pageContext.request.contextPath}/orderSuccess';
 			}
 		}
 	})

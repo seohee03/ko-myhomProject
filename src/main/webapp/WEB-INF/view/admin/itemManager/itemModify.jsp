@@ -16,7 +16,7 @@ $(function(){
     	var result = confirm('수정하시겠습니까?'); 
     	if(result) { 
     		//액션 경로 지정
-    		$("#frm").attr("action", "/www/admin/itemModify");
+    		$("#frm").attr("action", "${pageContext.request.contextPath}/admin/itemModify");
     		$("#frm").submit();
    		} else {
    			return;
@@ -27,7 +27,7 @@ $(function(){
     	var result = confirm('삭제하시겠습니까?'); 
     	if(result) { 
     		//액션 경로 지정
-    		$("#frm").attr("action", "/www/admin/itemDelete");
+    		$("#frm").attr("action", "${pageContext.request.contextPath}/admin/itemDelete");
     		$("#frm").submit();
    		} else {
    			return;

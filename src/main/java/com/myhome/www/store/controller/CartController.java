@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -30,7 +31,7 @@ public class CartController {
 	
 	//장바구니에 상품 추가
 	@RequestMapping(value = "/cart/cartAdd", method = RequestMethod.POST)
-	public void cartAddItem(@ModelAttribute("cart") Cart cart, HttpSession session, HttpServletResponse response) throws Exception {
+	public void cartAddItem(@ModelAttribute("cart") Cart cart, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		//itemDetail에서 '장바구니에 추가' 누르면 alert
 		
 		AuthInfo authInfo = null;
@@ -53,15 +54,15 @@ public class CartController {
 			}
 			
 			if(result > 0) {
-				 writer.println("<script>alert('장바구니 추가 성공!'); location.href='/www/itemDetail/"+cart.getItemNo()+"';</script>");
+				 writer.println("<script>alert('장바구니 추가 성공!'); location.href='" + request.getContextPath() + "/itemDetail/"+cart.getItemNo()+"';</script>");
 			}
 		}else {
-			writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='/www/login';</script>");
+			writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='" + request.getContextPath() + "/login';</script>");
 		}
 	}
 	
 	@RequestMapping(value = "/cart")
-	public void cart(HttpSession session, HttpServletResponse response) throws IOException {
+	public void cart(HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
 		response.setContentType("text/html; charset=UTF-8");
@@ -69,9 +70,9 @@ public class CartController {
 		
 		if(authInfo != null) {
 			//로그인 한거면
-			writer.println("<script>location.href='/www/mycart?type=0';</script>");
+			writer.println("<script>location.href='" + request.getContextPath() + "/mycart?type=0';</script>");
 		} else {
-			writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='/www/login';</script>");
+			writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='" + request.getContextPath() + "/login';</script>");
 		}
 	}
 

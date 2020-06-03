@@ -23,7 +23,7 @@ $(function(){
     	}
     	
     	$.ajax({
-    		url : "/www/admin",
+    		url : "${pageContext.request.contextPath}/admin",
     		type : "post",
     		dataType : "json",
     		data : $loginForm.serialize(),
@@ -32,7 +32,7 @@ $(function(){
     				$('#resultMSG').text('아이디 혹은 비밀번호가 맞지 않습니다');
     				return false;
     			}else if(data == 0){
-    				location.href = "/www/adminHome";
+    				location.href = "${pageContext.request.contextPath}/adminHome";
     			}
     		}
     	})

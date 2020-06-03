@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -67,7 +68,7 @@ public class ItemController {
 	
 	//관리자 페이지 상품 수정 버튼 누르면
 	@RequestMapping(value="/admin/itemModify", method = RequestMethod.POST)
-	public void itemModifySubmit(@ModelAttribute("itemCommand") ItemCommand itemCommand, HttpServletResponse response) throws Exception {
+	public void itemModifySubmit(@ModelAttribute("itemCommand") ItemCommand itemCommand, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		
 		int result = itemService.updateItem(itemCommand);
 		
@@ -75,15 +76,15 @@ public class ItemController {
 		PrintWriter writer = response.getWriter();
 		
 		if(result > 3) {
-	         writer.println("<script>alert('수정 성공!'); location.href='/www/admin/itemList';</script>");
+	         writer.println("<script>alert('수정 성공!'); location.href='" + request.getContextPath() + "/admin/itemList';</script>");
 		}else {
-			writer.println("<script>alert('수정 실패!'); location.href='/www/admin/itemModify/"+itemCommand.getItem().getItemNo()+"';</script>");
+			writer.println("<script>alert('수정 실패!'); location.href='" + request.getContextPath() + "/admin/itemModify/"+itemCommand.getItem().getItemNo()+"';</script>");
 		}
 	}
 	
 	//관리자 상품 삭제
 	@RequestMapping(value="/admin/itemDelete", method = RequestMethod.POST)
-	public void itemDeleteSubmit(@ModelAttribute("itemCommand") ItemCommand itemCommand, Model model, HttpServletResponse response) throws Exception {
+	public void itemDeleteSubmit(@ModelAttribute("itemCommand") ItemCommand itemCommand, Model model, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		
 		int result = itemService.itemDelete(itemCommand);
 
@@ -91,9 +92,9 @@ public class ItemController {
 		PrintWriter writer = response.getWriter();
 		
 		if(result > 1) {
-	         writer.println("<script>alert('삭제 성공!'); location.href='/www/admin/itemList';</script>");
+	         writer.println("<script>alert('삭제 성공!'); location.href='" + request.getContextPath() + "/admin/itemList';</script>");
 		}else {
-			writer.println("<script>alert('삭제 실패!'); location.href='/www/admin/itemModify/"+itemCommand.getItem().getItemNo()+"';</script>");
+			writer.println("<script>alert('삭제 실패!'); location.href='" + request.getContextPath() + "/admin/itemModify/"+itemCommand.getItem().getItemNo()+"';</script>");
 		}
 	}
 

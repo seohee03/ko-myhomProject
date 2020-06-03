@@ -8,7 +8,7 @@ $(function(){
     	var result = confirm('수정하시겠습니까?'); 
     	if(result) { 
     		//액션 경로 지정
-    		$("#frm").attr("action", "/www/community/modifyDo");
+    		$("#frm").attr("action", "/${pageContext.request.contextPath}/community/modifyDo");
     		$("#frm").submit();
    		} else {
    			return;
@@ -19,7 +19,7 @@ $(function(){
     	var result = confirm('삭제하시겠습니까?'); 
     	if(result) { 
     		//액션 경로 지정
-    		$("#frm").attr("action", "/www/community/delArticle");
+    		$("#frm").attr("action", "/${pageContext.request.contextPath}/community/delArticle");
     		$("#frm").submit();
    		} else {
    			return;

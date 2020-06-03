@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -91,7 +92,7 @@ public class ArticleController {
 //		
 	// 해당 게시글의 작성자가 수정 버튼 누르면
 	@RequestMapping(value = "/community/modifyDo", method = RequestMethod.POST)
-	public void modArticleSubmit(@ModelAttribute("article") Article article, HttpSession session,
+	public void modArticleSubmit(@ModelAttribute("article") Article article, HttpSession session, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		System.out.println("modify controller>>>>");
@@ -103,16 +104,16 @@ public class ArticleController {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter writer = response.getWriter();
 		if (result > 0) {
-			writer.println("<script>alert('수정 성공!'); location.href='/www/community/readArticle/"
+			writer.println("<script>alert('수정 성공!'); location.href='" + request.getContextPath() + "/community/readArticle/"
 					+ article.getArticleNo() + "';</script>");
 		} else {
-			writer.println("<script>alert('수정 실패!'); location.href='/www/community';</script>");
+			writer.println("<script>alert('수정 실패!'); location.href='" + request.getContextPath() + "/community';</script>");
 		}
 	}
 
 	// 해당 게시글의 작성자가 상품 삭제
 	@RequestMapping(value = "/community/delArticle", method = RequestMethod.POST)
-	public void delArticleSubmit(@ModelAttribute Article article, Model model, HttpServletResponse response) throws Exception {
+	public void delArticleSubmit(@ModelAttribute Article article, Model model, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		System.out.println("====================>del");
 		System.out.println(article.getArticleNo());
 		
@@ -124,9 +125,9 @@ public class ArticleController {
 		System.out.println("===============>result" + result);
 		
 		if (result > 0) {
-			writer.println("<script>alert('삭제 성공!'); location.href='/www/community';</script>");
+			writer.println("<script>alert('삭제 성공!'); location.href='" + request.getContextPath() + "/community';</script>");
 		} else {
-			writer.println("<script>alert('삭제 실패!'); location.href='/www/community/readArticle/"
+			writer.println("<script>alert('삭제 실패!'); location.href='" + request.getContextPath() + "/community/readArticle/"
 					+ article.getArticleNo() + "';</script>");
 		}
 	}

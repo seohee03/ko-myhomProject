@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/include/header.jsp" %>
 
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8">
+
 <script type="text/javascript">
 $(function(){
 	var $loginForm = $('#loginForm');
@@ -26,7 +28,7 @@ $(function(){
     	}
     	
     	$.ajax({
-    		url : "/www/login",
+    		url : "${pageContext.request.contextPath}/login",
     		type : "post",
     		dataType : "json",
     		data : $loginForm.serialize(),
@@ -35,7 +37,7 @@ $(function(){
     				$('#resultMSG').text('아이디 혹은 비밀번호가 맞지 않습니다');
     				return false;
     			}else if(data == 0){
-    				location.href = "/www/loginSuccess";
+    				location.href = "${pageContext.request.contextPath}/loginSuccess";
     			}
     		}
     	})
@@ -68,7 +70,27 @@ $(function(){
     </p>
     <span id="resultMSG"></span>
     <input type="button" id="submit" value="로그인">
+    <div id = "naverIdLogin"></div>
+    
     <!-- <a href="/oauth/authorize?client_id={7f5e40851f7ba4a73047e1af6ce22531}&redirect_uri={http://localhost:8085/www/}&response_type=code">카카오로그인</a> -->
     </form:form>
+    
+    
+    
+ 
+<script type="text/javascript">
+ 
+	var naverLogin = new naver.LoginWithNaverId(
+	      {
+	         clientId: "tJYAbvknm5tqkNMeY_HI",
+	         callbackUrl: "http://localhost:8085/myhome/loginSuccess",
+	         isPopup: false,
+	         loginButton: {color: "green", type: 3, height: 60}
+	      }
+   );
+   naverLogin.init();
+</script>
+     
+    
 </body>
 </html>

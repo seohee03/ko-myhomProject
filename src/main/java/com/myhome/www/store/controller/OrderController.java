@@ -32,8 +32,6 @@ public class OrderController {
 		if(res == 0) {
 			result = 9;
 		}
-		
-		
 		return result;
 	}
 	

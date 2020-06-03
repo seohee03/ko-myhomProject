@@ -11,7 +11,7 @@ function amountUpdate(num){
 	$("#updateAmount").val(updateAmount);
 	
 	$.ajax({
-		url : "/www/updateCart",
+		url : "/${pageContext.request.contextPath}/updateCart",
 		type : "post",
 		dataType : "json",
 		data : $("#cartForm").serialize(),
@@ -31,7 +31,7 @@ function amountDelete(num){
 	$("#updateCartNo").val(num);
 	
 	$.ajax({
-		url : "/www/deleteCart",
+		url : "/${pageContext.request.contextPath}/deleteCart",
 		type : "post",
 		dataType : "json",
 		data : $("#cartForm").serialize(),
@@ -84,7 +84,7 @@ function amountDelete(num){
 	<input type="hidden" id="updateCartNo" name="updateCartNo" />
 	<input type="hidden" id="updateAmount" name="updateAmount"  />
 	<!-- 전체 주문하기 -->
-	<input type="button" onclick="location.href='/www/mycart?type=1'" value="전체주문">
+	<input type="button" onclick="location.href='/${pageContext.request.contextPath}/mycart?type=1'" value="전체주문">
 </form>
 
 </body>

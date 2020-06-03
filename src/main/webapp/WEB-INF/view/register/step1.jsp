@@ -12,7 +12,7 @@ $(function(){
 			alert("약관 동의를 눌러주세요.");
 			return false;
 		}else{
-			$("#regForm").attr("action", "/www/register/step2");
+			$("#regForm").attr("action", "${pageContext.request.contextPath}/register/step2");
 			$("#regForm").submit();
 		}
 		

@@ -66,7 +66,8 @@ public class LoginController {
     
     @RequestMapping(value = "/loginSuccess")
     public String loginSuccess() {
-    	return "index";
+    	//return "index";
+    	return "login/loginSuccess";
     }
     
     
