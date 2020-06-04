@@ -27,9 +27,8 @@
 		<typeAlias alias="orderDetail" type="com.myhome.www.store.dto.OrderDetail"/>
 		<typeAlias alias="orderHistory" type="com.myhome.www.store.dto.OrderHistory"/> 
 		
-		<!-- <typeAlias alias="pagination" type="com.myhome.www.article.dto.Pagination"/> -->
-		
 		<typeAlias type="com.myhome.www.article.dto.Article" alias="articleDTO"/>
+		<typeAlias type="com.myhome.www.article.dto.Comment" alias="comment"/>
 		
 		
 	</typeAliases>

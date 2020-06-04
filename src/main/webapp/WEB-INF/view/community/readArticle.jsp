@@ -31,7 +31,7 @@
 <%@ include file="/WEB-INF/view/include/nav.jsp"%>
 <section id="features" style="width: 60%; margin: auto;">
 	<div class="container">
-		<form:form modelAttribute="article" method="POST" id="frm">
+
 			<table border="1">
 				<thead>
 					<tr>
@@ -55,14 +55,42 @@
 					</tr>
 				</tbody>
 			</table>
-				<a href="<c:url value="/community/writeDo" />">[글쓰기]</a>
-				<form:hidden path="articleNo" value="${article.articleNo }" />
+			<a href="<c:url value="/community/writeDo" />">[글쓰기]</a>
+
 				<c:if test="${authInfo.memberId == article.writerId}">
 					<a href="<c:url value='/community/modifyDo/${article.articleNo}'/>">[수정]</a>
 					<a href="<c:url value='#'/>" id="deleteBtn">[삭제]</a>
 				</c:if>
-		</form:form>
+
 	</div>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>댓글번호</th>
+				<th>글번호</th>
+				<th>회원번호</th>
+				<th>댓글내용</th>
+				<th>작성일1</th>
+				<th>수정일2</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="comment" items="${commentList}">
+			<tr>
+				<td><c:out value="${comment.commentNo}" /></td>
+				<td><c:out value="${comment.articleNo}" /></td>
+				<td><c:out value="${comment.memberNo}" /></td>
+				<td><c:out value="${comment.commentContent}" /></td>
+				<td><c:out value="${comment.regdate}" /></td>
+				<td><c:out value="${comment.moddate}" /></td>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+	<form >
+		글내용 : <input type="text" name="commentContent">
+	</form>
 </section>
 </body>
 </html>

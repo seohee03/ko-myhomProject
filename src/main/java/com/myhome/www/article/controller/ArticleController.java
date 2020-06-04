@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myhome.www.article.dto.Article;
+import com.myhome.www.article.dto.Comment;
 import com.myhome.www.article.dto.Pagination;
 import com.myhome.www.article.service.ArticleService;
+import com.myhome.www.article.service.CommentService;
 import com.myhome.www.item.dto.Item;
 import com.myhome.www.member.service.AuthInfo;
 import com.myhome.www.member.service.LoginCommand;
@@ -31,6 +34,8 @@ public class ArticleController {
 	@Resource(name = "articleService")
 	private ArticleService articleService;
 
+	@Autowired
+	private CommentService commentService;
 	
 	
 	// 리스트
@@ -185,6 +190,10 @@ public class ArticleController {
 		// System.out.println(articleNo);
 		Article article = articleService.selectArticleByNo(articleNo);
 		model.addAttribute("article", article);
+		
+		List<Comment> commentList = commentService.selectCommentByNo(articleNo);
+		model.addAttribute(commentList);
+		
 		return "community/readArticle";
 	}
 	
@@ -192,14 +201,21 @@ public class ArticleController {
 	/* ********************************** */
 	
 	// 리스트
-//   @RequestMapping(value = "/admin/articleList", method = RequestMethod.GET)
-//   public String articleListForAdim(Model model) throws Exception {
-//      List<Article> articleList = articleService.selectArticleList(articlePage);
-//      System.out.println(">>>>>>>>>>>>>>>>>>>>>>");
-//      /*
-//       * for(Article a : articleList) { System.out.println(a.toString()); }
-//       */
-//      model.addAttribute("articleList", articleList);
-//      return "admin/articleManager/articleList";
-//   }
+   @RequestMapping(value = "/admin/articleList", method = RequestMethod.GET)
+   public String articleListForAdim(@ModelAttribute("article") Article article, @RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+	   int listCnt = articleService.selectAllCount();
+		Pagination pagination = new Pagination(listCnt, curPage);
+		article.setStartIndex(pagination.getStartIndex());
+		article.setCntPerPage(pagination.getPageSize());
+		
+		List<Article> articleList = articleService.selectArticleList(article);
+
+		model.addAttribute("articleList", articleList);
+		model.addAttribute("listCnt", listCnt);
+		model.addAttribute("pagination", pagination);
+		
+		
+		
+      return "admin/articleManager/articleList";
+   }
 }
