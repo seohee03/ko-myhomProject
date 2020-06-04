@@ -14,7 +14,7 @@ img {
 <section id="features" style="width: 60%; margin: auto;">
 	<div class="container">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel"
-			style="width: 60%; margin: auto;">
+			style="width: 100%; margin: auto;">
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 				<li data-target="#myCarousel" data-slide-to="1"></li>

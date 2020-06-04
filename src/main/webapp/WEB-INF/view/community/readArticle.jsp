@@ -90,6 +90,8 @@
 	
 	<form >
 		글내용 : <input type="text" name="commentContent">
+		<input type="hidden" value="${article.articleNo}">
+		<input type="button">
 	</form>
 </section>
 </body>

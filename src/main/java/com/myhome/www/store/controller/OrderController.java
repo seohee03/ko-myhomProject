@@ -1,5 +1,10 @@
 package com.myhome.www.store.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +25,25 @@ public class OrderController {
 	//주문폼에서 주문 누르면
 	@ResponseBody
 	@RequestMapping(value = "/order")
-	public int order(OrderDetail orderDetail, HttpSession session) {	//@RequestParam(value="cartNo") int[] cartNoArr
+	public int order(OrderDetail orderDetail, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {	//@RequestParam(value="cartNo") int[] cartNoArr
 		System.out.println(">>>>>>>>>>>>>>>>>" + orderDetail);
 		int result = 0;
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
 		
-		orderDetail.setMemberNo(authInfo.getMemberNo());
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter writer = response.getWriter();
 		
-		//주문서 테이블, 주문내역 테이블 둘 다 insert, 장바구니는 삭제
-		int res = orderService.order(orderDetail);
-		if(res == 0) {
-			result = 9;
+		if(authInfo != null) {
+			orderDetail.setMemberNo(authInfo.getMemberNo());
+			//주문서 테이블, 주문내역 테이블 둘 다 insert, 장바구니는 삭제
+			int res = orderService.order(orderDetail);
+			if(res == 0) {
+				result = 9;
+			}
 		}
+
+		
 		return result;
 	}
 	
