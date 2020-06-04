@@ -53,22 +53,41 @@
 				</tbody>
 			</table>
 		</div>
-		<div>
-		  <ul>
-		    <c:if test="${articlePageMaker.prev}">
-		    	<li><a href="<c:url value="/community${articlePageMaker.makeQuery(pageMaker.startPage - 1)}" />">이전</a></li>
-		    </c:if> 
-		
-		    <c:forEach begin="${articlePageMaker.startPage}" end="${articlePageMaker.endPage}" var="idx">
-		    	<li><a href="<c:url value="/community${articlePageMaker.makeQuery(idx)}" />">${idx}</a></li>
-		    </c:forEach>
-		
-		    <c:if test="${articlePageMaker.next && articlePageMaker.endPage > 0}">
-		    	<li><a href="<c:url value="/community${articlePageMaker.makeQuery(articlePageMaker.endPage + 1)}" />">다음</a></li>
-		    </c:if> 
-		  </ul>
-		</div>
+	<div>
+                    <c:if test="${pagination.curRange ne 1 }">
+                        <a href="#" onClick="fn_paging(1)">[처음]</a> 
+                    </c:if>
+                    <c:if test="${pagination.curPage ne 1}">
+                        <a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a> 
+                    </c:if>
+                    <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
+                        <c:choose>
+                            <c:when test="${pageNum eq  pagination.curPage}">
+                                <span style="font-weight: bold;"><a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a></span> 
+                            </c:when>
+                            <c:otherwise>
+                                <a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a> 
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+                        <a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a> 
+                    </c:if>
+                    <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+                        <a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a> 
+                    </c:if>
+                </div>
+                
+                <div>
+                    총 게시글 수 : ${pagination.listCnt } /    총 페이지 수 : ${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 : ${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }
+                </div>
 	</section>
+	
+	<script type="text/javascript">
+	function fn_paging(curPage) {
+		location.href = "community?curPage=" + curPage;
+		}
+</script>
 	<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>
 </html>

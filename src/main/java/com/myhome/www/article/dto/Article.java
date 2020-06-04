@@ -13,6 +13,8 @@ public class Article {
 	private LocalDateTime regdate;	//작성일
 	private LocalDateTime moddate;	//수정일
 	private int readCount;
+	private int startIndex;
+	private int cntPerPage;
 	
 	public Article() {
 	}
@@ -98,6 +100,26 @@ public class Article {
 
 	public int getReadCount() {
 		return readCount;
+	}
+
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
+	}
+
+	public int getCntPerPage() {
+		return cntPerPage;
+	}
+
+	public void setCntPerPage(int cntPerPage) {
+		this.cntPerPage = cntPerPage;
+	}
+
+	public void setReadCount(int readCount) {
+		this.readCount = readCount;
 	}
 
 	@Override

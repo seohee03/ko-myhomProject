@@ -3,12 +3,11 @@ package com.myhome.www.article.service;
 import java.util.List;
 
 import com.myhome.www.article.dto.Article;
-import com.myhome.www.article.dto.ArticlePage;
 
 public interface ArticleService {
 
 	//게시글 리스트
-	List<Article> selectArticleList(ArticlePage page) throws Exception;	
+	List<Article> selectArticleList(Article article) throws Exception;	
 	//글등록
 	int insertArticle(Article article) throws Exception;
 	//글번호로 조회

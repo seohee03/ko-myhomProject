@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myhome.www.article.dto.Article;
-import com.myhome.www.article.dto.ArticlePage;
-import com.myhome.www.article.dto.ArticlePageMaker;
+import com.myhome.www.article.dto.Pagination;
 import com.myhome.www.article.service.ArticleService;
 import com.myhome.www.item.dto.Item;
 import com.myhome.www.member.service.AuthInfo;
@@ -32,20 +31,40 @@ public class ArticleController {
 	@Resource(name = "articleService")
 	private ArticleService articleService;
 
+	
+	
 	// 리스트
-	@RequestMapping(value = "/community", method = RequestMethod.GET)
-	public String articleList(Model model, ArticlePage articlePage) throws Exception {
-		List<Article> articleList = articleService.selectArticleList(articlePage);
+	@RequestMapping(value = "/community")
+	public String articleList(@ModelAttribute("article") Article article, @RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+	
+		int listCnt = articleService.selectAllCount();
+		Pagination pagination = new Pagination(listCnt, curPage);
+		article.setStartIndex(pagination.getStartIndex());
+		article.setCntPerPage(pagination.getPageSize());
+		
+		List<Article> articleList = articleService.selectArticleList(article);
 
 		model.addAttribute("articleList", articleList);
-		
-		ArticlePageMaker articlePageMaker = new ArticlePageMaker();
-		articlePageMaker.setArticlePage(articlePage);
-		articlePageMaker.setTotalCount(articleService.selectAllCount());
-		
-		model.addAttribute("articlePageMaker", articlePageMaker);
+		model.addAttribute("listCnt", listCnt);
+		model.addAttribute("pagination", pagination);
 		return "community/communityHome";
 	}
+	
+//	// 리스트 - 페이징처리 실패
+//	@RequestMapping(value = "/community", method = RequestMethod.GET)
+//	public String articleList(Model model, ArticlePage articlePage) throws Exception {
+//		
+//		//List<Article> articleList = articleService.selectArticleList(articlePage);
+//
+//		model.addAttribute("articleList", articleService.selectArticleList(articlePage));
+//		
+//		ArticlePageMaker articlePageMaker = new ArticlePageMaker();
+//		articlePageMaker.setArticlePage(articlePage);
+//		articlePageMaker.setTotalCount(articleService.selectAllCount());
+//		
+//		model.addAttribute("articlePageMaker", articlePageMaker);
+//		return "community/communityHome";
+//	}
 	
 //	// 리스트
 //	@RequestMapping(value = "/community")

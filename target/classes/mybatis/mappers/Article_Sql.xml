@@ -9,10 +9,9 @@
 	<!-- <select id="selectArticleList" resultType="articleDTO"> 
 	SELECT * FROM project1.ARTICLE ORDER BY ARTICLE_NO DESC
 	</select> -->
-	<select id="selectArticleList" resultType="articleDTO" parameterType="com.myhome.www.article.dto.ArticlePage"> 
-	SELECT * FROM project1.ARTICLE
-	WHERE ARTICLE_NO BETWEEN #{rowStart} AND #{rowEnd}
-	ORDER BY ARTICLE_NO DESC
+	<select id="selectArticleList" resultType="articleDTO" parameterType="articleDTO"> 
+	SELECT * FROM project1.ARTICLE 
+	ORDER BY ARTICLE_NO DESC limit #{startIndex}, #{cntPerPage}
 	</select>
 	
 	<insert id="insertArticle" parameterType="com.myhome.www.article.dto.Article">

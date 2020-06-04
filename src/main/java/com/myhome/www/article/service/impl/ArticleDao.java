@@ -6,13 +6,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.myhome.www.article.dto.Article;
-import com.myhome.www.article.dto.ArticlePage;
 
 @Repository
 public interface ArticleDao {
     
 	//게시글 전체 리스트
-	List<Article> selectArticleList(ArticlePage page) throws Exception;	
+	List<Article> selectArticleList(Article article) throws Exception;	
 	//글쓰기
 	int insertArticle(Article article) throws Exception;
 	//글번호조회
