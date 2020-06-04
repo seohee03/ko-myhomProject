@@ -53,4 +53,20 @@
 	 ORDER BY ARTICLE_NO DESC
 	</select>
 	
+	<select id="selectSearchTypeArticleList" resultType="articleDTO" parameterType="String">
+	SELECT * FROM project1.ARTICLE
+	<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<if test="searchType=='title' and keyword != null and keyword != '' ">
+			and article_title like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType=='content' and keyword != null and keyword != '' ">
+			and ARTICLE_CONTENT like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType=='writer' and keyword != null and keyword != '' ">
+			and WRITER_ID like CONCAT('%', #{keyword}, '%')
+		</if>
+	</trim>
+	 ORDER BY ARTICLE_NO DESC
+	</select>
+	
 </mapper>

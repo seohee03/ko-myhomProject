@@ -80,4 +80,10 @@ public class ArticleServiceImpl implements ArticleService{
 
 		return articleDao.selectSearchArticleList(keyword);
 	}
+	//검색 타입과 키워드로 게시글 조회
+	@Override
+	public List<Article> selectSearchTypeArticleList(String searchType, String keyword) throws Exception {
+		
+		return articleDao.selectSearchTypeArticleList(searchType, keyword);
+	}
 }

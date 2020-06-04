@@ -20,5 +20,6 @@ public interface ArticleService {
 	int selectLastArticleNo() throws Exception;
 	//키워드로 게시글 조회
 	List<Article> selectSearchArticleList(String keyword) throws Exception;
-	
+	//검색 타입과 키워드로 게시글 조회
+	List<Article> selectSearchTypeArticleList(String searchType, String keyword) throws Exception;
 }

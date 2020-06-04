@@ -1421,10 +1421,10 @@ form input[type="text"], form input[type="email"], form input[type="password"],
 	transition: background-color 0.25s ease-in-out;
 	-webkit-appearance: none;
 	display: block;
-	border: 0;
-	background: #e8e8e8;
+	border:1px solid #dbdbdb;
+	background-color: white;
 	width: 100%;
-	box-shadow: inset 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
+	/* box-shadow: inset 2px 2px 0px 0px rgba(0, 0, 0, 0.1); */
 	border-radius: 4px;
 	line-height: 1.25em;
 	padding: 0.75em 1em 0.75em 1em;
@@ -1433,6 +1433,8 @@ form input[type="text"], form input[type="email"], form input[type="password"],
 form input[type="text"]:focus, form input[type="email"]:focus, form input[type="password"]:focus,
 	form select:focus, form textarea:focus {
 	background: #f0f0f0;
+	outline:1px solid #dbdbdb; 
+	
 }
 
 form textarea {
@@ -1440,20 +1442,20 @@ form textarea {
 }
 
 form ::-webkit-input-placeholder {
-	color: #555 !important;
+	color: #dbdbdb !important;
 	line-height: 1.35em;
 }
 
 form :-moz-placeholder {
-	color: #555 !important;
+	color: #dbdbdb !important;
 }
 
 form ::-moz-placeholder {
-	color: #555 !important;
+	color: #dbdbdb !important;
 }
 
 form :-ms-input-placeholder {
-	color: #555 !important;
+	color: #dbdbdb !important;
 }
 
 form ::-moz-focus-inner {

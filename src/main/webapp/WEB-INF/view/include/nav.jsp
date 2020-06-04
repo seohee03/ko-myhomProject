@@ -27,27 +27,30 @@ font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 600;
 	margin-right: 16px;
 }
-
 -->
 </style>
-
+</head>
 
 <body class="homepage is-preload">
 	<!-- Header -->
 	<section id="header" style=" margin: auto; width: 60%;">
 		<div class="container">
 			<!-- Nav -->
-			<nav id="nav" style="margin: auto;">
+			<nav id="nav" class="nav_ul" style="margin: auto;">
 			
 				<ul class="nav_ul" style="text-align: left">
 				<div class="logo"><a class="logo_a" href="<c:url value="/" />">오늘의 집</a></div>
 					<%-- <li><a href="<c:url value="/" />">오늘의 집</a></li> --%>
 					<li><a href="<c:url value="/community" />">커뮤니티</a></li>
 					<li><a href="<c:url value="/store" />">스토어</a></li>
-					<li><form action="searchItem" method="get">
-					<input class="input_box" type="text" placeholder="검색" name="keyword">
-					<input type="submit" value="검색">
-					</form></li>
+					
+					
+					<li><form action="searchItem" method="get" class="searchForm">
+					<input class="input_box" type="text" 
+					style="padding: .5em .3em;" placeholder="검색" name="keyword">
+					</form></li> 
+					
+					
 					<c:if test="${empty authInfo}">
 						<li><a href="<c:url value="/register/step1" />">회원가입</a></li>
 						<li><a href="<c:url value="/login" />">로그인</a></li>

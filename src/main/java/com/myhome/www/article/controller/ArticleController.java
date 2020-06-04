@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,11 +33,21 @@ public class ArticleController {
 	// 리스트
 	@RequestMapping(value = "/community")
 	public String articleList(Model model) throws Exception {
+	
 		List<Article> articleList = articleService.selectArticleList();
 
-		/*
-		 * for(Article a : articleList) { System.out.println(a.toString()); }
-		 */
+		model.addAttribute("articleList", articleList);
+		return "community/communityHome";
+	}
+	
+	//검색타입 정해서 검색하기(제목, 본문, 작성자)
+	@RequestMapping(value = "/searchArticle")
+	public String searchArticle(@Param("searchType") String searchType, @Param("keyword") String keyword, Model model) throws Exception {
+		System.out.println("searchType : " + searchType);
+		System.out.println("keyword : " + keyword);
+		
+		List<Article> articleList = articleService.selectSearchTypeArticleList(searchType, keyword);
+		
 		model.addAttribute("articleList", articleList);
 		return "community/communityHome";
 	}

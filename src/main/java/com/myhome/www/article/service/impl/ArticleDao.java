@@ -26,5 +26,6 @@ public interface ArticleDao {
 	List<Integer> selectLastArticleNo() throws Exception;
 	//키워드로 게시글 조회
 	List<Article> selectSearchArticleList(@Param("keyword") String keyword) throws Exception;
-    
+	//검색 타입과 키워드로 게시글 조회
+	List<Article> selectSearchTypeArticleList(@Param("searchType") String searchType, @Param("keyword") String keyword) throws Exception;
 }
