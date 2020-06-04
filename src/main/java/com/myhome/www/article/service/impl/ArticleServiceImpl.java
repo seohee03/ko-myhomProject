@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myhome.www.article.dto.Article;
+import com.myhome.www.article.dto.ArticlePage;
 import com.myhome.www.article.service.ArticleService;
 import com.myhome.www.item.service.impl.ItemMapper;
 import com.myhome.www.member.service.AuthInfo;
@@ -26,8 +27,8 @@ public class ArticleServiceImpl implements ArticleService{
 //	private ArticleMapper ArticleMapper;
 	
 	@Override
-	public List<Article> selectArticleList() throws Exception {
-		return articleDao.selectArticleList();
+	public List<Article> selectArticleList(ArticlePage page) throws Exception {
+		return articleDao.selectArticleList(page);
 	}
 
 	@Override
@@ -85,5 +86,10 @@ public class ArticleServiceImpl implements ArticleService{
 	public List<Article> selectSearchTypeArticleList(String searchType, String keyword) throws Exception {
 		
 		return articleDao.selectSearchTypeArticleList(searchType, keyword);
+	}
+	//전체 글 갯수 조회
+	@Override
+	public int selectAllCount() throws Exception {
+		return articleDao.selectAllCount();
 	}
 }

@@ -6,8 +6,13 @@
 <mapper namespace="com.myhome.www.article.service.impl.ArticleDao">
 
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 있습니다. -->
-	<select id="selectArticleList" resultType="articleDTO"> 
+	<!-- <select id="selectArticleList" resultType="articleDTO"> 
 	SELECT * FROM project1.ARTICLE ORDER BY ARTICLE_NO DESC
+	</select> -->
+	<select id="selectArticleList" resultType="articleDTO" parameterType="com.myhome.www.article.dto.ArticlePage"> 
+	SELECT * FROM project1.ARTICLE
+	WHERE ARTICLE_NO BETWEEN #{rowStart} AND #{rowEnd}
+	ORDER BY ARTICLE_NO DESC
 	</select>
 	
 	<insert id="insertArticle" parameterType="com.myhome.www.article.dto.Article">
@@ -67,6 +72,10 @@
 		</if>
 	</trim>
 	 ORDER BY ARTICLE_NO DESC
+	</select>
+	
+	<select id="selectAllCount" resultType="int">
+	select count(*) from project1.ARTICLE where article_no > 0
 	</select>
 	
 </mapper>

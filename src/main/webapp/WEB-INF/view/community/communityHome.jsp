@@ -53,6 +53,21 @@
 				</tbody>
 			</table>
 		</div>
+		<div>
+		  <ul>
+		    <c:if test="${articlePageMaker.prev}">
+		    	<li><a href="<c:url value="/community${articlePageMaker.makeQuery(pageMaker.startPage - 1)}" />">이전</a></li>
+		    </c:if> 
+		
+		    <c:forEach begin="${articlePageMaker.startPage}" end="${articlePageMaker.endPage}" var="idx">
+		    	<li><a href="<c:url value="/community${articlePageMaker.makeQuery(idx)}" />">${idx}</a></li>
+		    </c:forEach>
+		
+		    <c:if test="${articlePageMaker.next && articlePageMaker.endPage > 0}">
+		    	<li><a href="<c:url value="/community${articlePageMaker.makeQuery(articlePageMaker.endPage + 1)}" />">다음</a></li>
+		    </c:if> 
+		  </ul>
+		</div>
 	</section>
 	<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>

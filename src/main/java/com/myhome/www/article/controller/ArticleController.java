@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myhome.www.article.dto.Article;
+import com.myhome.www.article.dto.ArticlePage;
+import com.myhome.www.article.dto.ArticlePageMaker;
 import com.myhome.www.article.service.ArticleService;
 import com.myhome.www.item.dto.Item;
 import com.myhome.www.member.service.AuthInfo;
@@ -31,14 +33,29 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	// 리스트
-	@RequestMapping(value = "/community")
-	public String articleList(Model model) throws Exception {
-	
-		List<Article> articleList = articleService.selectArticleList();
+	@RequestMapping(value = "/community", method = RequestMethod.GET)
+	public String articleList(Model model, ArticlePage articlePage) throws Exception {
+		List<Article> articleList = articleService.selectArticleList(articlePage);
 
 		model.addAttribute("articleList", articleList);
+		
+		ArticlePageMaker articlePageMaker = new ArticlePageMaker();
+		articlePageMaker.setArticlePage(articlePage);
+		articlePageMaker.setTotalCount(articleService.selectAllCount());
+		
+		model.addAttribute("articlePageMaker", articlePageMaker);
 		return "community/communityHome";
 	}
+	
+//	// 리스트
+//	@RequestMapping(value = "/community")
+//	public String articleList(Model model) throws Exception {
+//	
+//		List<Article> articleList = articleService.selectArticleList();
+//
+//		model.addAttribute("articleList", articleList);
+//		return "community/communityHome";
+//	}
 	
 	//검색타입 정해서 검색하기(제목, 본문, 작성자)
 	@RequestMapping(value = "/searchArticle")
@@ -156,14 +173,14 @@ public class ArticleController {
 	/* ********************************** */
 	
 	// 리스트
-   @RequestMapping(value = "/admin/articleList", method = RequestMethod.GET)
-   public String articleListForAdim(Model model) throws Exception {
-      List<Article> articleList = articleService.selectArticleList();
-      System.out.println(">>>>>>>>>>>>>>>>>>>>>>");
-      /*
-       * for(Article a : articleList) { System.out.println(a.toString()); }
-       */
-      model.addAttribute("articleList", articleList);
-      return "admin/articleManager/articleList";
-   }
+//   @RequestMapping(value = "/admin/articleList", method = RequestMethod.GET)
+//   public String articleListForAdim(Model model) throws Exception {
+//      List<Article> articleList = articleService.selectArticleList(articlePage);
+//      System.out.println(">>>>>>>>>>>>>>>>>>>>>>");
+//      /*
+//       * for(Article a : articleList) { System.out.println(a.toString()); }
+//       */
+//      model.addAttribute("articleList", articleList);
+//      return "admin/articleManager/articleList";
+//   }
 }

@@ -6,12 +6,13 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.myhome.www.article.dto.Article;
+import com.myhome.www.article.dto.ArticlePage;
 
 @Repository
 public interface ArticleDao {
     
-	//상품 전체 리스트
-	List<Article> selectArticleList() throws Exception;	
+	//게시글 전체 리스트
+	List<Article> selectArticleList(ArticlePage page) throws Exception;	
 	//글쓰기
 	int insertArticle(Article article) throws Exception;
 	//글번호조회
@@ -28,4 +29,6 @@ public interface ArticleDao {
 	List<Article> selectSearchArticleList(@Param("keyword") String keyword) throws Exception;
 	//검색 타입과 키워드로 게시글 조회
 	List<Article> selectSearchTypeArticleList(@Param("searchType") String searchType, @Param("keyword") String keyword) throws Exception;
+	//전체 글 갯수 조회
+	int selectAllCount() throws Exception;
 }
