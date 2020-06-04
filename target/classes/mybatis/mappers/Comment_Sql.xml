@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.myhome.www.article.service.impl.CommentDao">
+ 
+ <select id="selectCommentByNo" parameterType="int" resultType="comment">
+ 	select * from project1.comment 
+ 	where article_no = #{articleNo} 
+ 	order by comment_no
+ </select>
+ 
+ </mapper>
