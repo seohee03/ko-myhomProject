@@ -26,7 +26,27 @@
 			}
 		});
 	});
-</script>
+	
+	function commmentInsertBtn(){
+		/* var content = $('input[name=commentContent]'); */
+		$.ajax({
+			url : "${pageContext.request.contextPath}/community/insertComment",
+			type : "post",
+			dataType : "json",
+			data : $('#commentForm').serialize(),
+			success : function(data){
+				if(data == 0){
+					//alert('등록 성공');
+					location.reload();
+				} else if(data == 9) {
+					alert('등록 실패');
+					
+				}
+			}
+		})
+	}
+
+	</script>
 </head>
 <%@ include file="/WEB-INF/view/include/nav.jsp"%>
 <section id="features" style="width: 60%; margin: auto;">
@@ -63,6 +83,12 @@
 				</c:if>
 
 	</div>
+	<form id="commentForm">
+		글내용 : <input type="text" name="commentContent" placeholder="댓글을 입력해주세요">
+<!-- 		<input type="hidden" name= "memberNo"> -->
+		<input type="hidden" name= "articleNo" value="${article.articleNo}">
+		<input type="button" name="commentInsertBtn" onclick="commmentInsertBtn();" value="등록">
+	</form>
 	<table border="1">
 		<thead>
 			<tr>
@@ -83,16 +109,16 @@
 				<td><c:out value="${comment.commentContent}" /></td>
 				<td><c:out value="${comment.regdate}" /></td>
 				<td><c:out value="${comment.moddate}" /></td>
+				<c:if test="${authInfo.memberNo == comment.memberNo}">
+				<td><a href="<c:url value='/community/modify/${comment.commentNo}'/>">[수정]</a></td>
+				<td><a href="<c:url value='/community/delete/${comment.commentNo}'/>">[삭제]</a></td>
+				</c:if>
 			</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	
-	<form >
-		글내용 : <input type="text" name="commentContent">
-		<input type="hidden" value="${article.articleNo}">
-		<input type="button">
-	</form>
+
 </section>
 </body>
 </html>

@@ -22,6 +22,15 @@ public class CommentServiceImpl implements CommentService{
 		return commentDao.selectCommentByNo(articleNo);
 	}
 
-	
+	@Override
+	public int insertComment(Comment comment) throws Exception {
+		return commentDao.insertComment(comment);
+	}
+
+	@Override
+	public int modifyComment(Comment comment) throws Exception {
+		return commentDao.modifyComment(comment);
+	}
+
 	
 }

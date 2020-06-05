@@ -11,6 +11,7 @@ public class CartCommand {
     private int price;
     private int option1No;
     private int option2No;
+    
 	public int getCartNo() {
 		return cartNo;
 	}

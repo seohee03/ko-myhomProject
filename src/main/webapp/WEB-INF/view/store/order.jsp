@@ -62,7 +62,7 @@ function sample4_execDaumPostcode() {
 
 function orderBtn(){
 	var cartNoArr = new Array();
-	var cartNoArr = $('input[name=cartNoArr]');
+	cartNoArr = $('input[name=cartNoArr]');
 	$.ajax({
 		url : "${pageContext.request.contextPath}/order",
 		type : "post",

@@ -9,7 +9,7 @@
 	<a href="<c:url value="/cart" />">[장바구니]</a>
 	<a href="<c:url value="/mypage" />">[마이페이지]</a>
 	<br />
-	<a href="<c:url value="/" />">[커뮤니티]</a>
+	<a href="<c:url value="//community" />">[커뮤니티]</a>
 	<a href="<c:url value="/store" />">[스토어]</a>
 	<br />
 
@@ -78,33 +78,17 @@
 	
 	<div id="latelyViewItemListPageing_div">
 		<ul id="latelyViewItemList_ul"></ul>
-		<strong id="nowLatelyViewItemPage_strong"></strong>
-		<span id="totalLatelyViewItemPage_span"></span>
+		<!-- <strong id="nowLatelyViewItemPage_strong"></strong>
+		<span id="totalLatelyViewItemPage_span"></span> -->
 	</div>
-	
-	<!-- //페이징 처리부분 레이어 노출시킴
-	$("div#latelyViewItemListPageing_div").css("display","block");
-	              
-	//함수호출시 전달받은 페이지 값으로 현재페이지 셋팅.
-	$("strong#nowLatelyViewItemPage_strong").text(page);
-	
-	//최대 페이지 개수 셋팅
-	$("span#totalLatelyViewItemPage_span").text(Math.ceil(maxPage))
-			  -->
-	
-	
-	
-	
-	
-	
-	
+
 
 	<script type="text/javascript">
 	
 	//최근본 아이템 삭제 기간
 	var LATELY_VIEW_ITEM_EXPIRATION_DATE = 1;
 	//최근본 아이템 최대 저장 개수
-	var LATELY_VIEW_ITEM_MAX_SAVE_COUNT = 50;
+	var LATELY_VIEW_ITEM_MAX_SAVE_COUNT = 20;
 	//최근본 아이템 페이징 사이즈
 	var LATELY_VIEW_ITEM_PAGEING_SIZE = 5;
 	

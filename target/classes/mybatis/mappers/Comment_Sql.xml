@@ -4,10 +4,25 @@
  
  <mapper namespace="com.myhome.www.article.service.impl.CommentDao">
  
- <select id="selectCommentByNo" parameterType="int" resultType="comment">
- 	select * from project1.comment 
- 	where article_no = #{articleNo} 
- 	order by comment_no
- </select>
- 
+ <!-- 댓글 조회 -->
+	 <select id="selectCommentByNo" parameterType="int" resultType="comment">
+	 	select * from project1.comment 
+	 	where article_no = #{articleNo} 
+	 	order by comment_no
+	 </select>
+	 
+ <!-- 댓글 등록 -->
+	<insert parameterType="comment" id="insertComment">
+		INSERT INTO COMMENT (article_no, comment_content, member_no, regdate) VALUES(#{articleNo}, #{commentContent}, #{memberNo}, now()) 
+	</insert>
+	
+<!-- 댓글 수정 -->
+	<update parameterType="comment" id="modifyComment">
+		UPDATE COMMENT SETcomment_content = #{commentContent} WHERE comment_no = #{commentNo} 
+	</update>
+	
+<!-- 댓글 삭제 -->
+	<delete parameterType="int" id="commentDelete">
+		DELETE FROM COMMENT WHERE comment_no = #{commentNo} 
+	</delete>
  </mapper>

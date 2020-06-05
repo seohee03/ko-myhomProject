@@ -26,7 +26,7 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/order")
 	public int order(OrderDetail orderDetail, HttpSession session) throws IOException {	//@RequestParam(value="cartNo") int[] cartNoArr
-		System.out.println(">>>>>>>>>>>>>>>>>" + orderDetail);
+		System.out.println(">>>>>>>>>>>>>>>>>" + orderDetail.getCartNoArr()[0]);
 		int result = 0;
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");

@@ -15,6 +15,7 @@ public class OrderDetail {
     private String detailAddr;			// 상세주소
     private String orderMessage;		// 배송 메모
     private int[] cartNoArr;			// cartNo 담을 배열
+    
 	public int getOrderNo() {
 		return orderNo;
 	}
