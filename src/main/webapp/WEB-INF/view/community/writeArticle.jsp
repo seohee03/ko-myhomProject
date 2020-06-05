@@ -5,25 +5,22 @@
 <script type="text/javascript">
 $(function(){
     $('#submit').click(function(){
-    	//상품명, 가격, 재고
-    	var articleNo = $('#articleNo').val();
     	var articleTitle = $('#articleTitle').val();
     	var articleContent = $('#articleContent').val();
-    	var writerId = $('#writerId').val();
-    	var writerName = $('#writerName').val();
     	
     	if(articleTitle.length == 0){
     		$('.articleTitle').text("제목을 입력해주세요");
     		$('#articleTitle').focus();
-    		return;
-    	}else if(articleContent.length == 0){
-    		$('.articleContent').textarea("내용을 입력해주세요");
+    		return false;
+    	}else {
+    		$('.errStr').text("");
+    	}
+    	if(articleContent.length == 0){
     		$('#articleContent').focus();
-    		return;
+    		return false;
     	}else{
     		$('.errStr').text("");
     	}
-
     });
 });
 </script>
@@ -31,11 +28,8 @@ $(function(){
 </head>
 <body>
 
-
  <form:form modelAttribute="article">
-    <form:errors />
 	<p>
-        ${articleNo }
     </p>
     <p>
         <label>제목<br>
@@ -44,15 +38,13 @@ $(function(){
         </label>
     </p>
      <p>
-        ${writerId }
     </p>
     <p>
         <label>내용<br>
-        <form:textarea path="articleContent" />
+        <form:textarea path="articleContent"/>
         </label>
     </p>
      <p>
-        ${writerName }
     </p>
     <input type="submit" id="submit" value="등록">
     </form:form>

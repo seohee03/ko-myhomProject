@@ -76,31 +76,31 @@ public class LoginController {
 	/***********************************************************************************************************************/
     
     
-    //관리자 로그인 폼
-    @RequestMapping(value = "/admin", method=RequestMethod.GET)
-    public String adminForm(LoginCommand loginCommand, @CookieValue(value = "REMEMBER", required = false) Cookie rCookie, HttpSession session) {
-		
-  
-    	//로그인 한 회원 세션 삭제
-    	if(session.getAttribute("authInfo") != null ) {
-    		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-    		System.out.println("power >>>>>>>>>>>" + authInfo.getPower());
-    		if(authInfo.getPower().equals("normal")) {
-				System.out.println(session.getAttribute("authInfo"));
-				session.invalidate();
-				
-				if (rCookie != null) {
-					loginCommand.setMemberId(rCookie.getValue());
-					loginCommand.setRememberId(true);
-				}
-				return "admin/adminLoginForm";
-    		}else {
-    			return "admin/adminHome";
-    		}
-		}
-    
-    	return "admin/adminLoginForm";
-    }
+//    //관리자 로그인 폼
+//    @RequestMapping(value = "/admin", method=RequestMethod.GET)
+//    public String adminForm(LoginCommand loginCommand, @CookieValue(value = "REMEMBER", required = false) Cookie rCookie, HttpSession session) {
+//		
+//  
+//    	//로그인 한 회원 세션 삭제
+//    	if(session.getAttribute("authInfo") != null ) {
+//    		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+//    		System.out.println("power >>>>>>>>>>>" + authInfo.getPower());
+//    		if(authInfo.getPower().equals("normal")) {
+//				System.out.println(session.getAttribute("authInfo"));
+//				session.invalidate();
+//				
+//				if (rCookie != null) {
+//					loginCommand.setMemberId(rCookie.getValue());
+//					loginCommand.setRememberId(true);
+//				}
+//				return "admin/adminLoginForm";
+//    		}else {
+//    			return "admin/adminHome";
+//    		}
+//		}
+//    
+//    	return "admin/adminLoginForm";
+//    }
     
     //관리자 로그인 폼에서 버튼 눌렀을 때
     @ResponseBody

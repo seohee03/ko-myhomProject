@@ -32,7 +32,7 @@ $(function(){
     				$('#resultMSG').text('아이디 혹은 비밀번호가 맞지 않습니다');
     				return false;
     			}else if(data == 0){
-    				location.href = "${pageContext.request.contextPath}/admin";
+    				location.href = "${pageContext.request.contextPath}/admin/itemList";
     			}
     		}
     	})

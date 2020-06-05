@@ -70,7 +70,7 @@ $(function(){
 					</c:if>
 					<c:if test="${!empty authInfo}">
 						<c:if test="${authInfo.power eq 'admin'}">
-							<li><a href="<c:url value="/admin" />">관리자페이지</a></li>
+							<li><a href="<c:url value="/admin/itemList" />">관리자페이지</a></li>
 						</c:if>
 						<%-- <c:if test="${authInfo.power eq 'normal'}"> --%>
 							<li><a href="<c:url value="/cart" />">장바구니</a></li>
