@@ -90,8 +90,7 @@
 		INSERT INTO option2(option1_no, option2_name, option2_price, option2_stock) VALUES
 		(#{option1No}, #{option2Name}, #{option2Price}, #{option2Stock})
 	</insert>
-	<insert id="insertItemImg"
-		parameterType="itemImg">
+	<insert id="insertItemImg" parameterType="itemImg">
 		INSERT INTO item_img(img_url, thumb_url, is_thumb, item_no) VALUES (#{imgUrl}, #{thumbUrl}, #{isThumb}, #{itemNo})
 	</insert>
 	

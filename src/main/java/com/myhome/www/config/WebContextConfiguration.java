@@ -69,17 +69,12 @@ public class WebContextConfiguration  implements WebMvcConfigurer {
 //		pspc.setIgnoreUnresolvablePlaceholders(true);
 //		return pspc;
 //	}
-//
-//	@Override
-//	public void configureViewResolvers(ViewResolverRegistry registry) {
-//		registry.jsp("/WEB-INF/view/", ".jsp");
-//	}
-//
 
-//
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/mypage/**");
+		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/order");
+		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/orderSuccess");
 		registry.addInterceptor(adminauthCheckInterceptor()).addPathPatterns("/admin/*");
 	}
 

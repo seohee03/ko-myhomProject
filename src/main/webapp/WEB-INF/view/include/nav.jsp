@@ -33,7 +33,7 @@ font-family: 'Noto Sans KR', sans-serif;
 
 <body class="homepage is-preload">
 	<!-- Header -->
-	<section id="header" style=" margin: auto; width: 60%;">
+	<section id="header" style=" margin: auto; width: 70%;">
 		<div class="container">
 			<!-- Nav -->
 			<nav id="nav" class="nav_ul" style="margin: auto;">

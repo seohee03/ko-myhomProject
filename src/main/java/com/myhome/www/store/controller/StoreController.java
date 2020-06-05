@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,8 +60,8 @@ public class StoreController {
 	 }
 	 
 	 //상품 상세보기 페이지
-	 @RequestMapping(value = "/itemDetail/{itemNo}")
-	 public String itemDetailForMember(@PathVariable("itemNo") int itemNo, Model model, Item item, Cart cart) throws Exception{
+	 @RequestMapping(value = "/itemDetail")
+	 public String itemDetailForMember(@Param("itemNo") int itemNo, Model model, Item item, Cart cart) throws Exception{
 		 ItemCommand itemCommand = itemService.selectItemByItemNo(itemNo);
 			
 		 model.addAttribute("itemCommand", itemCommand);

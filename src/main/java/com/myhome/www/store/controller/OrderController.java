@@ -25,14 +25,11 @@ public class OrderController {
 	//주문폼에서 주문 누르면
 	@ResponseBody
 	@RequestMapping(value = "/order")
-	public int order(OrderDetail orderDetail, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {	//@RequestParam(value="cartNo") int[] cartNoArr
+	public int order(OrderDetail orderDetail, HttpSession session) throws IOException {	//@RequestParam(value="cartNo") int[] cartNoArr
 		System.out.println(">>>>>>>>>>>>>>>>>" + orderDetail);
 		int result = 0;
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
-		
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter writer = response.getWriter();
 		
 		if(authInfo != null) {
 			orderDetail.setMemberNo(authInfo.getMemberNo());
@@ -42,8 +39,6 @@ public class OrderController {
 				result = 9;
 			}
 		}
-
-		
 		return result;
 	}
 	

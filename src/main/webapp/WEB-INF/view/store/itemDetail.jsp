@@ -10,6 +10,8 @@ $(function(){
 		$('#totalPrice').text(price * this.value);
     });
 });
+
+set
 </script>
 </head>
 <body>

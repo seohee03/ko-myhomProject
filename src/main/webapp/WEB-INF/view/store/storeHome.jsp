@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/include/header.jsp" %>
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/include/header.jsp"%>
 
 </head>
 <body>
-스토어홈
-   <br />
-    <a href="<c:url value="/cart" />">[장바구니]</a>
-    <a href="<c:url value="/mypage" />">[마이페이지]</a>
-    <br />
-    <a href="<c:url value="/" />">[커뮤니티]</a>
-    <a href="<c:url value="/store" />">[스토어]</a>
-    <br />
+	스토어홈
+	<br />
+	<a href="<c:url value="/cart" />">[장바구니]</a>
+	<a href="<c:url value="/mypage" />">[마이페이지]</a>
+	<br />
+	<a href="<c:url value="/" />">[커뮤니티]</a>
+	<a href="<c:url value="/store" />">[스토어]</a>
+	<br />
 
-<h1>Item List</h1>
-<form action="searchItem" method="get">
-<input type="text" placeholder="검색" name="keyword">
-<input type="submit" value="검색">
-</form>
+	<h1>Item List</h1>
+	<form action="searchItem" method="get">
+		<input type="text" placeholder="검색" name="keyword"> <input
+			type="submit" value="검색">
+	</form>
 
 	<table border="1">
 		<thead>
@@ -41,38 +41,341 @@
 			</tr>
 		</c:if>
 		<tbody>
-		<c:set var = "path" value = "${pageContext.request.contextPath }"/>
-		<c:forEach var="itemC" items="${itemPage.content}">
-			<tr onclick="location.href='${path }/itemDetail/${itemC.item.itemNo}'">
-				<td><img src="${path }${itemC.itemImg.thumbUrl}" style="width: 50px"></td>
-				<td><c:out value="${itemC.item.itemNo}" /></td>
-				<td><c:out value="${itemC.categorie.categorieName}" /></td>
-				<td><c:out value="${itemC.item.itemCode}" /></td>
-				<td><c:out value="${itemC.item.itemName}" /></td>
-				<td><c:out value="${itemC.item.price}" /></td>
-				<td><c:out value="${itemC.item.stock}" /></td>
-				<td><c:out value="${itemC.option1.option1Name}" /></td>
-				<td><c:out value="${itemC.option2.option2Name}" /></td>
-				<td><c:out value="${itemC.itemImg.thumbUrl}" /></td>
-				<td><tf:formatDateTime value="${itemC.item.itemRegDateTime }" pattern="yyyy-MM-dd"/></td>
-			</tr>
-		</c:forEach>
-		<c:if test="${itemPage.hasItems()}">
-			<tr>
-				<td colspan="11">
-					<c:if test="${itemPage.startPage > 5}">
-						<a href="<c:url value="/store/${itemPage.startPage - 5}" />" >[이전]</a>
-					</c:if>
-					<c:forEach var="pNo" begin="${itemPage.startPage}" end="${itemPage.endPage}">
-						<a href="<c:url value="/store/${pNo}" />">[${pNo}]</a>
-					</c:forEach> 
-					<c:if test="${itemPage.endPage < itemPage.totalPages}">
-						<a href="<c:url value="/store/${itemPage.startPage + 5}" />">[다음]</a>
-					</c:if>
-				</td>
-			</tr>
-		</c:if>
+			<c:set var="path" value="${pageContext.request.contextPath }" />
+			<input type="hidden" id="path" value="${pageContext.request.contextPath }">
+			<c:forEach var="itemC" items="${itemPage.content}">
+				<tr onclick="javascript:moveItemViewPage('${path }','${itemC.item.itemNo} ','${path }${itemC.itemImg.thumbUrl}'); return false;">
+<%-- 				<tr onclick="javascript:itemDetailBtn('${path }','${itemC.item.itemNo}','${itemC.itemImg.thumbUrl}');"> --%>
+					<td><img src="${path }${itemC.itemImg.thumbUrl}"
+						style="width: 50px"></td>
+					<td><c:out value="${itemC.item.itemNo}" /></td>
+					<td><c:out value="${itemC.categorie.categorieName}" /></td>
+					<td><c:out value="${itemC.item.itemCode}" /></td>
+					<td><c:out value="${itemC.item.itemName}" /></td>
+					<td><c:out value="${itemC.item.price}" /></td>
+					<td><c:out value="${itemC.item.stock}" /></td>
+					<td><c:out value="${itemC.option1.option1Name}" /></td>
+					<td><c:out value="${itemC.option2.option2Name}" /></td>
+					<td><c:out value="${itemC.itemImg.thumbUrl}" /></td>
+					<td><tf:formatDateTime value="${itemC.item.itemRegDateTime }"
+							pattern="yyyy-MM-dd" /></td>
+				</tr>
+			</c:forEach>
+			<c:if test="${itemPage.hasItems()}">
+				<tr>
+					<td colspan="11"><c:if test="${itemPage.startPage > 5}">
+							<a href="<c:url value="/store/${itemPage.startPage - 5}" />">[이전]</a>
+						</c:if> <c:forEach var="pNo" begin="${itemPage.startPage}"
+							end="${itemPage.endPage}">
+							<a href="<c:url value="/store/${pNo}" />">[${pNo}]</a>
+						</c:forEach> <c:if test="${itemPage.endPage < itemPage.totalPages}">
+							<a href="<c:url value="/store/${itemPage.startPage + 5}" />">[다음]</a>
+						</c:if></td>
+				</tr>
+			</c:if>
 		</tbody>
 	</table>
+	
+	<div id="latelyViewItemListPageing_div">
+		<ul id="latelyViewItemList_ul"></ul>
+		<strong id="nowLatelyViewItemPage_strong"></strong>
+		<span id="totalLatelyViewItemPage_span"></span>
+	</div>
+	
+	<!-- //페이징 처리부분 레이어 노출시킴
+	$("div#latelyViewItemListPageing_div").css("display","block");
+	              
+	//함수호출시 전달받은 페이지 값으로 현재페이지 셋팅.
+	$("strong#nowLatelyViewItemPage_strong").text(page);
+	
+	//최대 페이지 개수 셋팅
+	$("span#totalLatelyViewItemPage_span").text(Math.ceil(maxPage))
+			  -->
+	
+	
+	
+	
+	
+	
+	
+
+	<script type="text/javascript">
+	
+	//최근본 아이템 삭제 기간
+	var LATELY_VIEW_ITEM_EXPIRATION_DATE = 1;
+	//최근본 아이템 최대 저장 개수
+	var LATELY_VIEW_ITEM_MAX_SAVE_COUNT = 50;
+	//최근본 아이템 페이징 사이즈
+	var LATELY_VIEW_ITEM_PAGEING_SIZE = 5;
+	
+	//필요한 함수
+
+	//@param obj
+	//@returns
+	function isNull(obj){
+	 if(obj == '' || obj == null || obj == undefined || obj == NaN){ 
+	  return true;
+	 }else{
+	  return false;
+	 }
+	}
+	
+	// 로컬스토리지 저장
+	// @param name
+	// @param obj
+	// @returns
+	function setLocalStorage(name,obj){
+	 localStorage.setItem(name, obj);
+	}
+
+	//로컬 스토리지 삭제
+	//@param name
+	//@returns
+	function removeLocalStorage(name){
+	 localStorage.removeItem(name);
+	}
+
+	//로컬스토리지에서 특정 객체 가져오기
+	//@param name
+	//@returns
+	function getItemLocalStorage(name){
+	 return localStorage.getItem(name);
+	}
+	
+	//1.모든 페이지에서 수행되야 하므로 common.js document.ready() 함수내에 정의한다.
+	$(document).ready(function(){
+	 
+		initLatelyViewItemList();
+	});	 
+	//2.initLatelyViewItemList() 함수를 정의한다. 
+	
+	//최근 본 상품 관련 로컬 스토리지 공간 확보 일정 시간 지난 것 뺴고 재저장 페이지별 무조건 호출
+	//@returns
+	function initLatelyViewItemList(){
+		//로컬스토리지에서 latelyViewItemList 로 저장된 정보가 있는지 확인후
+		if(isNull(getItemLocalStorage('latelyViewItemList'))){
+			//없을경우 공간 생성
+			setLocalStorage('latelyViewItemList',null);
+			//상품을 표시할 ul에 없을경우 화면 표시
+			$("ul#latelyViewItemList_ul").append('<li>찾아본<br>상품이<br>없습니다.</li>');
+			//기존 정보가 있을 경우
+		}else{
+			//저장된 정보를 가져오고
+			var latelyViewItemListJson = getItemLocalStorage('latelyViewItemList');
+			//실제 저장된 데이터가 있는경우 
+			if(latelyViewItemListJson != "null" || isNull(latelyViewItemListJson)){
+			
+				var nowDate = new Date();
+				//문자열을 javascript 객체로 변환
+				var latelyViewItemList = JSON.parse(latelyViewItemListJson);
+				
+				//일정시간 경과된 아이템을 제외하고 다시 넣기 위한 새로운 Array
+				var latelyViewItemListNew = new Array();
+				    
+				//상품 리스트를 돌면서 상품별 저장된 시간이 현재 시간보다 클경우만 다시 latelyViewItemListNew  에 추가
+				for(var i in latelyViewItemList){
+					var viewTime = new Date(latelyViewItemList[i].viewTime);
+					//시간이 경과된경우 를 제외하고 재 저장
+					if(nowDate.getTime() < viewTime.getTime()){
+						latelyViewItemListNew.push(latelyViewItemList[i]);
+					}
+				}
+				
+				//시간이 모두 경과된 경우 담긴 새로운 배열요소가 없으므로 로컬 스토리지를 비워줌.
+				if(latelyViewItemListNew.length == 0){
+					setLocalStorage('latelyViewItemList',null);
+					//재저장
+				}else{
+					setLocalStorage('latelyViewItemList',JSON.stringify(latelyViewItemListNew));
+				}
+			 
+			}
+			//화면 을 그리는 함수호출
+			LatelyViewItemRender(1);
+		}
+	}
+	
+	//3.상품을 보기시 호출될 moveItemViewPage() 정의
+	//화면단에 아래체럼 상품링크를 구성한다.
+	//<a href="#" onclick="javascript:moveItemViewPage('상품번호 ','상품이미지경로'); return false;">
+	
+	//로컬 스토리지 저장 후 아이템 상세보기 페이지 이동
+	//@param itemSeq
+	//@returns
+	function moveItemViewPage(path, itemSeq,itemImagePath){
+	
+		var latelyViewItemListJson = getItemLocalStorage('latelyViewItemList');
+		var viewTime = new Date();
+		//최근 본 상품이 아얘 없을경우 무조건 저장
+		if(latelyViewItemListJson == "null" || isNull(latelyViewItemListJson)){
+			
+			//새로 저장될 
+			var latelyViewItemListNew = new Array();
+			 
+			var latelyViewItem = {
+				"itemNo" : itemSeq,
+				"thumbUrl" : itemImagePath,
+				"viewTime" :viewTime.setDate(viewTime.getDate() + Number(LATELY_VIEW_ITEM_EXPIRATION_DATE))
+			}
+			 
+			latelyViewItemListNew.unshift(latelyViewItem);
+			setLocalStorage('latelyViewItemList',JSON.stringify(latelyViewItemListNew));
+			//있을경우 
+		}else{
+			var latelyViewItemList = JSON.parse(latelyViewItemListJson);
+			var isExistsItem = false;
+			 
+			
+			breakPoint : for(var i in latelyViewItemList){
+				if(Number(latelyViewItemList[i].itemSeq) == Number(itemSeq)){
+					isExistsItem = true; 
+					break breakPoint;
+				}
+			}
+			 
+			//새로본 상품일경우만 저장
+			if(!isExistsItem){
+				 
+				//최대 50개 일경우 마지막꺼 삭제 후제일 앞에 저장
+				if(latelyViewItemList.length == Number(LATELY_VIEW_ITEM_MAX_SAVE_COUNT)) latelyViewItemList.pop();
+				 
+				var latelyViewItem = {
+					"itemNo" : itemSeq,
+					"thumbUrl" : itemImagePath,
+					"viewTime" :viewTime.setDate(viewTime.getDate() + Number(LATELY_VIEW_ITEM_EXPIRATION_DATE))
+				}
+				latelyViewItemList.unshift(latelyViewItem);
+				setLocalStorage('latelyViewItemList',JSON.stringify(latelyViewItemList));
+			}
+		}
+	
+		//상품페이지로 이동
+		// location.href="/item/itemView.do?item_seq=" + itemSeq;
+		location.href = path + "/itemDetail?itemNo=" + itemSeq;
+	}
+	
+	//4.LatelyViewItemRender() 함수를 정의한다. 
+	//(html 선택자는 각각 다를수 있으므로 참조만 하자.)
+	
+	// 최근 본 상품 화면 셋팅(페이징)
+	// @param list
+	// @returns
+	function LatelyViewItemRender(page){
+		var path = $('#path').val();
+		//기본적으로 일단 상품리스트를 비움
+		$("ul#latelyViewItemList_ul").empty();
+		
+		//로컬스토리지에서 latelyViewItemList 값 확인
+		if(getItemLocalStorage('latelyViewItemList') != "null" || isNull(getItemLocalStorage('latelyViewItemList'))){
+			 
+			var latelyViewItemList = JSON.parse(getItemLocalStorage('latelyViewItemList'));
+			
+			//페이징을 해야하기때문에 전체 개수가 필요함
+			var length = latelyViewItemList.length;
+			              
+			//최대 나올수 있는 페이지를 셋팅.
+			var maxPage = length / LATELY_VIEW_ITEM_PAGEING_SIZE;
+			
+			//페이징 처리부분 레이어 노출시킴
+			$("div#latelyViewItemListPageing_div").css("display","block");
+			              
+			//함수호출시 전달받은 페이지 값으로 현재페이지 셋팅.
+			$("strong#nowLatelyViewItemPage_strong").text(page);
+			
+			//최대 페이지 개수 셋팅
+			$("span#totalLatelyViewItemPage_span").text(Math.ceil(maxPage))
+			 
+			
+			//가져온 최근본상품리스트에서 노출해야할 인덱스을 구해서 노출
+			for(var i = ((page-1) * LATELY_VIEW_ITEM_PAGEING_SIZE); i < (page*LATELY_VIEW_ITEM_PAGEING_SIZE); i++){
+			                     
+				if(!isNull(latelyViewItemList[i])){
+				                            //상품 그리는 부분
+					$("ul#latelyViewItemList_ul").append($("<li>").append($("<a>")
+					.attr("href",path+"/itemDetail?itemNo="+latelyViewItemList[i].itemNo)
+					.append($("<img>").attr("src",latelyViewItemList[i].thumbUrl)
+					.attr("alt","최근본상품"))));
+				}
+			}
+		
+		}else{
+			//상품이 없을경우
+			$("ul#latelyViewItemList_ul").append('<li>찾아본<br>상품이<br>없습니다.</li>');
+			$("div#latelyViewItemListPageing_div").css("display","none");
+		}
+	
+	}
+	
+	//최근 본 상품 페이지 버튼 클릭
+	//@param type
+	//@returns
+	function latelyViewItemPageingPlusMinus(type){
+	
+		if(type == "minus"){
+			if(Number($("strong#nowLatelyViewItemPage_strong").text()) > 1){
+				$("strong#nowLatelyViewItemPage_strong").text(Number($("strong#nowLatelyViewItemPage_strong").text()) - 1);
+				LatelyViewItemRender($("strong#nowLatelyViewItemPage_strong").text());
+			}
+			 
+		}else{
+			if(Number($("strong#nowLatelyViewItemPage_strong").text()) < Number($("span#totalLatelyViewItemPage_span").text())){
+				$("strong#nowLatelyViewItemPage_strong").text(Number($("strong#nowLatelyViewItemPage_strong").text()) + 1);
+				LatelyViewItemRender($("strong#nowLatelyViewItemPage_strong").text());
+			}
+		}
+	}
+
+</script>
+	
+
+<script type="text/javascript">
+/*
+function itemDetailBtn(path, itemNo, img){
+		var url = path + '/itemDetail/' + itemNo;
+		//img = img.replace(/\//g, "\/");
+		var imgPath = path + img;
+		
+		var historyItemObj = new Object();
+		var historyItemArr = new Array();
+		
+		if($.cookie('historyItem') == 'null' || $.cookie('historyItem') == 'undefined'){
+			historyItemObj.itemNo = itemNo;
+			historyItemObj.imgPath = imgPath;
+			//historyItem.push("{'itemNo':"+itemNo+",'imgPath' : "+imgPath+"}");
+			$.cookie('historyItem', historyItemObj);
+		}else{
+			historyItemArr.push($.cookie('historyItem'));
+			historyItemObj.itemNo = itemNo;
+			historyItemObj.imgPath = imgPath;
+			historyItemArr.push(historyItemObj);
+			$.cookie('historyItem', JSON.stringify(historyItemArr));
+		}
+		console.log($.cookie('historyItem'));
+		var objToCookie = $.parseJSON($.cookie('historyItem'));
+		console.log(objToCookie);
+		$.cookie('historyItem', null);
+		location.href=url;
+	} */
+
+	/* function itemDetailBtn(path, itemNo, img){
+		var url = path + '/itemDetail/' + itemNo;
+		img = img.replace(/\//g, "\/");
+		var imgPath = path + img;
+		
+		 if($.cookie('historyItem') == 'null' || $.cookie('historyItem') == 'undefined'){
+			 var historyItem = "[{\"itemNo\":"+itemNo+",\"imgPath\" : "+imgPath+"}]";
+			 $.cookie('historyItem', JSON.stringify(historyItem));
+		 }else{
+			 var historyItem = new Array();
+			 historyItem = $.parseJSON($.cookie('historyItem'));
+			 console.log(historyItem);
+			 historyItem.put('historyItem', "{\"itemNo\":"+itemNo+",\"imgPath\" : "+imgPath+"}");
+			 $.cookie('historyItem', JSON.stringify(historyItem));
+		 }
+		
+		console.log($.cookie('historyItem'));
+		location.href=url;
+	} */
+	</script>
 </body>
 </html>

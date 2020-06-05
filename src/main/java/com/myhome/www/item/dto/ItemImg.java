@@ -9,7 +9,6 @@ public class ItemImg {
 	private int itemNo;
 	
 //	public ItemImg() {
-//		// TODO Auto-generated constructor stub
 //	}
 
 	public int getImgNo() {
