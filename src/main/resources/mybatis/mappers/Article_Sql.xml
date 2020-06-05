@@ -10,8 +10,8 @@
 	SELECT * FROM project1.ARTICLE ORDER BY ARTICLE_NO DESC
 	</select> -->
 	<select id="selectArticleList" resultType="articleDTO" parameterType="articleDTO"> 
-	SELECT * FROM project1.ARTICLE 
-	ORDER BY ARTICLE_NO DESC limit #{startIndex}, #{cntPerPage}
+		SELECT * FROM project1.ARTICLE 
+		ORDER BY ARTICLE_NO DESC limit #{startIndex}, #{cntPerPage}
 	</select>
 	
 	<insert id="insertArticle" parameterType="com.myhome.www.article.dto.Article">
@@ -50,31 +50,31 @@
 	</delete>
 	
 	<select id="selectSearchArticleList" resultType="articleDTO" parameterType="String"> 
-	SELECT * FROM project1.ARTICLE
-	<if test="keyword != ''">
-		where article_title like concat('%', #{keyword}, '%')
-	</if>
-	 ORDER BY ARTICLE_NO DESC
+		SELECT * FROM project1.ARTICLE
+		<if test="keyword != ''">
+			where article_title like concat('%', #{keyword}, '%')
+		</if>
+	 	ORDER BY ARTICLE_NO DESC
 	</select>
 	
 	<select id="selectSearchTypeArticleList" resultType="articleDTO" parameterType="String">
-	SELECT * FROM project1.ARTICLE
-	<trim prefix="WHERE" prefixOverrides="AND|OR">
-		<if test="searchType=='title' and keyword != null and keyword != '' ">
-			and article_title like CONCAT('%', #{keyword}, '%')
-		</if>
-		<if test="searchType=='content' and keyword != null and keyword != '' ">
-			and ARTICLE_CONTENT like CONCAT('%', #{keyword}, '%')
-		</if>
-		<if test="searchType=='writer' and keyword != null and keyword != '' ">
-			and WRITER_ID like CONCAT('%', #{keyword}, '%')
-		</if>
-	</trim>
-	 ORDER BY ARTICLE_NO DESC
+		SELECT * FROM project1.ARTICLE
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType=='title' and keyword != null and keyword != '' ">
+				and article_title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType=='content' and keyword != null and keyword != '' ">
+				and ARTICLE_CONTENT like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType=='writer' and keyword != null and keyword != '' ">
+				and WRITER_ID like CONCAT('%', #{keyword}, '%')
+			</if>
+		</trim>
+		 ORDER BY ARTICLE_NO DESC
 	</select>
 	
 	<select id="selectAllCount" resultType="int">
-	select count(*) from project1.ARTICLE where article_no > 0
+		select count(*) from project1.ARTICLE where article_no > 0
 	</select>
 	
 </mapper>
