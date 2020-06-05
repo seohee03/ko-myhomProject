@@ -25,25 +25,30 @@
 				return;
 			}
 		});
+		
 	});
 	
 	function commmentInsertBtn(){
-		/* var content = $('input[name=commentContent]'); */
-		$.ajax({
-			url : "${pageContext.request.contextPath}/community/insertComment",
-			type : "post",
-			dataType : "json",
-			data : $('#commentForm').serialize(),
-			success : function(data){
-				if(data == 0){
-					//alert('등록 성공');
-					location.reload();
-				} else if(data == 9) {
-					alert('등록 실패');
-					
+		var commentBox = $('#commentBox').val().trim();
+		if(commentBox == ''){
+			$('#commentBox').focus();
+			return false;
+		}else{
+			$.ajax({
+				url : "${pageContext.request.contextPath}/community/insertComment",
+				type : "post",
+				dataType : "json",
+				data : $('#commentForm').serialize(),
+				success : function(data){
+					if(data == 0){
+						//alert('등록 성공');
+						location.reload();
+					} else if(data == 9) {
+						alert('등록 실패');
+					}
 				}
-			}
-		})
+			});
+		}
 	}
 
 	</script>
@@ -84,8 +89,7 @@
 
 	</div>
 	<form id="commentForm">
-		글내용 : <input type="text" name="commentContent" placeholder="댓글을 입력해주세요">
-<!-- 		<input type="hidden" name= "memberNo"> -->
+		글내용 : <input type="text" name="commentContent" placeholder="댓글을 입력해주세요" id="commentBox">
 		<input type="hidden" name= "articleNo" value="${article.articleNo}">
 		<input type="button" name="commentInsertBtn" onclick="commmentInsertBtn();" value="등록">
 	</form>
@@ -117,8 +121,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	
-
 </section>
 </body>
 </html>

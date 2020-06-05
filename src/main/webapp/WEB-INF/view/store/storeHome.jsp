@@ -2,6 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/include/header.jsp"%>
 
+<script type="text/javascript">
+$(function(){
+	 $('#searchForm').submit(function(){	
+			var keyword = $('#keyword').val().trim();
+			console.log(keyword);
+			if(keyword.length == ''){
+				$('#keyword').focus();
+				return false;
+			}else{
+				return true;
+			}
+		}); 
+});
+</script>
+
 </head>
 <body>
 	스토어홈
@@ -9,14 +24,14 @@
 	<a href="<c:url value="/cart" />">[장바구니]</a>
 	<a href="<c:url value="/mypage" />">[마이페이지]</a>
 	<br />
-	<a href="<c:url value="//community" />">[커뮤니티]</a>
+	<a href="<c:url value="/community" />">[커뮤니티]</a>
 	<a href="<c:url value="/store" />">[스토어]</a>
 	<br />
 
 	<h1>Item List</h1>
-	<form action="searchItem" method="get">
-		<input type="text" placeholder="검색" name="keyword"> <input
-			type="submit" value="검색">
+	<form action="searchItem" method="get" id="searchForm">
+		<input type="text" placeholder="검색" name="keyword" value="" id="keyword">
+		<input type="button" value="검색" id="searchBtn">
 	</form>
 
 	<table border="1">

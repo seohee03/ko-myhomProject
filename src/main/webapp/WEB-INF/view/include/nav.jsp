@@ -29,6 +29,20 @@ font-family: 'Noto Sans KR', sans-serif;
 }
 -->
 </style>
+
+<script type="text/javascript">
+$(function(){
+	$('#searchForm').submit(function(){
+		var keyword = $('#keyword').val().trim();
+		if(keyword.length == ""){
+			$('#keyword').focus();
+			return false;
+		}else{
+			return true;
+		}
+	});
+});
+</script>
 </head>
 
 <body class="homepage is-preload">
@@ -45,9 +59,8 @@ font-family: 'Noto Sans KR', sans-serif;
 					<li><a href="<c:url value="/store" />">스토어</a></li>
 					
 					
-					<li><form action="searchItem" method="get" class="searchForm">
-					<input class="input_box" type="text" 
-					style="padding: .5em .3em;" placeholder="검색" name="keyword">
+					<li><form action="searchItem" method="get" class="searchForm" id="searchForm">
+					<input class="input_box" type="text" style="padding: .5em .3em;" placeholder="검색" name="keyword" id="keyword">
 					</form></li> 
 					
 					

@@ -46,7 +46,6 @@ public class WebContextConfiguration  implements WebMvcConfigurer {
         return resolver;
     }
     
-    
     @Override
 	public void configureDefaultServletHandling(
 			DefaultServletHandlerConfigurer configurer) {

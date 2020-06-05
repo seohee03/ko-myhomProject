@@ -53,8 +53,24 @@ $(function(){
 
     });
     
-    
+    $('.pw').focusout(function () {
+        var pwd1 = $("#pw1").val();
+        var pwd2 = $("#pw2").val();
 
+        if ( pwd1 != '' && pwd2 == '' ) {
+            null;
+        } else if (pwd1 != "" || pwd2 != "") {
+            if (pwd1 == pwd2) {
+            	  $("#alert-success").css('display', 'inline-block');
+                  $("#alert-danger").css('display', 'none');
+            } else {
+            	 alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+                 $("#alert-success").css('display', 'none');
+                 $("#alert-danger").css('display', 'inline-block');
+            }
+        }
+    });
+  
 });
 
 function fn_idChk(){
@@ -73,9 +89,6 @@ function fn_idChk(){
 		}
 	})
 }
-
-
-
 
 </script>
 </head>
@@ -98,15 +111,16 @@ function fn_idChk(){
     </p>
     <p>
         <label>비밀번호:<br>
-        <form:password path="memberPw" />
+        <form:password path="memberPw" class="pw" id="pw1" />
         <span class="errStr memberPw"></span>
         </label>
     </p>
     <p>
         <label>비밀번호 확인:<br>
-        <form:password path="confirmPassword" />
-        <span class="errStr confirmPassword"></span>
+        <form:password path="confirmPassword" class="pw" id="pw2" />
         </label>
+        <span class="errStr confirmPassword" id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
+        <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
     </p>
     <button type="submit" id="submit" >가입</button>
     </form:form> 
