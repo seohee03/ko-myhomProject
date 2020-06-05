@@ -3,61 +3,59 @@
 
 <!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
 <mapper namespace="com.myhome.www.item.service.impl.ItemDao">
-	
+
 	<!-- 객체의 속성(필드)값과 DB의 필드명을 맞춰준다 -->
 	<resultMap id="item" type="item">
-			<result property="itemNo"  column="item_no" />
-            <result property="itemCode"  column="item_code" />
-             <result property="itemName"  column="item_name" />
-             <result property="itemDetail"  column="item_detail" />
-             <result property="price"  column="price" />
-             <result property="stock"  column="stock" />
-             <result property="itemRegDateTime"  column="item_regdate" />
-             <result property="categorieNo"  column="categorie_no" />
-    </resultMap>
-    <resultMap id="option1" type="option1">
-             <result property="option1No"  column="option1_no" />
-             <result property="itemNo"  column="item_no" />
-             <result property="option1Name"  column="option1_name" />
-             <result property="option1Price"  column="option1_price" />
-             <result property="option1Stock"  column="option1_stock" />
+		<result property="itemNo" column="item_no" />
+		<result property="itemCode" column="item_code" />
+		<result property="itemName" column="item_name" />
+		<result property="itemDetail" column="item_detail" />
+		<result property="price" column="price" />
+		<result property="stock" column="stock" />
+		<result property="itemRegDateTime" column="item_regdate" />
+		<result property="categorieNo" column="categorie_no" />
 	</resultMap>
-    <resultMap id="option2" type="option2">
-             <result property="option2No"  column="option2_no" />
-             <result property="option1No"  column="option1_no" />
-             <result property="option2Name"  column="option2_name" />
-             <result property="option2Price"  column="option2_price" />
-             <result property="option2Stock"  column="option2_stock" />
-    </resultMap>
-    <resultMap id="categorie" type="categorie">
-             <result property="categorieNo"  column="categorie_no" />
-             <result property="categorieName"  column="categorie_name" />
+	<resultMap id="option1" type="option1">
+		<result property="option1No" column="option1_no" />
+		<result property="itemNo" column="item_no" />
+		<result property="option1Name" column="option1_name" />
+		<result property="option1Price" column="option1_price" />
+		<result property="option1Stock" column="option1_stock" />
+	</resultMap>
+	<resultMap id="option2" type="option2">
+		<result property="option2No" column="option2_no" />
+		<result property="option1No" column="option1_no" />
+		<result property="option2Name" column="option2_name" />
+		<result property="option2Price" column="option2_price" />
+		<result property="option2Stock" column="option2_stock" />
+	</resultMap>
+	<resultMap id="categorie" type="categorie">
+		<result property="categorieNo" column="categorie_no" />
+		<result property="categorieName" column="categorie_name" />
 	</resultMap>
 	<resultMap type="itemImg" id="itemImg">
-             <result property="imgUrl"  column="img_url" />
-             <result property="thumbUrl"  column="thumb_url" />
-             <result property="isThumb"  column="is_thumb" />
-             <result property="itemNo"  column="item_no" />
+		<result property="imgUrl" column="img_url" />
+		<result property="thumbUrl" column="thumb_url" />
+		<result property="isThumb" column="is_thumb" />
+		<result property="itemNo" column="item_no" />
 	</resultMap>
-	
+
 	<resultMap type="itemCommand" id="itemCommand">
-			<collection property="item" resultMap="item" />
-			<collection property="option1" resultMap="option1" />
-			<collection property="option2" resultMap="option2" />
-			<collection property="itemImg" resultMap="itemImg" />
-			<collection property="categorie" resultMap="categorie" />
+		<collection property="item" resultMap="item" />
+		<collection property="option1" resultMap="option1" />
+		<collection property="option2" resultMap="option2" />
+		<collection property="itemImg" resultMap="itemImg" />
+		<collection property="categorie" resultMap="categorie" />
 	</resultMap>
-    	
+
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
 		있습니다. -->
 	<!-- 전체 조회 -->
-	<!-- <select id="selectItemList" resultType="itemCommand" resultMap="itemCommand" >
-		select * from ITEM
-		left join categorie on categorie.categorie_no = item.categorie_no
-		left join option1 on option1.item_no = item.item_no
-		left join option2 on option1.option1_no = option2.option1_no
-		left join item_img on item.item_no = item_img.item_no order by item.item_no desc
-	</select> -->
+	<!-- <select id="selectItemList" resultType="itemCommand" resultMap="itemCommand" 
+		> select * from ITEM left join categorie on categorie.categorie_no = item.categorie_no 
+		left join option1 on option1.item_no = item.item_no left join option2 on 
+		option1.option1_no = option2.option1_no left join item_img on item.item_no 
+		= item_img.item_no order by item.item_no desc </select> -->
 	<!-- 페이징 처리하여 리스트 출력 -->
 	<select id="selectItemList" resultType="itemCommand" resultMap="itemCommand" parameterType="itemPageSize">
 		select * from item i
@@ -68,100 +66,98 @@
 		where is_thumb = 1
 		order by i.item_no desc limit #{startRow}, #{size}
 	</select>
-	
+
 	<!-- 상품 개수 -->
 	<select id="selectCount" resultType="java.lang.Integer">
-		select count(*) from item
-	</select>
-	
-	<!-- 등록 -->
-	<insert id="insertItem"
-		parameterType="item">
-		INSERT INTO ITEM(categorie_no, ITEM_CODE, ITEM_NAME, ITEM_DETAIL, PRICE, STOCK, item_regdate) VALUES
-		(#{categorieNo}, #{itemCode}, #{itemName}, #{itemDetail}, #{price}, #{stock}, #{itemRegDateTime})
-	</insert>
-	<insert id="insertOption1"
-		parameterType="option1">
-		INSERT INTO option1(item_no, option1_name, option1_price, option1_stock) VALUES
-		(#{itemNo}, #{option1Name}, #{option1Price}, #{option1Stock})
-	</insert>
-	<insert id="insertOption2"
-		parameterType="option2">
-		INSERT INTO option2(option1_no, option2_name, option2_price, option2_stock) VALUES
-		(#{option1No}, #{option2Name}, #{option2Price}, #{option2Stock})
-	</insert>
-	<insert id="insertItemImg" parameterType="itemImg">
-		INSERT INTO item_img(img_url, thumb_url, is_thumb, item_no) VALUES (#{imgUrl}, #{thumbUrl}, #{isThumb}, #{itemNo})
-	</insert>
-	
-	<!-- insert 할때  필요한 객체 가져올떄 사용 -->
-	<select id="selectItemByItemCode" resultType="item">
-		SELECT * FROM ITEM WHERE item_code = #{itemCode}
-	</select>
-	<select id="selectOption1ByItemNo" resultType="option1">
-		SELECT * FROM option1 WHERE ITEM_NO = #{itemNo}
-	</select>
-	<select id="selectCatByCatNo" resultType="categorie">
-		SELECT * FROM categorie WHERE categorie_no = #{categorieNo}
-	</select>
-	
-	<!-- 아이템 번호로 아이템 가져오기 -->
-	<select id="selectItemByItemNo" resultType="itemCommand" resultMap="itemCommand">
-		select * from item i
-		left join categorie c on c.categorie_no = i.categorie_no
-		left join option1 o1 on o1.item_no = i.item_no
-		left join option2 o2 on o1.option1_no = o2.option1_no
-		where i.item_no = #{itemNo} 
+		select count(*) from item;
 	</select>
 
+	<!-- 등록 -->
+	<insert id="insertItem" parameterType="item">
+		INSERT INTO ITEM(categorie_no, ITEM_CODE, ITEM_NAME, ITEM_DETAIL, PRICE, STOCK, item_regdate) 
+		VALUES(#{categorieNo}, #{itemCode}, #{itemName}, #{itemDetail}, #{price}, #{stock}, #{itemRegDateTime})
+		<selectKey resultType="Integer" order="AFTER" keyProperty="itemNo">
+			select last_insert_id() 
+		</selectKey>
+	</insert>
+	
+	<insert id="insertOption1" parameterType="option1">
+		INSERT INTO option1(item_no, option1_name, option1_price, option1_stock) 
+		VALUES(#{itemNo}, #{option1Name}, #{option1Price}, #{option1Stock})
+		<selectKey resultType="Integer" order="AFTER" keyProperty="option1No">
+			select last_insert_id() 
+		</selectKey>
+	</insert>
+	
+	<insert id="insertOption2" parameterType="option2">
+		INSERT INTO option2(option1_no, option2_name, option2_price, option2_stock)
+		VALUES(#{option1No}, #{option2Name}, #{option2Price}, #{option2Stock})
+	</insert>
+	
+	<insert id="insertItemImg" parameterType="itemImg">
+		INSERT INTO item_img(img_url, thumb_url, is_thumb, item_no) 
+		VALUES (#{imgUrl}, #{thumbUrl}, #{isThumb}, #{itemNo}) 
+	</insert>
+		
+	<!-- insert 할때 필요한 객체 가져올떄 사용 -->
+	<select id="selectItemByItemCode" resultType="item">
+		SELECT * FROM ITEM
+		WHERE item_code = #{itemCode} 
+	</select>
+
+	<select id="selectOption1ByItemNo" resultType="option1">
+		SELECT * FROM option1 WHERE ITEM_NO = #{itemNo} 
+	</select>
+
+	<select id="selectCatByCatNo" resultType="categorie">
+		SELECT * FROM categorie WHERE categorie_no = #{categorieNo} 
+	</select>
+
+	<!-- 아이템 번호로 아이템 가져오기 -->
+	<select id="selectItemByItemNo" resultMap="itemCommand" resultType="itemCommand">
+		select * from item i left join categorie c on c.categorie_no= i.categorie_no left join option1 o1 on o1.item_no = i.item_no left
+		join option2 o2 on o1.option1_no = o2.option1_no where i.item_no = #{itemNo} 
+	</select>
+	
 	<!-- 수정 -->
 	<update id="updateItem" parameterType="item">
-		update item
-		set categorie_no = #{categorieNo}, item_name = #{itemName}, item_detail = #{itemDetail},
-		price = #{price}, stock = #{stock}
-		where item_no = #{itemNo}
+		update item set categorie_no = #{categorieNo}, item_name = #{itemName}, item_detail = #{itemDetail}, price = #{price}, stock = #{stock} 
+		where item_no = #{itemNo} 
 	</update>
-	<update id="updateOption1" parameterType="option1">
-		update option1
-		set option1_name = #{option1Name}, option1_price = #{option1Price}, option1_stock = #{option1Stock}
-		where item_no = #{itemNo}
-	</update>
-	<update id="updateOption2" parameterType="option2">
-		update option2
-		set option2_name = #{option2Name}, option2_price = #{option2Price}, option2_stock = #{option2Stock}
-		where option1_no = #{option1No}
-	</update>	
-	<!-- <update id="updateItemImg" parameterType="itemImg">
-		update item_img
-		set img_url = #{imgUrl}, thumb_url = #{thumbUrl}, is_thumb = #{isThumb}
-		where item_no = #{itemNo}
-	</update> -->
 	
+	<update id="updateOption1" parameterType="option1">
+		update option1 set option1_name = #{option1Name}, option1_price = #{option1Price}, option1_stock = #{option1Stock} where item_no = #{itemNo} 
+	</update>
+	
+	<update id="updateOption2" parameterType="option2">
+		update option2 set option2_name = #{option2Name}, option2_price = #{option2Price}, option2_stock = #{option2Stock} 
+		where option1_no = #{option1No}
+	</update>
+
 	<!-- 삭제 -->
 	<delete id="deleteItem" parameterType="item">
-		delete i, ii from item i inner join item_img ii
-		on i.item_no = ii.item_no
-		where i.item_no = #{itemNo};
+		delete from item where item_no = #{itemNo} 
 	</delete>
+
 	<delete id="deleteOption" parameterType="item">
-		delete o1, o2 from option1 o1 inner join option2 o2
-		on o1.option1_no = o2.option1_no
-		where item_no = #{itemNo};
+		delete o1, o2 from option1 o1 inner join option2 o2 on o1.option1_no = o2.option1_no
+		where item_no = #{itemNo} 
 	</delete>
+
 	<delete id="deleteImg" parameterType="itemImg">
 		delete from item_img where item_no = #{itemNo} 
 	</delete>
-	
+
 	<select id="selectSearchItemList" parameterType="String" resultMap="itemCommand">
-	select distinct(i.item_no) as item_no, item_img.thumb_url, categorie.categorie_name, i.item_name, i.price 
+		select distinct(i.item_no) as item_no, item_img.thumb_url, categorie.categorie_name, i.item_name, i.price
 		from ITEM i
 		left join categorie on categorie.categorie_no = i.categorie_no
-		left join item_img on i.item_no = item_img.item_no 
-        where is_thumb = 1
-        <if test="keyword != ''">
+		left join item_img on i.item_no = item_img.item_no
+		where is_thumb = 1
+		<if test="keyword != ''">
 			and i.item_name like concat('%',#{keyword},'%')
 		</if>
-		order by i.item_no desc;
+		order by i.item_no desc
 	</select>
-	
+
 </mapper>

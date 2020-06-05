@@ -1,56 +1,109 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	pageEncoding="UTF-8"%>
+
+	<%@ include file="/WEB-INF/view/include/header.jsp"%>
+	<%@ include file="/WEB-INF/view/include/nav.jsp"%>
+
 <script type="text/javascript">
 $(function(){
-    $('#submit').click(function(){
-    	var result = confirm('등록하시겠습니까?'); 
-    	if(result) { 
-    		//액션 경로 지정
-    		$("#submit").submit();
-   		} else {
-   			return;
-   		}
-    	//상품명, 가격, 재고
+	var $registerForm = $('#registerForm');
+	
+    $('#submit').click(function(){	
+    	//카테고리, 옵션1 이름, 옵션2 이름, 상품명, 상품 설명, 이미지
+    	var categorieNo = $('#categorieNo').val();
     	var itemName = $('#itemName').val();
+    	var itemDetail = $('#itemDetail').val();
+    	var option1Name = $('#option1Name').val();
+    	var option2Name = $('#option2Name').val();
     	var price = $('#price').val();
     	var stock = $('#stock').val();
+    	var files = $('#files').val();
     	
-    	if(itemName.length == 0){
+   		if(categorieNo == ""){
+   			$('.categorieNo').text("카테고리를 선택해주세요");
+   			$('#categorieNo').focus();
+   			return false;
+   		}else {
+   			$('.errStr').text("");
+   		}
+   		
+   		if(option1Name.length == 0){
+    		$('.option1Name').text("상위 옵션을 입력해주세요");
+    		$('#option1Name').focus();
+    		return false;
+   		}else{
+   			$('.errStr').text("");
+   		}
+   		
+   		if(option2Name.length == 0){
+    		$('.option2Name').text("하위 옵션을 입력해주세요");
+    		$('#option2Name').focus();
+    		return false;
+   		}else{
+   			$('.errStr').text("");
+   		}
+   		
+    	if(files == ""){
+    		$('.files').text("이미지를 첨부해주세요");
+    		$('#files').focus();
+    		return false;
+   		}else{
+   			$('.errStr').text("");
+   		}
+    	
+   		if(itemName == ""){
     		$('.itemName').text("상품명을 입력해주세요");
     		$('#itemName').focus();
-    		return;
-    	}else if(price.length == 0){
-    		$('.price').text("가격을 입력해주세요");
-    		$('#price').focus();
-    		return;
-    	}else if(stock.length == 0){
-    		$('.stock').text("재고를 입력해주세요");
-    		$('#stock').focus();
-    		return;
-    	}else{
+    		return false;
+   		}else{
+   			$('.errStr').text("");
+   		}
+   		
+   		if(itemDetail == ""){
+    		$('.itemDetail').text("상품 내용을 입력해주세요");
+    		$('#itemDetail').focus();
+    		return false;
+   		}else{
+   			$('.errStr').text("");
+   		}
+   		
+   		if(isNaN(price)){
+   			$('.price').text("숫자를 입력해주세요");
+   			$('#price').focus();
+   			return false;
+   		}else if(price == ""){ //문자 및 특수문자 체크
+   				$('.price').text("가격을 입력해주세요");
+   	    		$('#price').focus();
+   	    		return false;
+   		}else{
     		$('.errStr').text("");
     	}
+   		
+   		if(isNaN(stock)){
+   			$('.stock').text("숫자를 입력해주세요");
+   			$('#stock').focus();
+   			return false;
+   		}else if(stock == ""){
+   				$('.stock').text("재고를 입력해주세요");
+   	    		$('#stock').focus();
+   	    		return false;
+   			}else{
+    		$('.errStr').text("");
+    	}
+   		
+   		$("#regForm").submit();
+  
     });
 });
 </script>
 
-</head>
-<body>
+
 
 <h1>상품등록</h1>
-<form:form  modelAttribute="itemCommand" method="POST" enctype="multipart/form-data">
-    <form:errors />
+<form:form id="regForm" modelAttribute="itemCommand" method="POST" enctype="multipart/form-data">
     <p>
     <label><spring:message code="categorie.categorieName" />
-    <form:select path="item.categorieNo">
+    <form:select path="item.categorieNo" id="categorieNo">
     	<option value=""> ----카테고리 선택---- </option>
     	<option value="1">생활용품</option>
     	<option value="2">가전제품</option>
@@ -58,73 +111,69 @@ $(function(){
     	<option value="4">홈데코</option>
     	<option value="5">욕실용품</option>
 	</form:select>
+	<span class="errStr categorieNo"></span>
 	</label>
 	</p>
 	
 	<p>
-	<label><spring:message code="option1.option1Name" />:
-       <form:input path="option1.option1Name" />
-       <%--  <form:errors path="itemCommand.item.itemName"/> --%>
-    </label>
-    <label><spring:message code="option1.price" />:
-       <form:input path="option1.option1Price" />
-       <%--  <form:errors path="itemCommand.item.itemName"/> --%>
-    </label>
-    <label><spring:message code="option1.stock" />:
-       <form:input path="option1.option1Stock" />
-       <%--  <form:errors path="itemCommand.item.itemName"/> --%>
-    </label>
-     </p>
-     <p>
-	   <label><spring:message code="option2.option2Name" />:
-       <form:input path="option2.option2Name" />
-     <%--    <form:errors path="itemCommand.item.itemName"/> --%>
-    </label>
-	<label><spring:message code="option2.price" />:
-       <form:input path="option2.option2Price" />
-      <%--   <form:errors path="itemCommand.item.itemName"/> --%>
-    </label>
-    <label><spring:message code="option2.stock" />:
-       <form:input path="option2.option2Stock" />
-<%--         <form:errors path="itemCommand.item.itemName"/> --%>
-    </label> 
+		<label><spring:message code="option1.option1Name" />:
+       		<form:input path="option1.option1Name" id="option1Name"/>
+    	</label>
+    	<label><spring:message code="option1.price" />:
+       		<form:input path="option1.option1Price" />
+   		 </label>
+   		 <label><spring:message code="option1.stock" />:
+      		<form:input path="option1.option1Stock" />
+   		 </label><br>
+    		 <span class="errStr option1Name"></span>
+   	</p>
+    <p>
+		<label><spring:message code="option2.option2Name" />:
+    		<form:input path="option2.option2Name" id="option2Name"/>
+   		</label>
+		<label><spring:message code="option2.price" />:
+       		<form:input path="option2.option2Price" />
+    	</label>
+    	<label><spring:message code="option2.stock" />:
+        	<form:input path="option2.option2Stock" /><br>
+   		</label>
+    	<span class="errStr option2Name"></span>
 	</p>
 	
 	<p>
         <label><spring:message code="itemImg.imgName" />:<br>
-        <form:input type="file" path="files" multiple="multiple"/>
-       <!--  <input multiple="multiple" type="file" name="files" /> -->
-     <%--    <form:errors path="item.stock"/> --%>
+        <form:input type="file" path="files" multiple="multiple" id = "files"/>
+        <span class="errStr files"></span>
         </label>
     </p>
 	
     <p>
         <label><spring:message code="item.itemName" />:<br>
-        <form:input path="item.itemName" />
-       <%--  <form:errors path="item.itemName"/> --%>
+        <form:input path="item.itemName" id="itemName"/>
+         <span class="errStr itemName"></span>
+        <form:errors path="item.itemName"/>
         </label>
     </p>
     <p>
         <label><spring:message code="item.itemDetail" />:<br>
-        <form:input path="item.itemDetail" />
-   <%--      <form:errors path="item.itemDetail"/> --%>
+        <form:input path="item.itemDetail" id="itemDetail"/>
+        <span class="errStr itemDetail"></span>
         </label>
     </p>
      <p>
         <label><spring:message code="item.price" />:<br>
-        <form:input path="item.price" />
-     <%--    <form:errors path="item.price"/> --%>
+        <form:input path="item.price" id="price"/>
+        <span class="errStr price"></span>
         </label>
     </p>
      <p>
         <label><spring:message code="item.stock" />:<br>
-        <form:input path="item.stock" />
-     <%--    <form:errors path="item.stock"/> --%>
+        <form:input path="item.stock" id="stock"/>
+        <span class="errStr stock"></span>
         </label>
     </p>
-	
-    <input type="submit" id="submit" value="<spring:message code="item.btn" />">
+	<button type="submit" id="submit">상품 등록</button>
    
-    </form:form>  
+</form:form>  
 </body>
 </html>

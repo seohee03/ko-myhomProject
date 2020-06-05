@@ -15,9 +15,6 @@ import com.myhome.www.item.service.ItemPageSize;
 @Repository
 public interface ItemDao {
 
-	//상품 전체 리스트
-	//List<ItemCommand> selectItemList() throws Exception;
-	
 	//상품 페이징하여 리스트 출력
 	List<ItemCommand> selectItemList(ItemPageSize itemPageSize) throws Exception;
 	
@@ -30,13 +27,9 @@ public interface ItemDao {
 	int insertOption2(Option2 option2) throws Exception;
 	int insertItemImg(ItemImg itemImg) throws Exception;
 	
-	//상품 코드로 번호 조회(insert때 사용)
-	Item selectItemByItemCode(String itemCode) throws Exception;
-	//상품 넘버로 옵션1 번호 조회(insert때 사용)
+	//상품 넘버로 옵션1 번호 조회(update때 사용)
 	Option1 selectOption1ByItemNo(int itemNo) throws Exception;
-	//카태고리 넘버로 카테고리 이름 조회(insert때 사용)
-	Categorie selectCatByCatNo(int categorieNo) throws Exception;
-	
+
 	//상품 수정 폼 아이템 조회
 	ItemCommand selectItemByItemNo(int itemNo) throws Exception;
 	
