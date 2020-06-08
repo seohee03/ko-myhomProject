@@ -1,40 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/include/header.jsp"%>
+<%@ include file="/WEB-INF/view/include/header.jsp" %>
 
 <script type="text/javascript">
 $(function(){
 	 $('#searchForm').submit(function(){	
-			var keyword = $('#keyword').val().trim();
-			console.log(keyword);
-			if(keyword.length == ''){
-				$('#keyword').focus();
-				return false;
-			}else{
-				return true;
-			}
-		}); 
+		var keyword = $('#keyword').val().trim();
+		console.log(keyword);
+		if(keyword.length == ''){
+			$('#keyword').focus();
+			return false;
+		}else{
+			return true;
+		}
+	}); 
 });
 </script>
 
 </head>
 <body>
-	스토어홈
+
+<%@ include file="/WEB-INF/view/include/nav.jsp"%>
+
+<%-- 	스토어홈
 	<br />
 	<a href="<c:url value="/cart" />">[장바구니]</a>
 	<a href="<c:url value="/mypage" />">[마이페이지]</a>
 	<br />
 	<a href="<c:url value="/community" />">[커뮤니티]</a>
 	<a href="<c:url value="/store" />">[스토어]</a>
-	<br />
-
+	<br /> --%>
+	<div class="gnbList">
+		<ul class="clearfix">
+			<li class="on">
+				<a>
+					<div class="imgArea"><img alt="" src="images/categorie01.jpg"></div>
+					<div class="txt">가구</div>
+				</a>
+			</li>
+			<li>
+				<a>
+					<div class="imgArea"><img alt="" src="images/categorie07.jpg"></div>
+					<div class="txt">침구</div>
+				</a>
+			</li>
+			<li>
+				<a>
+					<div class="imgArea"><img alt="" src="images/categorie02.jpg"></div>
+					<div class="txt">패브릭</div>
+				</a>
+			</li>
+			<li>
+				<a>
+					<div class="imgArea"><img alt="" src="images/categorie03.jpg"></div>
+					<div class="txt">홈데코</div>
+				</a>
+			</li>
+			<li>
+				<a>
+					<div class="imgArea"><img alt="" src="images/categorie04.jpg"></div>
+					<div class="txt">가전</div>
+				</a>
+			</li>
+			<li>
+				<a>
+					<div class="imgArea"><img alt="" src="images/categorie05.jpg"></div>
+					<div class="txt">생활용품</div>
+				</a>
+			</li>
+			<li>
+				<a>
+					<div class="imgArea"><img alt="" src="images/categorie06.jpg"></div>
+					<div class="txt">주방</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+<div class="container">
+	
 	<h1>Item List</h1>
 	<form action="searchItem" method="get" id="searchForm">
 		<input type="text" placeholder="검색" name="keyword" value="" id="keyword">
 		<input type="button" value="검색" id="searchBtn">
 	</form>
-
-	<table border="1">
+	
+	<c:set var="path" value="${pageContext.request.contextPath }" />
+	
+	<div class="pdList">
+		<ul class="clearfix">
+		<c:forEach var="itemC" items="${itemPage.content}">
+			<li onclick="javascript:moveItemViewPage('${path }','${itemC.item.itemNo} ','${path }${itemC.itemImg.thumbUrl}'); return false;">
+				
+				<a>
+				<div class="imgArea">
+					<img alt="" src="${path }${itemC.itemImg.thumbUrl}">
+				</div>
+				<div class="infoArea">
+				 	<p class="brand"><c:out value="${itemC.categorie.categorieName}" /></p>
+				 	<p class="ttl"><c:out value="${itemC.item.itemName}" /></p>
+				 	<p class="pdSum"><c:out value="${itemC.item.price}" />원</p>
+				</div>
+				</a>
+				
+			</li>
+			</c:forEach>
+		</ul>
+	</div>
+	
+	<%-- <table border="1">
 		<thead>
 			<tr>
 				<th>이미지</th>
@@ -60,7 +133,7 @@ $(function(){
 			<input type="hidden" id="path" value="${pageContext.request.contextPath }">
 			<c:forEach var="itemC" items="${itemPage.content}">
 				<tr onclick="javascript:moveItemViewPage('${path }','${itemC.item.itemNo} ','${path }${itemC.itemImg.thumbUrl}'); return false;">
-<%-- 				<tr onclick="javascript:itemDetailBtn('${path }','${itemC.item.itemNo}','${itemC.itemImg.thumbUrl}');"> --%>
+				<tr onclick="javascript:itemDetailBtn('${path }','${itemC.item.itemNo}','${itemC.itemImg.thumbUrl}');">
 					<td><img src="${path }${itemC.itemImg.thumbUrl}"
 						style="width: 50px"></td>
 					<td><c:out value="${itemC.item.itemNo}" /></td>
@@ -76,7 +149,10 @@ $(function(){
 							pattern="yyyy-MM-dd" /></td>
 				</tr>
 			</c:forEach>
-			<c:if test="${itemPage.hasItems()}">
+			
+		</tbody>
+	</table> --%>
+	<c:if test="${itemPage.hasItems()}">
 				<tr>
 					<td colspan="11"><c:if test="${itemPage.startPage > 5}">
 							<a href="<c:url value="/store/${itemPage.startPage - 5}" />">[이전]</a>
@@ -88,15 +164,15 @@ $(function(){
 						</c:if></td>
 				</tr>
 			</c:if>
-		</tbody>
-	</table>
 	
-	<div id="latelyViewItemListPageing_div">
-		<ul id="latelyViewItemList_ul"></ul>
+	<div id="latelyViewItemListPageing_div" class="recentArea">
+			<button class="topBtn">TOP</button>
+		<ul id="latelyViewItemList_ul">
+		</ul>
 		<!-- <strong id="nowLatelyViewItemPage_strong"></strong>
 		<span id="totalLatelyViewItemPage_span"></span> -->
 	</div>
-
+</div>
 
 	<script type="text/javascript">
 	
@@ -326,55 +402,7 @@ $(function(){
 
 </script>
 	
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 
-<script type="text/javascript">
-/*
-function itemDetailBtn(path, itemNo, img){
-		var url = path + '/itemDetail/' + itemNo;
-		//img = img.replace(/\//g, "\/");
-		var imgPath = path + img;
-		
-		var historyItemObj = new Object();
-		var historyItemArr = new Array();
-		
-		if($.cookie('historyItem') == 'null' || $.cookie('historyItem') == 'undefined'){
-			historyItemObj.itemNo = itemNo;
-			historyItemObj.imgPath = imgPath;
-			//historyItem.push("{'itemNo':"+itemNo+",'imgPath' : "+imgPath+"}");
-			$.cookie('historyItem', historyItemObj);
-		}else{
-			historyItemArr.push($.cookie('historyItem'));
-			historyItemObj.itemNo = itemNo;
-			historyItemObj.imgPath = imgPath;
-			historyItemArr.push(historyItemObj);
-			$.cookie('historyItem', JSON.stringify(historyItemArr));
-		}
-		console.log($.cookie('historyItem'));
-		var objToCookie = $.parseJSON($.cookie('historyItem'));
-		console.log(objToCookie);
-		$.cookie('historyItem', null);
-		location.href=url;
-	} */
-
-	/* function itemDetailBtn(path, itemNo, img){
-		var url = path + '/itemDetail/' + itemNo;
-		img = img.replace(/\//g, "\/");
-		var imgPath = path + img;
-		
-		 if($.cookie('historyItem') == 'null' || $.cookie('historyItem') == 'undefined'){
-			 var historyItem = "[{\"itemNo\":"+itemNo+",\"imgPath\" : "+imgPath+"}]";
-			 $.cookie('historyItem', JSON.stringify(historyItem));
-		 }else{
-			 var historyItem = new Array();
-			 historyItem = $.parseJSON($.cookie('historyItem'));
-			 console.log(historyItem);
-			 historyItem.put('historyItem', "{\"itemNo\":"+itemNo+",\"imgPath\" : "+imgPath+"}");
-			 $.cookie('historyItem', JSON.stringify(historyItem));
-		 }
-		
-		console.log($.cookie('historyItem'));
-		location.href=url;
-	} */
-	</script>
 </body>
 </html>

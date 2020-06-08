@@ -40,7 +40,7 @@ public class ItemServiceImpl implements ItemService{
 		//상품 등록된 아이템 리스트 수
 		int total = itemDao.selectCount();
 		//한페이지 당 아이템 3개씩 출력
-		ItemPageSize itemPageSize = new ItemPageSize(3, (pageNum-1)*3);
+		ItemPageSize itemPageSize = new ItemPageSize(20, (pageNum-1)*20);
 		//limit sql문을 이용해 등록글 3개씩 가져온다
 		List<ItemCommand> content = itemDao.selectItemList(itemPageSize);
 		//총 등록글 수, 현재페이지, 한 페이지 당 등록글 수, 등록글을 넘겨준다 

@@ -17,12 +17,15 @@
 	</insert>
 	
 <!-- 댓글 수정 -->
-	<update parameterType="comment" id="modifyComment">
-		UPDATE COMMENT SETcomment_content = #{commentContent} WHERE comment_no = #{commentNo} 
-	</update>
-	
+     <update id="modifyComment" parameterType="comment">
+        UPDATE COMMENT
+            SET
+            comment_content = #{commentContent}
+        WHERE comment_no = #{commentNo}
+      </update>
+      
 <!-- 댓글 삭제 -->
-	<delete parameterType="int" id="commentDelete">
-		DELETE FROM COMMENT WHERE comment_no = #{commentNo} 
-	</delete>
+    <delete id="deleteComment" parameterType="int">
+        DELETE FROM COMMENT WHERE comment_no = #{commentNo}
+    </delete>
  </mapper>

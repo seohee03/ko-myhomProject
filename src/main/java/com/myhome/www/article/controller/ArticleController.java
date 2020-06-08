@@ -192,7 +192,7 @@ public class ArticleController {
 		model.addAttribute("article", article);
 		
 		List<Comment> commentList = commentService.selectCommentByNo(articleNo);
-		model.addAttribute(commentList);
+		model.addAttribute("commentList", commentList);
 		
 		return "community/readArticle";
 	}

@@ -32,5 +32,11 @@ public class CommentServiceImpl implements CommentService{
 		return commentDao.modifyComment(comment);
 	}
 
+	@Override
+	public int deleteComment(int commentNo) throws Exception {
+		System.out.println("service진입>>>>>>>>");
+		return commentDao.deleteComment(commentNo);
+	}
+
 	
 }

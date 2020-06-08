@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myhome.www.member.dto.Member;
 import com.myhome.www.member.service.AuthInfo;
-import com.myhome.www.member.service.LoginCommand;
 import com.myhome.www.member.service.MemberService;
 import com.myhome.www.member.service.RegisterRequest;
 
@@ -80,19 +79,19 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// 마이페이지 이동
-	@RequestMapping("/mypage")
-	public String goMypage(HttpSession session, Model model) throws Exception {
-		if (session.getAttribute("authInfo") != null) {
-			AuthInfo newAuthInfo = (AuthInfo) session.getAttribute("authInfo");
-			Member member = memberService.selectMemberByNo(newAuthInfo.getMemberNo());
-
-			model.addAttribute("member", member);
-			return "mypage/mypageHome";
-		}
-		// 로그인 하지 않은 경우에 mypage 진입시 회원로그인 폼으로 보낸다
-		return "redirect:/login";
-	}
+//	// 마이페이지 이동
+//	@RequestMapping("/mypage")
+//	public String goMypage(HttpSession session, Model model) throws Exception {
+//		if (session.getAttribute("authInfo") != null) {
+//			AuthInfo newAuthInfo = (AuthInfo) session.getAttribute("authInfo");
+//			Member member = memberService.selectMemberByNo(newAuthInfo.getMemberNo());
+//
+//			model.addAttribute("member", member);
+//			return "mypage/mypageHome";
+//		}
+//		// 로그인 하지 않은 경우에 mypage 진입시 회원로그인 폼으로 보낸다
+//		return "redirect:/login";
+//	}
 
 	// 정보수정
 	@RequestMapping("/mypage/modify")

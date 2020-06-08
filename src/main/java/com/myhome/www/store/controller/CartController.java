@@ -54,7 +54,7 @@ public class CartController {
 			}
 			
 			if(result > 0) {
-				 writer.println("<script>alert('장바구니 추가 성공!'); location.href='" + request.getContextPath() + "/itemDetail/"+cart.getItemNo()+"';</script>");
+				 writer.println("<script>alert('장바구니 추가 성공!'); location.href='" + request.getContextPath() + "/itemDetail?itemNo="+cart.getItemNo()+"';</script>");
 			}
 		}else {
 			writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='" + request.getContextPath() + "/login';</script>");
@@ -76,7 +76,7 @@ public class CartController {
 		}
 	}
 
-	//장바구니 리스트 보여줌
+	//장바구니 리스트 보여줌 / 주문페이지 넘어가기
 	@RequestMapping(value = "/mycart")
 	public String myCart(@Param("type") int type, HttpSession session, Model model) throws Exception {
 		String urlStr = "store/cart";
@@ -92,6 +92,8 @@ public class CartController {
 		
 		return urlStr;
 	}
+	
+	//장바구니에서 선택된 상품만 order로 넘어가기
 	
 	//장바구니에 있는 상품 수량 변경
 	@ResponseBody

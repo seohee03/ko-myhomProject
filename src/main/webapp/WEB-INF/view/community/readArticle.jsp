@@ -4,6 +4,7 @@
 
 <script type="text/javascript">
 	$(function() {
+		
 		$('#modifyBtn').click(function() {
 			var result = confirm('수정하시겠습니까?');
 			if (result) {
@@ -28,31 +29,15 @@
 		
 	});
 	
-	function commmentInsertBtn(){
-		var commentBox = $('#commentBox').val().trim();
-		if(commentBox == ''){
-			$('#commentBox').focus();
-			return false;
-		}else{
-			$.ajax({
-				url : "${pageContext.request.contextPath}/community/insertComment",
-				type : "post",
-				dataType : "json",
-				data : $('#commentForm').serialize(),
-				success : function(data){
-					if(data == 0){
-						//alert('등록 성공');
-						location.reload();
-					} else if(data == 9) {
-						alert('등록 실패');
-					}
-				}
-			});
-		}
-	}
+	
+	
+	/* $(document).ready(function(){
+	    
+	}); */
 
 	</script>
 </head>
+
 <%@ include file="/WEB-INF/view/include/nav.jsp"%>
 <section id="features" style="width: 60%; margin: auto;">
 	<div class="container">
@@ -114,13 +99,87 @@
 				<td><c:out value="${comment.regdate}" /></td>
 				<td><c:out value="${comment.moddate}" /></td>
 				<c:if test="${authInfo.memberNo == comment.memberNo}">
-				<td><a href="<c:url value='/community/modify/${comment.commentNo}'/>">[수정]</a></td>
-				<td><a href="<c:url value='/community/delete/${comment.commentNo}'/>">[삭제]</a></td>
+				<td class="commentList"><input type="button" id="commentModifyBtn" onclick="commentModifyBtn('${comment.commentNo}', '${comment.commentContent}')" value="수정">
+				<input type="button" id="commentDeleteBtn" onclick="commentDeleteBtn('${comment.commentNo}')" value="삭제"></td>
+				
 				</c:if>
 			</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 </section>
+<script type="text/javascript">
+function commmentInsertBtn(){
+	var commentBox = $('#commentBox').val().trim();
+	if(commentBox == ''){
+		$('#commentBox').focus();
+		return false;
+	}else{
+		$.ajax({
+			url : "${pageContext.request.contextPath}/community/insertComment",
+			type : "post",
+			dataType : "json",
+			data : $('#commentForm').serialize(),
+			success : function(data){
+				if(data == 0){
+					alert('등록 성공');
+					//location.reload();
+				} else if(data == 9) {
+					alert('등록 실패');
+				}
+			}
+		});
+	}
+}
+
+function commentModifyBtn(commentNo, commentContent){
+	/* var commentNo = "${comment.commentNo}"; */
+    var a ='';
+    
+    a += '<div class="input-group">';
+    a += '<input type="text" class="form-control" name="content_'+commentNo+'" value="'+commentContent+'"/>';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+commentNo+');">완료</button> </span>';
+    a += '</div></td>';
+    
+    $('.commentList').html(a);
+}
+
+function commentUpdateProc(commentNo){
+    var updateContent = $('[name=content_'+commentNo+']').val();
+    var articleNo = "${comment.articleNo}"
+    $.ajax({
+        url : '${pageContext.request.contextPath}/community/commentUpdate',
+        type : 'post',
+        data : {'commentContent' : updateContent, 'commentNo' : commentNo},
+        success : function(data){
+            if(data == 0) {
+            	alert("수정완료");
+        		commentList(articleNo);
+            }else if(data == 9){
+            	alert("수정실패");
+            }
+        }
+    });
+}
+
+function commentDeleteBtn(commentNo){
+    var articleNo = "${comment.articleNo}"
+	$.ajax({
+		url : '${pageContext.request.contextPath}/community/commentDelete/'+ commentNo,
+		type : 'post',
+		success : function(data){
+			if(data == 0)
+			location.reload();
+		}	
+	});
+	
+}
+$(document).ready(function(){
+    commentList(); //페이지 로딩시 댓글 목록 출력 
+});
+
+</script>
+
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>
 </html>

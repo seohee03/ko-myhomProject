@@ -140,7 +140,7 @@ public class ItemController {
 //		return "store/storeHome";
 //	}
 //	
-	//스토어 상품 번호로 상세 페이지 들어가기
+//	//스토어 상품 번호로 상세 페이지 들어가기
 //	@RequestMapping(value = "/store/itemDetail/{itemNo}", method = RequestMethod.GET)
 //	public String itemDetail(@PathVariable("itemNo") int itemNo, Model model) throws Exception {
 //		
@@ -151,6 +151,6 @@ public class ItemController {
 //		model.addAttribute("cart", cart);
 //		return "store/itemDetail";
 //	}
-//	
+	
 	
 }

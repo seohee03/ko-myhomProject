@@ -12,4 +12,6 @@ public interface CommentService {
 	int insertComment(Comment comment) throws Exception;
 	// 댓글 수정
 	int modifyComment(Comment comment) throws Exception;
+	// 댓글 삭제
+	int deleteComment(int commentNo) throws Exception;
 }
