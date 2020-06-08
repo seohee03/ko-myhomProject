@@ -5,7 +5,7 @@
 <mapper namespace="com.myhome.www.store.service.impl.CartDao">
 
 	<insert id="insertItemInCart" parameterType="cart">
-	insert into cart(member_no, amount, item_no, price, item_name) values(#{memberNo}, #{amount}, #{itemNo}, #{price}, #{itemName})
+	insert into cart(member_no, amount, item_no, price, item_name, thumb_url) values(#{memberNo}, #{amount}, #{itemNo}, #{price}, #{itemName}, #{thumbUrl})
 	</insert>
 	
 	<!-- 장바구니에 동일한 상품 있는지 확인 -->

@@ -11,6 +11,8 @@ public class CartCommand {
     private int price;
     private int option1No;
     private int option2No;
+    private String thumbUrl;
+    
     
 	public int getCartNo() {
 		return cartNo;
@@ -66,8 +68,11 @@ public class CartCommand {
 	public void setOption2No(int option2No) {
 		this.option2No = option2No;
 	}
-    
-    
-
+	public String getThumbUrl() {
+		return thumbUrl;
+	}
+	public void setThumbUrl(String thumbUrl) {
+		this.thumbUrl = thumbUrl;
+	}
     
 }

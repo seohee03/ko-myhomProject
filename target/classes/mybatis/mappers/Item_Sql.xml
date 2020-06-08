@@ -56,7 +56,21 @@
 		left join option1 on option1.item_no = item.item_no left join option2 on 
 		option1.option1_no = option2.option1_no left join item_img on item.item_no 
 		= item_img.item_no order by item.item_no desc </select> -->
-	<!-- 페이징 처리하여 리스트 출력 -->
+		
+		
+		
+<!-- 상품 8개만 조회 -->		
+	<select id="selectItemForIndex" resultMap="itemCommand">
+		select * from item i
+		left join categorie c on c.categorie_no = i.categorie_no
+		left join item_img ii on i.item_no = ii.item_no
+		left join option1 o1 on o1.item_no = i.item_no
+		left join option2 o2 on o1.option1_no = o2.option1_no
+		where is_thumb = 1
+		order by i.item_no desc limit 0, 8
+	</select>
+		
+<!-- 페이징 처리하여 리스트 출력 -->
 	<select id="selectItemList" resultType="itemCommand" resultMap="itemCommand" parameterType="itemPageSize">
 		select * from item i
 		left join categorie c on c.categorie_no = i.categorie_no
@@ -158,6 +172,20 @@
 			and i.item_name like concat('%',#{keyword},'%')
 		</if>
 		order by i.item_no desc
+	</select>
+	
+<!-- 카테고리 번호로 상품 개수 조회 -->
+	<select id="selectCountByCategorieNo" resultType="int" parameterType="int">
+		select count(*) from item where categorie_no = #{categorieNo}
+	</select>
+<!-- 카테고리별 상품 조회 -->
+	<select id="selectItemByCategoryNo" resultMap="itemCommand" parameterType="item">
+		select c.categorie_name, i.item_name, i.price, m.thumb_url
+		from project1.item i, project1.categorie c, project1.item_img m
+		where i.categorie_no = c.categorie_no 
+		and c.categorie_no = #{categorieNo}
+		and m.is_thumb = 1
+		order by i.item_no desc limit #{startIndex}, #{cntPerPage}
 	</select>
 
 </mapper>

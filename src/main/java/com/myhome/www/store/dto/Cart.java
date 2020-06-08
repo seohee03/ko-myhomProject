@@ -8,6 +8,8 @@ public class Cart {
 	private int itemNo;
 	private String itemName;
 	private int price;
+	private String thumbUrl;
+	
 
 	public void setCartNo(int cartNo) {
 		this.cartNo = cartNo;
@@ -45,4 +47,12 @@ public class Cart {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public String getThumbUrl() {
+		return thumbUrl;
+	}
+	public void setThumbUrl(String thumbUrl) {
+		this.thumbUrl = thumbUrl;
+	}
+	
+	
 }

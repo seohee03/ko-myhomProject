@@ -55,6 +55,18 @@ function cAll() {
     }
 }
 
+//주문하기 버튼 함수
+function goOrder() {
+   var cartNoArr = new Array();
+   $('input[name=checkCart]:checked').each(function(index, value) { 
+     console.log(this.value);
+      cartNoArr.push(this.value);  
+   });
+   console.log(cartNoArr);
+   location.href="${pageContext.request.contextPath}/mycart?type=1&cartNoArr=" +cartNoArr ;
+}
+
+
 	
 </script>
 </head>
@@ -65,36 +77,47 @@ function cAll() {
 <div class=" orderSec">
 <div class="inner clearfix">
 <div class="allChek">
-	<input type="checkbox"  class="cartChek" >
-	<label>모두선택</label>
+	<input type="checkbox"  class="cartChek" id="checkAll"  onclick="cAll();">
+	<label for="checkAll">모두선택</label>
 </div>
 <form id="cartForm">
 	<div class="leftSec">
 		<ul class="depth1">
+		<c:set var="path" value="${pageContext.request.contextPath }" />
+		<c:forEach var="cartCommand" items="${cartCommandList}" >
+		<c:if test="${empty cartCommand }">
 			<li>
-				<input type="checkbox"  class="cartChek" >
+				<div class="orderPd clearfix">
+					<div class="infoSec">
+						<div class="dv">장바구니에 물건을 담아주세요!</div>
+					</div>
+				</div>
+			</li>
+		</c:if>
+			<li>
+				<input type="checkbox"  class="cartChek" name="checkCart" value="${cartCommand.cartNo}">
 				<div class="orderPd clearfix">
 					<div class="imgSec">
-						<img alt="" src="images/categorie01.jpg">
+						<!-- <img alt="" src="images/categorie01.jpg"> -->
+						<img alt="" src="${path }${cartCommand.thumbUrl}">
 					</div>
 					<div class="infoSec">
-						<div class="txt">사이즈: 슈퍼싱글(SS) / 색상: 그레이</div>
+						<div class="txt"><c:out value="${cartCommand.itemName}" /></div>
 						<div class="dv">무료배송</div>
 					</div>
-					<a class="xbtn">X</a>
+					<a class="xbtn" onclick="javascript:amountDelete(${cartCommand.cartNo});">X</a>
 				</div>
 				<!-- orderPd -->
 				<ul class="depth2">
 					<li>
 						<div class="txt">사이즈: 슈퍼싱글(SS) / 색상: 그레이</div>
 						<div>
-							<input type="number" id="updateAmount"name="newAmount" min="0" />
-							<span class="price">21,900원</span>
+							<input type="number" value="${cartCommand.amount}" id="updateAmount${cartCommand.cartNo}" name="newAmount${cartCommand.cartNo}" min="0" />
+							<input type="button" onclick="javascript:amountUpdate(${cartCommand.cartNo});" value="변경"/>
+							<span class="price"><c:out value="${cartCommand.price * cartCommand.amount}" />원</span>
 						</div>
-						
-						<a class="xbtn">X</a>
 					</li>
-					<li>
+					<!-- <li>
 						<div class="txt">사이즈: 슈퍼싱글(SS) / 색상: 그레이</div>
 						<div>
 							<input type="number" id="updateAmount"name="newAmount" min="0" />
@@ -102,96 +125,23 @@ function cAll() {
 						</div>
 						
 						<a class="xbtn">X</a>
-					</li>
+					</li> -->
 				</ul>
 				<!-- depth2 -->
 				<div class="pdTotal">
 					<div class="dv">무료배송</div>
-					<div class="totalPrice">21,900원</div>
+					<div class="totalPrice" ><c:out value="${cartCommand.price * cartCommand.amount}" />원</div>
 				</div>
 			</li>
-			<li>
-				<input type="checkbox"  class="cartChek" >
-				<div class="orderPd clearfix">
-					<div class="imgSec">
-						<img alt="" src="images/categorie01.jpg">
-					</div>
-					<div class="infoSec">
-						<div class="txt">사이즈: 슈퍼싱글(SS) / 색상: 그레이</div>
-						<div class="dv">무료배송</div>
-					</div>
-					<a class="xbtn">X</a>
-				</div>
-				<!-- orderPd -->
-				<ul class="depth2">
-					<li>
-						<div class="txt">사이즈: 슈퍼싱글(SS) / 색상: 그레이</div>
-						<div>
-							<input type="number" id="updateAmount"name="newAmount" min="0" />
-							<span class="price">21,900원</span>
-						</div>
-						
-						<a class="xbtn">X</a>
-					</li>
-					<li>
-						<div class="txt">사이즈: 슈퍼싱글(SS) / 색상: 그레이</div>
-						<div>
-							<input type="number" id="updateAmount"name="newAmount" min="0" />
-							<span class="price">21,900원</span>
-						</div>
-						
-						<a class="xbtn">X</a>
-					</li>
-				</ul>
-				<!-- depth2 -->
-				<div class="pdTotal">
-					<div class="dv">무료배송</div>
-					<div class="totalPrice">21,900원</div>
-				</div>
-			</li>
-			<li>
-				<input type="checkbox"  class="cartChek" >
-				<div class="orderPd clearfix">
-					<div class="imgSec">
-						<img alt="" src="images/categorie01.jpg">
-					</div>
-					<div class="infoSec">
-						<div class="txt">사이즈: 슈퍼싱글(SS) / 색상: 그레이</div>
-						<div class="dv">무료배송</div>
-					</div>
-					<a class="xbtn">X</a>
-				</div>
-				<!-- orderPd -->
-				<ul class="depth2">
-					<li>
-						<div class="txt">사이즈: 슈퍼싱글(SS) / 색상: 그레이</div>
-						<div>
-							<input type="number" id="updateAmount"name="newAmount" min="0" />
-							<span class="price">21,900원</span>
-						</div>
-						
-						<a class="xbtn">X</a>
-					</li>
-					<li>
-						<div class="txt">사이즈: 슈퍼싱글(SS) / 색상: 그레이</div>
-						<div>
-							<input type="number" id="updateAmount"name="newAmount" min="0" />
-							<span class="price">21,900원</span>
-						</div>
-						
-						<a class="xbtn">X</a>
-					</li>
-				</ul>
-				<!-- depth2 -->
-				<div class="pdTotal">
-					<div class="dv">무료배송</div>
-					<div class="totalPrice">21,900원</div>
-				</div>
-			</li>
+			</c:forEach>
+			<input type="hidden" name="cartNoArr" id="cartNoArr" value=""/>
+			<!-- 수량 변경용 데이터 -->
+			<input type="hidden" id="updateCartNo" name="updateCartNo" />
+			<input type="hidden" id="updateAmount" name="updateAmount"  />
 		</ul>
 		<!--  depth1 -->
 	</div>
-	</form>
+	
 	<!--  //leftSec e -->
 	<div class="rightSec">
 		<div class="rightIn">
@@ -200,17 +150,20 @@ function cAll() {
 				<dd>80,800원</dd>
 			</dl>
 			<dl>
-				<dt>총 상품금액</dt>
-				<dd>80,800원</dd>
+				<dt>배송비</dt>
+				<dd>0원</dd>
 			</dl>
 			<dl class="total">
-				<dt>총 상품금액</dt>
+				<dt>결제 금액</dt>
 				<dd>80,800원</dd>
 			</dl>
 		</div>
-		<div class="btnArea"><a href="#" class="genric-btn success radius">주문하기</a></div>
+		<%-- <div class="btnArea"><a href="#" onclick="location.href='${pageContext.request.contextPath}/mycart?type=1'" class="genric-btn success radius">주문하기</a></div> --%>
+		<div class="btnArea"><input type="button" onclick="goOrder();" class="genric-btn success radius" value="주문하기"></div>
 	</div>
+	</form>
 </div>
+
 
 
 <%-- <form id="cartForm">

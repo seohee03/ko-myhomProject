@@ -34,6 +34,12 @@ public class ItemServiceImpl implements ItemService{
 	private static final String PREFIX_IMG_URL = "/upload/"; //원본이미지
 	private static final String PREFIX_URL = "/upload/thumb/"; //썸네일이미지
 	
+	//상품 조회
+	@Override
+	public List<ItemCommand> selectItemForIndex() throws Exception {
+		return itemDao.selectItemForIndex();
+	}
+	
 	//상품 전체 리스트
 	@Override
 	public ItemPage getItemPage(int pageNum) throws Exception {
@@ -283,7 +289,19 @@ public class ItemServiceImpl implements ItemService{
 		return itemDao.selectSearchItemList(keyword);
 	}
 
+	//카테고리번호로 상품 개수 조회
+	@Override
+	public int selectCountByCategorieNo(int categorieNo) throws Exception {
+		return itemDao.selectCountByCategorieNo(categorieNo);
+	}
 
+	//카테고리 번호별 상품 조회
+	@Override
+	public List<ItemCommand> selectItemByCategoryNo(Item item) throws Exception{
+		return itemDao.selectItemByCategoryNo(item);
+	}
+
+	
 
 	
 }

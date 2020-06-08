@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +35,8 @@ public class CartController {
 	public void cartAddItem(@ModelAttribute("cart") Cart cart, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		//itemDetail에서 '장바구니에 추가' 누르면 alert
 		System.out.println("cart>>>>>>>>>>>>>>>>>>>>>>" + cart.getItemName());
+		System.out.println("cart>>>>>>>>>>>>>>>>>>>>>>" + cart.getThumbUrl());
+		
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
 		response.setContentType("text/html; charset=UTF-8");
@@ -78,16 +81,22 @@ public class CartController {
 
 	//장바구니 리스트 보여줌 / 주문페이지 넘어가기
 	@RequestMapping(value = "/mycart")
-	public String myCart(@Param("type") int type, HttpSession session, Model model) throws Exception {
+	public String myCart(
+			@Param("type") int type,  @Param("cartNoArr") int[] cartNoArr, 
+			HttpSession session, HttpServletRequest request, Model model) throws Exception {
+		
 		String urlStr = "store/cart";
+		
+		List<CartCommand> cartCommandList = null;
 		if(type > 0) {
 			urlStr = "store/order";
+			System.out.println(">>>>>>>>>>>>>>>>>>>>" + cartNoArr.toString());
 		}
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
 
 		//로그인 한 회원의 번호로 장바구니 리스트 조회
-		List<CartCommand> cartCommandList = cartService.selectCartList(authInfo.getMemberNo());
+		cartCommandList = cartService.selectCartList(authInfo.getMemberNo());
 		model.addAttribute("cartCommandList", cartCommandList);
 		
 		return urlStr;

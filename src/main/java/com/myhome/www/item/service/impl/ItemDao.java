@@ -15,6 +15,9 @@ import com.myhome.www.item.service.ItemPageSize;
 @Repository
 public interface ItemDao {
 
+	//상품 8개만 조회
+	List<ItemCommand> selectItemForIndex() throws Exception;
+	
 	//상품 페이징하여 리스트 출력
 	List<ItemCommand> selectItemList(ItemPageSize itemPageSize) throws Exception;
 	
@@ -46,4 +49,9 @@ public interface ItemDao {
 	
 	//키워드로 상품 조회
 	List<ItemCommand> selectSearchItemList(@Param("keyword") String keyword) throws Exception;
+	
+	//카테고리 번호로 상품 개수 조회
+	int selectCountByCategorieNo(@Param("categorieNo") int categorieNo) throws Exception;
+	//카테고리 번호별 상품 조회
+	List<ItemCommand> selectItemByCategoryNo(Item item) throws Exception;
 }

@@ -15,8 +15,6 @@
 	});
 </script>
 
-
-
 	<!--::header part start::-->
 	<header class="main_menu home_menu">
 		<div class="container">
@@ -46,10 +44,6 @@
 									<a class="nav-link dropdown-toggle" id="navbarDropdown_3" role="button" data-toggle="dropdown"
 									aria-haspopup="true" aria-expanded="false" href="<c:url value="/mypage" />"> 마이페이지 </a>
 									<div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-										<c:if test="${empty authInfo}">
-											<a class="dropdown-item" href="<c:url value="/login" />">로그인</a>
-										</c:if>
-										<c:if test="${!empty authInfo}">
 											<a class="dropdown-item" href="<c:url value="/logout" />">로그아웃</a>
 											<a class="dropdown-item"
 												href="<c:url value="/mypage/modify" />">회원정보 수정</a>
@@ -61,7 +55,6 @@
 											<c:if test="${authInfo.power eq 'admin'}">
 												<a class="dropdown-item" href="<c:url value="/admin/itemList" />">관리자페이지</a>
 											</c:if>
-										</c:if>
 									</div></li>
 							</ul>
 						</div>
@@ -76,7 +69,6 @@
 							</div>
 							</c:if>
 						</div>
-						
 					</nav>
 				</div>
 			</div>
@@ -84,7 +76,7 @@
 		<!-- 검색창 -->
 		<div class="search_input" id="search_input_box">
 			<div class="container ">
-				<form class="d-flex justify-content-between search-inner" id="searchForm" action="searchItem" method="get">
+				<form class="d-flex justify-content-between search-inner" id="searchForm" action="search" method="get">
 					<input type="text" class="form-control" id="search_input" placeholder="검색" name="keyword">
 					<button type="submit" class="btn"></button>
 					<span class="ti-close" id="close_search" title="Close Search"></span>
@@ -93,7 +85,4 @@
 		</div>
 	</header>
 	<!-- Header part end-->
-	
-	
-
 

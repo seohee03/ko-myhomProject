@@ -22,8 +22,21 @@ public class MyhomeController {
 	@Resource(name = "articleService")
 	private ArticleService articleService;
 	
+	
+	// index
+	@RequestMapping(value = "/")
+	public String indexPage(Model model) throws Exception {
+		
+		//상품 8개만 조회
+		List<ItemCommand> itemCommandList = itemService.selectItemForIndex();
+		model.addAttribute("itemCommandList", itemCommandList);
+		return "index";
+	}
+	
+	
+	
 	 // 검색하기
-	 @RequestMapping(value = "/searchItem")
+	 @RequestMapping(value = "/search")
 	 public String searchItem(@RequestParam("keyword") String keyword, Model model) throws Exception {
 		 System.out.println(">>>>>>>>>>>>>>keyword : " + keyword);
 		 

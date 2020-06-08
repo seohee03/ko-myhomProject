@@ -5,9 +5,10 @@
 /* nav */
 .main_menu .main-menu-item ul li .nav-link{font-weight:bold;font-family: 'Noto Sans KR', sans-serif; }
 .main_menu{width:100%}
+.navbar{border-bottom: solid 1px #ddd;}
 .headerLogo {
 	display: inline-block;
-	font-size: 27px;
+	font-size: 29px;
 	margin: 20px 20px 12px 20px;
 	font-family: 'Jua', sans-serif;
 }
@@ -21,6 +22,10 @@
 	margin-left: 20px;
 }
 .loginBtn a{padding: 0 10px !important; font-family: 'Noto Sans KR', sans-serif !important;}
+
+/* index */
+.section_tittle h4{font-family: 'Noto Sans KR', sans-serif; display: inline-block;}
+.section_tittle a{float: right;}
 
 /* login form */
 .buttonArea{
@@ -40,7 +45,7 @@
 /* store  */
 .pdList{}
 .pdList ul{margin-top: 20px;}
-.pdList li{width:25%;float:left;padding:0 10px 15px;}
+.pdList li{width:25%;float:left;padding:0px 15px 17px;}
 .pdList li a{cursor: pointer;}
 .pdList .imgArea{text-align: center;border-radius:4px;overflow: hidden;}
 .pdList .imgArea img{width:100%}
@@ -90,8 +95,9 @@
     vertical-align: bottom;
     /* width: 14.2%; */
     text-align: center;}
-    .gnbList li .txt{margin-top: 10px;font-weight:bold}
-    .gnbList li.on .txt,.gnbList li:hover .txt{color:#35c5f0 !important;}
+.gnbList li a{text-decoration: none;color: #424242;}
+.gnbList li .txt{margin-top: 10px;font-weight:bold}
+.gnbList li.on .txt,.gnbList li:hover .txt{color:#35c5f0 !important;}
 
 /* cart */
 .orderSec{background-color: #f5f5f5;}
@@ -103,7 +109,7 @@
 .leftSec > .depth1 > li:first-child{margin-top:0}
 .leftSec > .depth1 li .cartChek{position: absolute;left: 20px;}
 .leftSec .orderPd{}
-.leftSec .orderPd .imgSec{float:left;width: 70px;
+.leftSec .orderPd .imgSec{float:left;width: 70px;margin:0 10px 10px 0;
     height: 70px;
     border-radius: 6px;
     background-color: #ededed;
@@ -168,3 +174,17 @@
  	.recentArea{display:none !important;}
  	.pdList li{width:33.3%}
 }
+
+
+/* item detail */
+.owl-carousel .owl-item img{width: 72%;margin: auto;}
+.product_count input[type=number]{
+	background-color: white;
+    border: solid 1px #ddd;
+    padding: 10px;
+    color: #424242;
+}
+
+
+
+

@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/include/header.jsp" %>
 
 <script type="text/javascript">
-$(function(){
+/* $(function(){
 	 $('#searchForm').submit(function(){	
 		var keyword = $('#keyword').val().trim();
 		console.log(keyword);
@@ -14,7 +14,7 @@ $(function(){
 			return true;
 		}
 	}); 
-});
+}); */
 </script>
 
 </head>
@@ -22,55 +22,47 @@ $(function(){
 
 <%@ include file="/WEB-INF/view/include/nav.jsp"%>
 
-<%-- 	스토어홈
-	<br />
-	<a href="<c:url value="/cart" />">[장바구니]</a>
-	<a href="<c:url value="/mypage" />">[마이페이지]</a>
-	<br />
-	<a href="<c:url value="/community" />">[커뮤니티]</a>
-	<a href="<c:url value="/store" />">[스토어]</a>
-	<br /> --%>
 	<div class="gnbList">
 		<ul class="clearfix">
 			<li class="on">
-				<a>
-					<div class="imgArea"><img alt="" src="images/categorie01.jpg"></div>
+				<a href="${pageContext.request.contextPath }/store/category?type=1">
+					<div class="imgArea"><img alt="" src="${pageContext.request.contextPath }/images/categorie01.jpg"></div>
 					<div class="txt">가구</div>
 				</a>
 			</li>
 			<li>
-				<a>
-					<div class="imgArea"><img alt="" src="images/categorie07.jpg"></div>
+				<a href="${pageContext.request.contextPath }/store/category?type=2">
+					<div class="imgArea"><img alt="" src="${pageContext.request.contextPath }/images/categorie07.jpg"></div>
 					<div class="txt">침구</div>
 				</a>
 			</li>
 			<li>
-				<a>
-					<div class="imgArea"><img alt="" src="images/categorie02.jpg"></div>
+				<a href="${pageContext.request.contextPath }/store/category?type=3">
+					<div class="imgArea"><img alt="" src="${pageContext.request.contextPath }/images/categorie02.jpg"></div>
 					<div class="txt">패브릭</div>
 				</a>
 			</li>
 			<li>
-				<a>
-					<div class="imgArea"><img alt="" src="images/categorie03.jpg"></div>
+				<a href="${pageContext.request.contextPath }/store/category?type=4">
+					<div class="imgArea"><img alt="" src="${pageContext.request.contextPath }/images/categorie03.jpg"></div>
 					<div class="txt">홈데코</div>
 				</a>
 			</li>
 			<li>
-				<a>
-					<div class="imgArea"><img alt="" src="images/categorie04.jpg"></div>
+				<a href="${pageContext.request.contextPath }/store/category?type=5">
+					<div class="imgArea"><img alt="" src="${pageContext.request.contextPath }/images/categorie04.jpg"></div>
 					<div class="txt">가전</div>
 				</a>
 			</li>
 			<li>
-				<a>
-					<div class="imgArea"><img alt="" src="images/categorie05.jpg"></div>
+				<a href="${pageContext.request.contextPath }/store/category?type=6">
+					<div class="imgArea"><img alt="" src="${pageContext.request.contextPath }/images/categorie05.jpg"></div>
 					<div class="txt">생활용품</div>
 				</a>
 			</li>
 			<li>
-				<a>
-					<div class="imgArea"><img alt="" src="images/categorie06.jpg"></div>
+				<a href="${pageContext.request.contextPath }/store/category?type=7">
+					<div class="imgArea"><img alt="" src="${pageContext.request.contextPath }/images/categorie06.jpg"></div>
 					<div class="txt">주방</div>
 				</a>
 			</li>
@@ -78,17 +70,32 @@ $(function(){
 	</div>
 <div class="container">
 	
-	<h1>Item List</h1>
-	<form action="searchItem" method="get" id="searchForm">
+<!-- 	<form action="searchItem" method="get" id="searchForm">
 		<input type="text" placeholder="검색" name="keyword" value="" id="keyword">
 		<input type="button" value="검색" id="searchBtn">
-	</form>
+	</form> -->
 	
 	<c:set var="path" value="${pageContext.request.contextPath }" />
 	
 	<div class="pdList">
 		<ul class="clearfix">
 		<c:forEach var="itemC" items="${itemPage.content}">
+			<li onclick="javascript:moveItemViewPage('${path }','${itemC.item.itemNo} ','${path }${itemC.itemImg.thumbUrl}'); return false;">
+				
+				<a>
+				<div class="imgArea">
+					<img alt="" src="${path }${itemC.itemImg.thumbUrl}">
+				</div>
+				<div class="infoArea">
+				 	<p class="brand"><c:out value="${itemC.categorie.categorieName}" /></p>
+				 	<p class="ttl"><c:out value="${itemC.item.itemName}" /></p>
+				 	<p class="pdSum"><c:out value="${itemC.item.price}" />원</p>
+				</div>
+				</a>
+				
+			</li>
+			</c:forEach>
+			<c:forEach var="itemC" items="${itemCommandList}">
 			<li onclick="javascript:moveItemViewPage('${path }','${itemC.item.itemNo} ','${path }${itemC.itemImg.thumbUrl}'); return false;">
 				
 				<a>
@@ -367,7 +374,7 @@ $(function(){
 				if(!isNull(latelyViewItemList[i])){
 				                            //상품 그리는 부분
 					$("ul#latelyViewItemList_ul").append($("<li>").append($("<a>")
-					.attr("href",path+"/itemDetail?itemNo="+latelyViewItemList[i].itemNo)
+					.attr("href","${pageContext.request.contextPath }/itemDetail?itemNo="+latelyViewItemList[i].itemNo)
 					.append($("<img>").attr("src",latelyViewItemList[i].thumbUrl)
 					.attr("alt","최근본상품"))));
 				}
