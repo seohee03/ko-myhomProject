@@ -20,7 +20,12 @@
 	</update>
 	
 	<select id="selectCartList" resultType="cartCommand">
-	select c.cart_no, c.amount, i.item_name, i.price, i.item_no, c.member_no from cart c, item i where c.item_no = i.item_no and c.member_no = #{cartNo}
+		select c.cart_no, c.amount, i.item_name, i.price, i.item_no, c.member_no , m.thumb_url
+		from cart c, item i, project1.item_img m
+		where c.item_no = i.item_no 
+		and m.item_no = i.item_no
+		and c.member_no = #{memberNo}
+		and m.is_thumb = 1
 	</select>
 	
 	<update id="updateItemAmountInCart" parameterType="int">
@@ -33,5 +38,18 @@
 	
 	<select id="selectCartItemByNo" parameterType="int" resultType="cart">
 	select * from cart where cart_no = #{cartNo}
+	</select>
+	
+<!-- 카트번호, 회원번호로 리스트 조회 -->
+	<select id="selectOrderList" resultType="cartCommand">
+		select c.cart_no, c.amount, i.item_name, i.price, i.item_no, c.member_no 
+		from cart c, item i 
+		where c.item_no = i.item_no 
+		and c.member_no = #{memberNo}
+		and c.cart_no in
+		<foreach collection="cartNoArr" item="cartNo" separator="," open="(" close=")">
+			#{cartNo.value}
+		</foreach>
+		
 	</select>
 </mapper>

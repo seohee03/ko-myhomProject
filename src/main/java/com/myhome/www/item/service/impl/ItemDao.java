@@ -1,5 +1,6 @@
 package com.myhome.www.item.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -54,4 +55,17 @@ public interface ItemDao {
 	int selectCountByCategorieNo(@Param("categorieNo") int categorieNo) throws Exception;
 	//카테고리 번호별 상품 조회
 	List<ItemCommand> selectItemByCategoryNo(Item item) throws Exception;
+
+	
+	//크롤링 아이템 insert - 실패
+	void insertItemC(
+			@Param("categorieNo") int categorieNo, 
+			@Param("itemCode") String itemCode,
+			@Param("itemName") String itemName,
+			@Param("itemDetail") String itemDetail,
+			@Param("price") int price,
+			@Param("itemRegdate") LocalDateTime itemRegdate);
+	
+	//아이템 이미지 리스트
+	List<ItemImg> selectItemImgByItemNo(@Param("itemNo") int itemNo) throws Exception;
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +24,12 @@ import com.myhome.www.member.service.AuthInfo;
 import com.myhome.www.store.dto.Cart;
 import com.myhome.www.store.dto.CartCommand;
 import com.myhome.www.store.service.CartService;
+import com.myhome.www.store.service.OrderService;
 
 @Controller
 public class CartController {
 
-	@Resource(name = "cartService")
+	@Autowired
 	private CartService cartService;
 	
 	//장바구니에 상품 추가
@@ -88,15 +90,23 @@ public class CartController {
 		String urlStr = "store/cart";
 		
 		List<CartCommand> cartCommandList = null;
-		if(type > 0) {
-			urlStr = "store/order";
-			System.out.println(">>>>>>>>>>>>>>>>>>>>" + cartNoArr.toString());
-		}
+		
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		
+		if(type > 0) {
+			urlStr = "store/order";
+			System.out.println(">>>>>>>>>>>>>>>>>>>>" + cartNoArr);
+			//로그인 한 회원의 번호로 장바구니 리스트 조회
+			cartCommandList = cartService.selectOrderList(authInfo.getMemberNo(), cartNoArr);
+		}else {
+			//로그인 한 회원의 번호로 장바구니 리스트 조회
+			cartCommandList = cartService.selectCartList(authInfo.getMemberNo());
+		}
+		
 
-		//로그인 한 회원의 번호로 장바구니 리스트 조회
-		cartCommandList = cartService.selectCartList(authInfo.getMemberNo());
+		
 		model.addAttribute("cartCommandList", cartCommandList);
 		
 		return urlStr;

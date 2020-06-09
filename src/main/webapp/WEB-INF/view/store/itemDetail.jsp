@@ -36,15 +36,21 @@ $(function(){
       <div class="row justify-content-center">
         <div class="col-lg-12">
           <div class="product_img_slide owl-carousel">
+          <c:set var="itemCommand" value="${itemCommand}" />
+          	<div class="single_product_img">
+              <img src="${pageContext.request.contextPath }${itemCommand.itemImg.imgUrl}" alt="#" class="img-fluid">
+            </div>
+          	<%-- <c:forEach items="imgList" var="imgList">
             <div class="single_product_img">
+              <img src="${pageContext.request.contextPath }${imgList.imgUrl}" class="img-fluid">
+            </div>
+            </c:forEach> --%>
+            <!-- <div class="single_product_img">
               <img src="img/product/single_product.png" alt="#" class="img-fluid">
             </div>
             <div class="single_product_img">
               <img src="img/product/single_product.png" alt="#" class="img-fluid">
-            </div>
-            <div class="single_product_img">
-              <img src="img/product/single_product.png" alt="#" class="img-fluid">
-            </div>
+            </div> -->
           </div>
         </div>
         
@@ -59,7 +65,7 @@ $(function(){
 <span>상품 번호<c:out value="${item.itemNo}" /></span>
 <span>이미지<c:out value="${itemCommand.itemImg.thumbUrl}" /></span> --%>
         
-        <c:set var="itemCommand" value="${itemCommand}" />
+        
         <div class="col-lg-8">
           <div class="single_product_text text-center">
             <h3><c:out value="${itemCommand.item.itemName}" /></h3>

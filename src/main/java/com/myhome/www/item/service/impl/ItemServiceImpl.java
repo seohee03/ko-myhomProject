@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.myhome.www.item.dto.CrawlingItem;
 import com.myhome.www.item.dto.Item;
 import com.myhome.www.item.dto.ItemImg;
 import com.myhome.www.item.dto.Option1;
@@ -31,8 +32,8 @@ public class ItemServiceImpl implements ItemService{
 	
 	private static final String SAVE_PATH = "c:/upload";
 	private static final String THUMBNAIL_PATH = SAVE_PATH + "/thumb";
-	private static final String PREFIX_IMG_URL = "/upload/"; //원본이미지
-	private static final String PREFIX_URL = "/upload/thumb/"; //썸네일이미지
+	private static final String PREFIX_IMG_URL = "/upload/"; 	//원본이미지
+	private static final String PREFIX_URL = "/upload/thumb/";  //썸네일이미지
 	
 	//상품 조회
 	@Override
@@ -301,7 +302,35 @@ public class ItemServiceImpl implements ItemService{
 		return itemDao.selectItemByCategoryNo(item);
 	}
 
-	
+	//크롤링으로 상품 등록
+	@Override
+	public void insertCrawlingItem(CrawlingItem crawlingItem) throws Exception {
+		
+		Item item = new Item();
+		item.setCategorieNo(crawlingItem.getCategorieNo());
+		item.setItemCode(crawlingItem.getItemCode());
+		item.setItemName(crawlingItem.getItemName());
+		item.setItemDetail("a");
+		item.setStock(0);
+		item.setPrice(crawlingItem.getPrice());
+		item.setItemRegDateTime(LocalDateTime.now());
+		itemDao.insertItem(item);
+		
+		ItemImg itemImg = new ItemImg();
+		itemImg.setImgUrl(crawlingItem.getImgUrl());
+		itemImg.setThumbUrl(crawlingItem.getThumbUrl());
+		itemImg.setIsThumb(crawlingItem.getIsThumb());
+		itemImg.setItemNo(item.getItemNo());
+		itemDao.insertItemImg(itemImg);
+	}
 
+	//아이템 이미지 리스트
+	@Override
+	public List<ItemImg> selectItemImgByItemNo(int itemNo) throws Exception {
+		return itemDao.selectItemImgByItemNo(itemNo);
+	}
+
+	
+	
 	
 }

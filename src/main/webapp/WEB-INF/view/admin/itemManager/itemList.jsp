@@ -14,7 +14,7 @@ td:hover{
 <c:set var = "path" value = "${pageContext.request.contextPath }"/>
 
 <a href="<c:url value="/admin/itemRegister" />">[상품등록]</a>
-
+ <a href="<c:url value="/admin/itemCrawling" />">[크롤링]</a>
 <h1>Item List</h1>
 	<table border="1">
 		<thead>

@@ -25,7 +25,7 @@ public class OrderController {
 	//주문폼에서 주문 누르면
 	@ResponseBody
 	@RequestMapping(value = "/order")
-	public int order(OrderDetail orderDetail, HttpSession session) throws IOException {	//@RequestParam(value="cartNo") int[] cartNoArr
+	public int order(OrderDetail orderDetail, HttpSession session) throws Exception {	//@RequestParam(value="cartNo") int[] cartNoArr
 		System.out.println(">>>>>>>>>>>>>>>>>" + orderDetail.getCartNoArr()[0]);
 		int result = 0;
 		AuthInfo authInfo = null;

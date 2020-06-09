@@ -23,4 +23,6 @@ public interface CartDao {
 	int deleteItemInCart(@Param("cartNo") int cartNo);
 	//카트 번호에 해당하는 카트객체 반환
 	List<Cart> selectCartItemByNo(@Param("cartNo") int cartNo);
+	
+	List<CartCommand> selectOrderList(@Param("memberNo") int memberNo, @Param("cartNoArr") int[] cartNoArr) throws Exception;
 }

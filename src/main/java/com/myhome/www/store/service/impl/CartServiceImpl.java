@@ -56,6 +56,9 @@ public class CartServiceImpl implements CartService{
 		return cartDao.deleteItemInCart(cartNo);
 	}
 	
-	
+	@Override
+	public List<CartCommand> selectOrderList(int memberNo, int[] cartNoArr) throws Exception {
+		return cartDao.selectOrderList(memberNo, cartNoArr);
+	}
 
 }

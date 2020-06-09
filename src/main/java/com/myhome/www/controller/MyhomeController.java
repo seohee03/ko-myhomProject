@@ -1,9 +1,11 @@
 package com.myhome.www.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,5 +49,15 @@ public class MyhomeController {
 		 model.addAttribute("itemList", itemList);
 		 model.addAttribute("articleList", articleList);
 		 return "search";
+	 }
+	 
+	 @Autowired
+	 private CrawlingParser crawlingParser;
+	 
+	 @RequestMapping(value = "/admin/itemCrawling")
+	 public String crawling() throws Exception {
+		// CrawlingParser cp = new CrawlingParser();
+		 crawlingParser.naver_top_news();
+		 return "index";
 	 }
 }

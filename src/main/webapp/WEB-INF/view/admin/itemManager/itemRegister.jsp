@@ -105,11 +105,13 @@ $(function(){
     <label><spring:message code="categorie.categorieName" />
     <form:select path="item.categorieNo" id="categorieNo">
     	<option value=""> ----카테고리 선택---- </option>
-    	<option value="1">생활용품</option>
-    	<option value="2">가전제품</option>
-    	<option value="3">가구</option>
+    	<option value="1">가구</option>
+    	<option value="2">침구</option>
+    	<option value="3">패브릭</option>
     	<option value="4">홈데코</option>
-    	<option value="5">욕실용품</option>
+    	<option value="5">가전</option>
+    	<option value="6">생활용품</option>
+    	<option value="7">주방</option>
 	</form:select>
 	<span class="errStr categorieNo"></span>
 	</label>

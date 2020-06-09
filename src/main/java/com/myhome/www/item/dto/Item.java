@@ -11,7 +11,6 @@ public class Item {
 	private int stock;						//재고
 	private LocalDateTime itemRegDateTime;	//등록일
 	private int categorieNo;				//카테고리 번호
-	private int readCount;
 	private int startIndex;
 	private int cntPerPage;
 	
@@ -78,13 +77,7 @@ public class Item {
 	public void setCategorieNo(int categorieNo) {
 		this.categorieNo = categorieNo;
 	}
-	
-	public int getReadCount() {
-		return readCount;
-	}
-	public void setReadCount(int readCount) {
-		this.readCount = readCount;
-	}
+
 	public int getStartIndex() {
 		return startIndex;
 	}

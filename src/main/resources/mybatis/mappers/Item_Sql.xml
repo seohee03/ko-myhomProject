@@ -129,8 +129,13 @@
 
 	<!-- 아이템 번호로 아이템 가져오기 -->
 	<select id="selectItemByItemNo" resultMap="itemCommand" resultType="itemCommand">
-		select * from item i left join categorie c on c.categorie_no= i.categorie_no left join option1 o1 on o1.item_no = i.item_no left
-		join option2 o2 on o1.option1_no = o2.option1_no where i.item_no = #{itemNo} 
+		select * from item i 
+		left join categorie c on c.categorie_no= i.categorie_no 
+		left join option1 o1 on o1.item_no = i.item_no 
+		left join option2 o2 on o1.option1_no = o2.option1_no 
+		left join item_img img on i.item_no = img.item_no
+		where i.item_no = #{itemNo} 
+		and img.is_thumb = 1
 	</select>
 	
 	<!-- 수정 -->
@@ -183,9 +188,23 @@
 		select c.categorie_name, i.item_name, i.price, m.thumb_url
 		from project1.item i, project1.categorie c, project1.item_img m
 		where i.categorie_no = c.categorie_no 
+		and m.item_no = i.item_no
 		and c.categorie_no = #{categorieNo}
 		and m.is_thumb = 1
 		order by i.item_no desc limit #{startIndex}, #{cntPerPage}
 	</select>
 
+	<insert id="insertItemC">
+		INSERT INTO ITEM(categorie_no, ITEM_CODE, ITEM_NAME, ITEM_DETAIL, PRICE, item_regdate) 
+		VALUES(#{categorieNo}, #{itemCode}, #{itemName}, #{itemDetail}, #{price}, #{itemRegdate})
+		<selectKey resultType="Integer" order="AFTER" keyProperty="itemNo">
+			select last_insert_id() 
+		</selectKey>
+	</insert>
+	
+<!-- 아이템 이미지 리스트 -->	
+	<select id="selectItemImgByItemNo" parameterType="int" resultType="itemImg">
+		select img_url from project1.item_img
+		where item_no = #{itemNo}
+	</select>
 </mapper>

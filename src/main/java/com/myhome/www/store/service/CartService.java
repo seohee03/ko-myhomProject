@@ -20,4 +20,6 @@ public interface CartService {
 	int updateItemAmountInCart(int cartNo, int amount);
 	//카트에 있는 상품 삭제
 	int deleteItemInCart(int cartNo);
+	//카트번호 회원번호로 주문
+	List<CartCommand> selectOrderList(int memberNo, int[] cartNoArr) throws Exception;
 }

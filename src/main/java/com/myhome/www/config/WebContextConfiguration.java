@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.myhome.www.controller.CrawlingParser;
 import com.myhome.www.util.AdminAuthCheckInterceptor;
 import com.myhome.www.util.AuthCheckInterceptor;
 
@@ -35,6 +36,7 @@ import com.myhome.www.util.AuthCheckInterceptor;
 		"com.myhome.www.store.controller",
 		"com.myhome.www.article.controller",
 		"com.myhome.www.controller"
+//		"com.myhome.www.util"
 		})
 public class WebContextConfiguration  implements WebMvcConfigurer {
 	
@@ -60,6 +62,12 @@ public class WebContextConfiguration  implements WebMvcConfigurer {
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propSourcesPlaceHolerConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
+	}
+	
+	@Bean
+	public CrawlingParser crawlingParser() {
+		CrawlingParser crawlingParser = new CrawlingParser();
+		return crawlingParser;
 	}
 	
 //	@Bean

@@ -2,9 +2,9 @@ package com.myhome.www.item.service;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
+import com.myhome.www.item.dto.CrawlingItem;
 import com.myhome.www.item.dto.Item;
+import com.myhome.www.item.dto.ItemImg;
 
 public interface ItemService {
 	
@@ -36,4 +36,9 @@ public interface ItemService {
 	List<ItemCommand> selectItemByCategoryNo(Item item) throws Exception;
 	
 	
+	//크롤링으로 상품 등록
+	void insertCrawlingItem(CrawlingItem crawlingItem) throws Exception;
+	
+	//아이템 이미지 리스트
+	List<ItemImg> selectItemImgByItemNo(int itemNo) throws Exception;
 }

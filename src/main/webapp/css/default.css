@@ -177,7 +177,7 @@
 
 
 /* item detail */
-.owl-carousel .owl-item img{width: 72%;margin: auto;}
+.owl-carousel .owl-item img{width: 40%;margin: auto;}
 .product_count input[type=number]{
 	background-color: white;
     border: solid 1px #ddd;

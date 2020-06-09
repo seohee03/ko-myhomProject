@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myhome.www.article.dto.Pagination;
 import com.myhome.www.item.dto.Item;
+import com.myhome.www.item.dto.ItemImg;
 import com.myhome.www.item.service.ItemCommand;
 import com.myhome.www.item.service.ItemPage;
 import com.myhome.www.item.service.ItemService;
@@ -64,9 +65,12 @@ public class StoreController {
 	 //상품 상세보기 페이지
 	 @RequestMapping(value = "/itemDetail")
 	 public String itemDetailForMember(@Param("itemNo") int itemNo, Model model, Item item, Cart cart) throws Exception{
+		 
 		 ItemCommand itemCommand = itemService.selectItemByItemNo(itemNo);
+		 List<ItemImg> imgList = itemService.selectItemImgByItemNo(itemNo);
 			
 		 model.addAttribute("itemCommand", itemCommand);
+		 model.addAttribute("imgList", imgList);
 		
 		 return "store/itemDetail";
 		 
