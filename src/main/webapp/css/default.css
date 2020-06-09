@@ -35,7 +35,7 @@
 .buttonArea li{width:50%;padding-left:10px;float:left}
 
 /* fixed bar*/
-.recentArea{padding: 10px;position: fixed;top: 20%;right: 10px;border:1px solid #000;background: #fff;    text-align: center;padding-top:10px}
+.recentArea{padding: 10px;position: fixed;top: 20%;right: 10px;background: #f8f9fa;text-align: center;padding-top:10px}
 .recentArea .topBtn{width: 100%;padding:10px 15px;border:1px solid #ddd;background:none;display: inline-block;}
 .recentArea ul{width: 80px;padding:0; margin-top:10px;list-style:none;}
 .recentArea li{margin-top:10px;border:1px solid #000;}

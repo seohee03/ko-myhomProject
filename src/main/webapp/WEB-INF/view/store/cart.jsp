@@ -66,7 +66,12 @@ function goOrder() {
    location.href="${pageContext.request.contextPath}/mycart?type=1&cartNoArr=" +cartNoArr ;
 }
 
-
+$(function(){
+	var allPrice = new Array();
+	allPrice = $('input[name=allPrice]').val();
+	var sum = allPrice.reduce((a,b) => a + b);
+	$('#total').text(sum);
+});
 	
 </script>
 </head>
@@ -130,7 +135,8 @@ function goOrder() {
 				<!-- depth2 -->
 				<div class="pdTotal">
 					<div class="dv">무료배송</div>
-					<div class="totalPrice" ><c:out value="${cartCommand.price * cartCommand.amount}" />원</div>
+					<input type="hidden" name="allPrice" value="${cartCommand.price * cartCommand.amount}">
+					<div><span class="totalPrice"><c:out value="${cartCommand.price * cartCommand.amount}" />원</span></div>
 				</div>
 			</li>
 			</c:forEach>
@@ -147,15 +153,15 @@ function goOrder() {
 		<div class="rightIn">
 			<dl>
 				<dt>총 상품금액</dt>
-				<dd>80,800원</dd>
+				<dd id="total">원</dd>
 			</dl>
 			<dl>
 				<dt>배송비</dt>
 				<dd>0원</dd>
 			</dl>
-			<dl class="total">
+			<dl>
 				<dt>결제 금액</dt>
-				<dd>80,800원</dd>
+				<dd id="total">원</dd>
 			</dl>
 		</div>
 		<%-- <div class="btnArea"><a href="#" onclick="location.href='${pageContext.request.contextPath}/mycart?type=1'" class="genric-btn success radius">주문하기</a></div> --%>

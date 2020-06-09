@@ -37,7 +37,7 @@
 
    </script>
 </head>
-
+<body>
 <%@ include file="/WEB-INF/view/include/nav.jsp"%>
 <section id="features" style="width: 60%; margin: auto;">
    <div class="container">
@@ -106,7 +106,7 @@ function commmentInsertBtn(){
          data : $('#commentForm').serialize(),
          success : function(data){
             if(data == 0){
-               alert('등록 성공');
+               //alert('등록 성공');
                location.reload();
             } else if(data == 9) {
                alert('등록 실패');

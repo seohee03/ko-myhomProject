@@ -38,57 +38,58 @@ public class CrawlingParser {
 	public void naver_top_news() throws Exception {
 		//categorie_no = 1
 //		String url = "https://www.decoview.co.kr/product/list.html?cate_no=12";
-//		Document doc = Jsoup.connect(url).get();
-//		Elements a = doc.select("section");
-//		Elements contentUl = null;
-//		String str = "";
-//		//List<CrawlingItem> cralingItem = null;
-//		for (Element el : a) {
-//			if("mst_basic_products".equals(el.attr("id"))) {
-//				contentUl = el.select("ul");
-//			}
-//		}
-//		Elements contentLi = contentUl.select("li");
-//		for (Element li : contentLi) {
-//			String imgUrl = li.getElementsByClass("thumbnail").select("img").attr("src");
-//			if(!"".equals(imgUrl)) {
-//				imgUrl = "https:"+imgUrl;
-//				URL imgPath = new URL(imgUrl);
-//				BufferedImage jpg = ImageIO.read(imgPath);
-//				
-//				String saveFileName = genSaveFileName();
-//				File file = new File(SAVE_PATH + saveFileName);
-//				File thumbFile = new File(THUMBNAIL_PATH + saveFileName);
-//				ImageIO.write(jpg, "jpg", file);
-//				ImageIO.write(jpg, "jpg", thumbFile);
-//				
-//				//상품명
-//				String nameStr = li.getElementsByClass("product_title").text();
-//				//가격
-//				String price1 = li.getElementsByClass("custom_price").text();
-//				String price2 = price1.replace(",", "");
-//				String priceStr = price2.replace("원", "");
-//				
-//				//뽑히나 확인
-//				//str += imgUrl + " : " + nameStr + " : " + priceStr;
-//				//str += "\r\n";
-//				
-//				//객체에 담아서 디비에 저장할꺼임
-//				CrawlingItem c = new CrawlingItem();
-//				c.setItemName(nameStr);
-//				UUID one = UUID.randomUUID();
-//				c.setItemCode(one.toString());
-//				c.setPrice(Integer.parseInt(priceStr));
-//				c.setCategorieNo(1);
-//				c.setImgUrl(PREFIX_IMG_URL + saveFileName);
-//				c.setThumbUrl(PREFIX_URL + saveFileName);
-//				c.setIsThumb(1);
-//				System.out.println(c);
-//				System.out.println(itemService);
-//				itemService.insertCrawlingItem(c);
-//				//cralingItem.add(c);
-//			}
-//		}
+		String url = "https://www.decoview.co.kr/category/%EC%87%BC%ED%8C%8C%EC%B9%A8%EB%8C%80/1331/";
+		Document doc = Jsoup.connect(url).get();
+		Elements a = doc.select("section");
+		Elements contentUl = null;
+		String str = "";
+		//List<CrawlingItem> cralingItem = null;
+		for (Element el : a) {
+			if("mst_basic_products".equals(el.attr("id"))) {
+				contentUl = el.select("ul");
+			}
+		}
+		Elements contentLi = contentUl.select("li");
+		for (Element li : contentLi) {
+			String imgUrl = li.getElementsByClass("thumbnail").select("img").attr("src");
+			if(!"".equals(imgUrl)) {
+				imgUrl = "https:"+imgUrl;
+				URL imgPath = new URL(imgUrl);
+				BufferedImage jpg = ImageIO.read(imgPath);
+				
+				String saveFileName = genSaveFileName();
+				File file = new File(SAVE_PATH + saveFileName);
+				File thumbFile = new File(THUMBNAIL_PATH + saveFileName);
+				ImageIO.write(jpg, "jpg", file);
+				ImageIO.write(jpg, "jpg", thumbFile);
+				
+				//상품명
+				String nameStr = li.getElementsByClass("product_title").text();
+				//가격
+				String price1 = li.getElementsByClass("custom_price").text();
+				String price2 = price1.replace(",", "");
+				String priceStr = price2.replace("원", "");
+				
+				//뽑히나 확인
+				//str += imgUrl + " : " + nameStr + " : " + priceStr;
+				//str += "\r\n";
+				
+				//객체에 담아서 디비에 저장할꺼임
+				CrawlingItem c = new CrawlingItem();
+				c.setItemName(nameStr);
+				UUID one = UUID.randomUUID();
+				c.setItemCode(one.toString());
+				c.setPrice(Integer.parseInt(priceStr));
+				c.setCategorieNo(1);
+				c.setImgUrl(PREFIX_IMG_URL + saveFileName);
+				c.setThumbUrl(PREFIX_URL + saveFileName);
+				c.setIsThumb(1);
+				System.out.println(c);
+				System.out.println(itemService);
+				itemService.insertCrawlingItem(c);
+				//cralingItem.add(c);
+			}
+		}
 
 		//BufferedWriter br = new BufferedWriter( new OutputStreamWriter(new
 		//FileOutputStream("d:\\seohee\\crawl.txt"))); br.write(str); br.close();
@@ -204,57 +205,57 @@ public class CrawlingParser {
 		
 		//categorie_no = 4
 //		String url = "https://www.decoview.co.kr/product/list.html?cate_no=1362";
-		String url = "https://www.decoview.co.kr/category/%EC%9B%94%EB%8D%B0%EC%BD%94%EC%9E%A5%EC%8B%9D/1366/";
-		Document doc = Jsoup.connect(url).get();
-		Elements a = doc.select("section");
-		Elements contentUl = null;
-		//List<CrawlingItem> cralingItem = null;
-		for (Element el : a) {
-			if("mst_basic_products".equals(el.attr("id"))) {
-				contentUl = el.select("ul");
-			}
-		}
-		Elements contentLi = contentUl.select("li");
-		for (Element li : contentLi) {
-			String imgUrl = li.getElementsByClass("thumbnail").select("img").attr("src");
-			if(!"".equals(imgUrl)) {
-				imgUrl = "https:"+imgUrl;
-				URL imgPath = new URL(imgUrl);
-				BufferedImage jpg = ImageIO.read(imgPath);
-				
-				String saveFileName = genSaveFileName();
-				File file = new File(SAVE_PATH + saveFileName);
-				File thumbFile = new File(THUMBNAIL_PATH + saveFileName);
-				ImageIO.write(jpg, "jpg", file);
-				ImageIO.write(jpg, "jpg", thumbFile);
-				
-				//상품명
-				String nameStr = li.getElementsByClass("product_title").text();
-				//가격
-				String price1 = li.getElementsByClass("custom_price").text();
-				String price2 = price1.replace(",", "");
-				String priceStr = price2.replace("원", "");
-				
-				//뽑히나 확인
-				//str += imgUrl + " : " + nameStr + " : " + priceStr;
-				//str += "\r\n";
-				
-				//객체에 담아서 디비에 저장할꺼임
-				CrawlingItem c = new CrawlingItem();
-				c.setItemName(nameStr);
-				UUID one = UUID.randomUUID();
-				c.setItemCode(one.toString());
-				c.setPrice(Integer.parseInt(priceStr));
-				c.setCategorieNo(4);
-				c.setImgUrl(PREFIX_IMG_URL + saveFileName);
-				c.setThumbUrl(PREFIX_URL + saveFileName);
-				c.setIsThumb(1);
-				System.out.println(c);
-				System.out.println(itemService);
-				itemService.insertCrawlingItem(c);
-				//cralingItem.add(c);
-			}
-		}
+//		String url = "https://www.decoview.co.kr/category/%EC%9B%94%EB%8D%B0%EC%BD%94%EC%9E%A5%EC%8B%9D/1366/";
+//		Document doc = Jsoup.connect(url).get();
+//		Elements a = doc.select("section");
+//		Elements contentUl = null;
+//		//List<CrawlingItem> cralingItem = null;
+//		for (Element el : a) {
+//			if("mst_basic_products".equals(el.attr("id"))) {
+//				contentUl = el.select("ul");
+//			}
+//		}
+//		Elements contentLi = contentUl.select("li");
+//		for (Element li : contentLi) {
+//			String imgUrl = li.getElementsByClass("thumbnail").select("img").attr("src");
+//			if(!"".equals(imgUrl)) {
+//				imgUrl = "https:"+imgUrl;
+//				URL imgPath = new URL(imgUrl);
+//				BufferedImage jpg = ImageIO.read(imgPath);
+//				
+//				String saveFileName = genSaveFileName();
+//				File file = new File(SAVE_PATH + saveFileName);
+//				File thumbFile = new File(THUMBNAIL_PATH + saveFileName);
+//				ImageIO.write(jpg, "jpg", file);
+//				ImageIO.write(jpg, "jpg", thumbFile);
+//				
+//				//상품명
+//				String nameStr = li.getElementsByClass("product_title").text();
+//				//가격
+//				String price1 = li.getElementsByClass("custom_price").text();
+//				String price2 = price1.replace(",", "");
+//				String priceStr = price2.replace("원", "");
+//				
+//				//뽑히나 확인
+//				//str += imgUrl + " : " + nameStr + " : " + priceStr;
+//				//str += "\r\n";
+//				
+//				//객체에 담아서 디비에 저장할꺼임
+//				CrawlingItem c = new CrawlingItem();
+//				c.setItemName(nameStr);
+//				UUID one = UUID.randomUUID();
+//				c.setItemCode(one.toString());
+//				c.setPrice(Integer.parseInt(priceStr));
+//				c.setCategorieNo(4);
+//				c.setImgUrl(PREFIX_IMG_URL + saveFileName);
+//				c.setThumbUrl(PREFIX_URL + saveFileName);
+//				c.setIsThumb(1);
+//				System.out.println(c);
+//				System.out.println(itemService);
+//				itemService.insertCrawlingItem(c);
+//				//cralingItem.add(c);
+//			}
+//		}
 		
 		//categorie_no = 5
 //		String url5 = "https://www.decoview.co.kr/category/%EC%A3%BC%EB%B0%A9%EA%B0%80%EC%A0%84/1477/";
