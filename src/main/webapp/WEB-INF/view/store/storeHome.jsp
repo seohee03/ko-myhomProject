@@ -348,7 +348,6 @@ $( document ).ready( function() {
 		}
 	
 		//상품페이지로 이동
-		// location.href="/item/itemView.do?item_seq=" + itemSeq;
 		location.href = path + "/itemDetail?itemNo=" + itemSeq;
 	}
 	

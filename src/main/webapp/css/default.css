@@ -41,6 +41,7 @@
 .recentArea li{margin-top:10px;}
 .recentArea li:first-child{margin-top:0px}
 .recentArea li img{width: 100%;} 
+.recentArea .top{text-decoration: none;}
 
 /* store  */
 .pdList{}

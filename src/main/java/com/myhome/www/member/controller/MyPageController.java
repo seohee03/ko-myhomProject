@@ -38,10 +38,13 @@ public class MyPageController {
 //	}
 	
 	//회원 정보 수정 폼
-//	@RequestMapping(value = "/mypage/modify")
-//	public String myModify() {
-//		
-//	}
+	/*
+	 * @RequestMapping(value = "/mypage/modify") public String myModify(HttpSession
+	 * session) {
+	 * 
+	 * 
+	 * return "mypage/modify"; }
+	 */
 	
 	//나의 주문 내역 리스트
 //	@RequestMapping(value = "/mypage/myOrder")

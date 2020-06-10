@@ -107,7 +107,7 @@ public class ItemController {
 	
 	//관리자 상품 삭제
 	@RequestMapping(value="/admin/itemDelete", method = RequestMethod.POST)
-	public String itemDeleteSubmit(@ModelAttribute("itemCommand") ItemCommand itemCommand, 
+	public void itemDeleteSubmit(@ModelAttribute("itemCommand") ItemCommand itemCommand, 
 			HttpServletRequest request, HttpServletResponse response) {
 		
 		//상품 삭제
@@ -125,7 +125,6 @@ public class ItemController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "admin/itemManager/itemModify";
 	}
 	
 	/**
