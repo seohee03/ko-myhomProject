@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.myhome.www.article.dto.Article;
 
@@ -12,8 +13,12 @@ public interface ArticleDao {
     
 	//게시글 전체 리스트
 	List<Article> selectArticleList(Article article) throws Exception;	
+	
+	List<Article> selectArticleByWriterId(String writerId) throws Exception;
 	//글쓰기
 	int insertArticle(Article article) throws Exception;
+	//파일등록
+	List<String> restore(MultipartFile[] files) throws Exception;
 	//글번호조회
 	Article selectArticleByNo(int articleNo) throws Exception;
 	//글수정

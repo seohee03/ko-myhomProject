@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+<%@ include file="/WEB-INF/view/include/header.jsp"%>
 
-	<%@ include file="/WEB-INF/view/include/header.jsp"%>
 <script>
 	$(document).on('click', '#searchBtn', function(e){
 		e.preventDefault();
@@ -12,14 +11,72 @@
 		location.href = url;
 		console.log(url);
 	});	
-
 </script>
+
 </head>
+
 <body>
-	
 	<%@ include file="/WEB-INF/view/include/nav.jsp"%>
 	
 	<!--================Blog Area =================-->
+	<!-- community Home -->
+	<div class="container">
+	
+<!-- 	<form action="searchItem" method="get" id="searchForm">
+		<input type="text" placeholder="검색" name="keyword" value="" id="keyword">
+		<input type="button" value="검색" id="searchBtn">
+	</form> -->
+	
+	<c:set var="path" value="${pageContext.request.contextPath }" />
+	<article class="blog_item">
+	 <div>
+                	<a href="<c:url value="/community/writeDo" />" class="genric-btn info circle arrow">글쓰기
+                	<span class="lnr lnr-arrow-right"></span></a>
+                </div>
+	<div class="pdList">
+		<ul class="clearfix">
+		<c:forEach var="article" items="${articleList}">
+			<li onclick="location.href='community/readArticle/${article.articleNo}'">
+			<%-- onclick="javascript:moveItemViewPage('${path }','${article.articleNo} ','${path }${article.articleThumbUrl}'); return false;"> --%>
+				<a>
+				<div class="imgArea">
+					<img class="card-img rounded-0" src="${article.articleContent}" alt="">
+                    <img src="${pageContext.request.contextPath }${article.articleThumbUrl}">
+				</div>
+				<div class="blog_details">
+                    <h5>${article.articleTitle} | 작성자 : <c:out value="${article.writerId}" /> | 조회수 - ${article.readCount}</h5>
+                    <h5>${article.regdate}</h5>
+					<%-- <img alt="" src="${path }${itemC.itemImg.thumbUrl}"> --%>
+				</a>
+				<ul class="blog-info-link">
+                   <li><a href="<c:url value="/byWriterId" />"><i class="far fa-user"></i><c:out value="${article.writerId}" /></a></li>
+                   <li><a href="#"><i class="far fa-comments"></i>Comments ${pagination.listCnt}</a></li>
+                  <%--  <li>조회수 - ${article.readCount}</li> --%>
+               </ul>
+               </div>
+			</li>
+			</c:forEach>
+			<%-- <c:forEach var="itemC" items="${itemCommandList}">
+			<li onclick="javascript:moveItemViewPage('${path }','${itemC.item.itemNo} ','${path }${itemC.itemImg.thumbUrl}'); return false;">
+				
+				<a>
+				<div class="imgArea">
+					<img alt="" src="${path }${itemC.itemImg.thumbUrl}">
+				</div>
+				<div class="infoArea">
+				 	<p class="brand"><c:out value="${itemC.categorie.categorieName}" /></p>
+				 	<p class="ttl"><c:out value="${itemC.item.itemName}" /></p>
+				 	<p class="pdSum"><c:out value="${itemC.item.price}" />원</p>
+				</div>
+				</a>
+				
+			</li>
+			</c:forEach> --%>
+		</ul>
+	</div>
+	</article>
+
+	<%-- <!--================Blog Area =================-->
     <section class="blog_area section_padding">
         <div class="container">
             <div class="row">
@@ -31,13 +88,13 @@
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0" src="${article.articleContent}" alt="">
                                 <a href="#" class="blog_item_date">
-                               <%--  ${article.regdate} --%>
+                                ${article.regdate}
                                     <h3>${article.regdate}</h3>
                                     <p>Jan</p>
                                 </a>
                             </div>
-<%-- <a href="<c:url value="/community/writeDo" />" class="genric-btn info circle arrow">글쓰기</a>
-         <table border="1"> --%>
+<a href="<c:url value="/community/writeDo" />" class="genric-btn info circle arrow">글쓰기</a>
+         <table border="1">
             <!-- <thead>
                <tr>
                   <th>번호</th>
@@ -48,7 +105,7 @@
                   <th>조회수</th>
                </tr>
             </thead> -->
-            <%-- <tbody>
+            <tbody>
                <c:forEach var="article" items="${articleList}">
                   <tr
                      onclick="location.href='community/readArticle/${article.articleNo}'">
@@ -61,7 +118,7 @@
                   </tr>
                </c:forEach>
             </tbody>
-         </table> --%>
+         </table>
                             <div class="blog_details">
                                 <a class="d-inline-block" href="single-blog.html">
                                     <h2>${article.articleTitle}</h2>
@@ -389,7 +446,7 @@
 	
 	
 	
-
+ --%>
 	
 	<script type="text/javascript">
 	function fn_paging(curPage) {

@@ -94,11 +94,11 @@ public class MemberController {
 //	}
 
 	// 정보수정
-	@RequestMapping("/mypage/modify")
-	public String modify() {
-		System.out.println("수정페이지로~");
-		return "redirect:/mypage/modify"; // 수정완료되면 alert창 띄우기
-	}
+//	@RequestMapping("/mypage/modify")
+//	public String modify() {
+//		System.out.println("수정페이지로~");
+//		return "redirect:/mypage/modify"; // 수정완료되면 alert창 띄우기
+//	}
 
 	
 	//*******************************************************************************************************

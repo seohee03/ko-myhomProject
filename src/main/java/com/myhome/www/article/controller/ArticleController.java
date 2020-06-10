@@ -17,14 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.myhome.www.article.dto.Article;
 import com.myhome.www.article.dto.Comment;
 import com.myhome.www.article.dto.Pagination;
 import com.myhome.www.article.service.ArticleService;
 import com.myhome.www.article.service.CommentService;
-import com.myhome.www.item.dto.Item;
 import com.myhome.www.member.service.AuthInfo;
 import com.myhome.www.member.service.LoginCommand;
 
@@ -38,22 +37,39 @@ public class ArticleController {
 	private CommentService commentService;
 	
 	
-	// 리스트
-	@RequestMapping(value = "/community")
-	public String articleList(@ModelAttribute("article") Article article, @RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
-	
-		int listCnt = articleService.selectAllCount();
-		Pagination pagination = new Pagination(listCnt, curPage);
-		article.setStartIndex(pagination.getStartIndex());
-		article.setCntPerPage(pagination.getPageSize());
+	// 전체리스트
+		@RequestMapping(value = "/community")
+		public String articleList(@ModelAttribute("article") Article article, @RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
 		
-		List<Article> articleList = articleService.selectArticleList(article);
-
-		model.addAttribute("articleList", articleList);
-		model.addAttribute("listCnt", listCnt);
-		model.addAttribute("pagination", pagination);
-		return "community/communityHome";
-	}
+			int listCnt = articleService.selectAllCount();
+			Pagination pagination = new Pagination(listCnt, curPage);
+			article.setStartIndex(pagination.getStartIndex());
+			article.setCntPerPage(pagination.getPageSize());
+			
+			List<Article> articleList = articleService.selectArticleList(article);
+			List<Article> byWriterIdArticleList = articleService.selectArticleByWriterId(article.getWriterId());
+			model.addAttribute("byWriterIdArticleList", byWriterIdArticleList);
+			model.addAttribute("articleList", articleList);
+			model.addAttribute("listCnt", listCnt);
+			model.addAttribute("pagination", pagination);
+			return "community/communityHome";
+		}
+		
+		// 아이디로 리스트 페이지
+		@RequestMapping(value = "/byWriterId")
+		public String byWriterIdList(@ModelAttribute("article") Article article, @RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+			
+			int listCnt = articleService.selectAllCount();
+			Pagination pagination = new Pagination(listCnt, curPage);
+			article.setStartIndex(pagination.getStartIndex());
+			article.setCntPerPage(pagination.getPageSize());
+			
+			List<Article> byWriterIdArticleList = articleService.selectArticleByWriterId(article.getWriterId());
+			model.addAttribute("byWriterIdArticleList", byWriterIdArticleList);
+			model.addAttribute("listCnt", listCnt);
+			model.addAttribute("pagination", pagination);
+			return "community/byWriterIdArticleList";
+		}
 	
 //	// 리스트 - 페이징처리 실패
 //	@RequestMapping(value = "/community", method = RequestMethod.GET)
@@ -94,42 +110,49 @@ public class ArticleController {
 	}
 
 	// 게시글 등록 폼
-	@RequestMapping(value = "/community/writeDo", method = RequestMethod.GET)
-	public String writeArticle(@ModelAttribute Article article, @ModelAttribute LoginCommand loginCommand, HttpSession session) {
-		AuthInfo authInfo = null;
-		authInfo = (AuthInfo) session.getAttribute("authInfo");
-		
-		String url = "";
-		
-		if(authInfo != null) {
-			url = "community/writeArticle";
-		}else {
-			System.out.println("로그인 하세요");
-			url = "login/loginForm";
+		@RequestMapping(value = "/community/writeDo", method = RequestMethod.GET)
+		public String writeArticle(@ModelAttribute Article article, @ModelAttribute LoginCommand loginCommand, HttpSession session) {
+			AuthInfo authInfo = null;
+			authInfo = (AuthInfo) session.getAttribute("authInfo");
+			
+			String url = "";
+			
+			if(authInfo != null) {
+				url = "community/writeArticle";
+			}else {
+				System.out.println("로그인 하세요");
+				url = "login/loginForm";
+			}
+			
+			return url;
 		}
+
+		// 글등록 버튼 누르면
+		@RequestMapping(value = "/community/writeDo", method = RequestMethod.POST)
+		public String writeArticleSubmit(
+				
+				@ModelAttribute("article") Article article, HttpSession session,
+				Model model,
+				@ModelAttribute("files") MultipartFile files) throws Exception {
 		
-		return url;
-	}
-
-	// 글등록 버튼 누르면
-	@RequestMapping(value = "/community/writeDo", method = RequestMethod.POST)
-	public String writeArticleSubmit(@ModelAttribute Article article, HttpSession session) throws Exception {
-
-		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-		article.setWriterId(authInfo.getMemberId());
-		article.setWriterName(authInfo.getMemberName());
-
-		int result;
-		result = articleService.insertArticle(article);
-		if (result > 0) {
-			System.out.println("글등록 성공");
-			int no = articleService.selectLastArticleNo();
-			System.out.println("최근 입력한 글 키값 : " + no);
-			return "redirect:/community/readArticle/" + no;
-		}
-		System.out.println("글등록 실패");
-		return "community/writeArticle";
-	}
+				AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+				article.setWriterId(authInfo.getMemberId());
+				article.setWriterName(authInfo.getMemberName());
+				System.out.println("==================== 글등록 컨트롤러 진입 ====================");
+				System.out.println(">>>>>>>>>>>"+files.toString());
+//				int url;
+//				model.addAttribute("url", url); //url들이 썸네일임
+				Article art = articleService.store(article);
+				model.addAttribute("art", art);
+				if (/*result > 0*/true) {
+					System.out.println("글등록 성공");
+					int no = articleService.selectLastArticleNo();
+					System.out.println("최근 입력한 글 키값 : " + no);
+					return "redirect:/community/readArticle/" + no;
+				}
+				System.out.println("글등록 실패");
+				return "community/writeArticle";
+			}
 
 	// 글 수정 폼
 	@RequestMapping(value = "/community/modifyDo/{articleNo}", method = RequestMethod.GET)

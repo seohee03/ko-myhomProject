@@ -17,14 +17,19 @@
 	<insert id="insertArticle" parameterType="com.myhome.www.article.dto.Article">
 		INSERT
 			INTO project1.ARTICLE
-				(WRITER_ID, WRITER_NAME, ARTICLE_TITLE, ARTICLE_CONTENT, REGDATE)
+				(WRITER_ID, WRITER_NAME, ARTICLE_TITLE, ARTICLE_CONTENT, ARTICLE_IMG_URL, ARTICLE_THUMB_URL, REGDATE)
 			VALUES
-				(#{writerId}, #{writerName}, #{articleTitle}, #{articleContent}, now())
+				(#{writerId}, #{writerName}, #{articleTitle}, #{articleContent}, #{articleImgUrl}, #{articleThumbUrl}, now())
 	</insert>
 	
 	<select id="selectArticleByNo" resultType="articleDTO">
 		SELECT * FROM project1.ARTICLE
 			WHERE ARTICLE_NO = #{articleNo}
+	</select>
+	
+	<select id="selectArticleByWriterId" resultType="articleDTO">
+		SELECT * FROM project1.ARTICLE
+			WHERE WRITER_ID = #{writerId}
 	</select>
 
 	<select id="selectLastArticleNo" resultType="int">
