@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/include/header.jsp" %>
 
-<script type="text/javascript">
-/* $(function(){
+<!--  <script type="text/javascript">
+$(function(){
 	 $('#searchForm').submit(function(){	
 		var keyword = $('#keyword').val().trim();
 		console.log(keyword);
@@ -14,7 +14,22 @@
 			return true;
 		}
 	}); 
-}); */
+}); </script> -->
+
+<script>
+$( document ).ready( function() {
+    $( window ).scroll( function() {
+      if ( $( this ).scrollTop() > 200 ) {
+        $( '.top' ).fadeIn();
+      } else {
+        $( '.top' ).fadeOut();
+      }
+    } );
+    $( '.top' ).click( function() {
+      $( 'html, body' ).animate( { scrollTop : 0 }, 400 );
+      return false;
+    } );
+  } );
 </script>
 
 </head>
@@ -174,7 +189,7 @@
 			</c:if>
 	
 	<div id="latelyViewItemListPageing_div" class="recentArea">
-			<button class="topBtn">TOP</button>
+			<button class="topBtn"><a href="#" class="top">TOP</a></button>
 		<ul id="latelyViewItemList_ul">
 		</ul>
 		<!-- <strong id="nowLatelyViewItemPage_strong"></strong>

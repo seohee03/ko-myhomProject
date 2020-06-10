@@ -52,25 +52,46 @@ function cAll() {
         $("input[type=checkbox]").prop("checked", true);
     } else {
         $("input[type=checkbox]").prop("checked", false);
+        $('.priceTotal').text(0);
     }
 }
 
 //주문하기 버튼 함수
 function goOrder() {
+   var cartNoArr = getCheckedArr();
+   var priceTotal = $('#priceTotal').val();
+   console.log(cartNoArr);
+   location.href="${pageContext.request.contextPath}/mycart?type=1&cartNoArr=" +cartNoArr+"&priceTotal="+priceTotal ;
+}
+
+function getCheckedArr(){
    var cartNoArr = new Array();
    $('input[name=checkCart]:checked').each(function(index, value) { 
      console.log(this.value);
       cartNoArr.push(this.value);  
    });
-   console.log(cartNoArr);
-   location.href="${pageContext.request.contextPath}/mycart?type=1&cartNoArr=" +cartNoArr ;
+   
+   return cartNoArr;
 }
 
-$(function(){
-	var allPrice = new Array();
-	allPrice = $('input[name=allPrice]').val();
-	var sum = allPrice.reduce((a,b) => a + b);
-	$('#total').text(sum);
+//체크박스 선택 시 SUM 변경
+$(document).ready(function(){
+     var cartNoArr = new Array();
+	$(".cartChek").change(function(){
+		cartNoArr = null;
+     	var allPrice = new Array();
+    	 cartNoArr = getCheckedArr();
+	     console.log("onchange=========");
+	      console.log(cartNoArr);
+	      $.each(cartNoArr, function(index, item) { 
+	         allPrice.push(parseInt($('input[name=allPrice'+item+']').val()));
+	      });
+	     console.log(allPrice);
+	      var sum = allPrice.reduce((a,b) => a + b);
+	     console.log(sum); 
+	     $('.priceTotal').text(sum);
+	     $('#priceTotal').val(sum);
+	});
 });
 	
 </script>
@@ -90,15 +111,6 @@ $(function(){
 		<ul class="depth1">
 		<c:set var="path" value="${pageContext.request.contextPath }" />
 		<c:forEach var="cartCommand" items="${cartCommandList}" >
-		<c:if test="${empty cartCommand }">
-			<li>
-				<div class="orderPd clearfix">
-					<div class="infoSec">
-						<div class="dv">장바구니에 물건을 담아주세요!</div>
-					</div>
-				</div>
-			</li>
-		</c:if>
 			<li>
 				<input type="checkbox"  class="cartChek" name="checkCart" value="${cartCommand.cartNo}">
 				<div class="orderPd clearfix">
@@ -119,7 +131,7 @@ $(function(){
 						<div>
 							<input type="number" value="${cartCommand.amount}" id="updateAmount${cartCommand.cartNo}" name="newAmount${cartCommand.cartNo}" min="0" />
 							<input type="button" onclick="javascript:amountUpdate(${cartCommand.cartNo});" value="변경"/>
-							<span class="price"><c:out value="${cartCommand.price * cartCommand.amount}" />원</span>
+							<span class="price" ><c:out value="${cartCommand.price}" />원</span>
 						</div>
 					</li>
 					<!-- <li>
@@ -135,7 +147,7 @@ $(function(){
 				<!-- depth2 -->
 				<div class="pdTotal">
 					<div class="dv">무료배송</div>
-					<input type="hidden" name="allPrice" value="${cartCommand.price * cartCommand.amount}">
+					<input type="hidden" name="allPrice${cartCommand.cartNo}" value="${cartCommand.price * cartCommand.amount}">
 					<div><span class="totalPrice"><c:out value="${cartCommand.price * cartCommand.amount}" />원</span></div>
 				</div>
 			</li>
@@ -153,7 +165,7 @@ $(function(){
 		<div class="rightIn">
 			<dl>
 				<dt>총 상품금액</dt>
-				<dd id="total">원</dd>
+				<dd class="priceTotal">원</dd>
 			</dl>
 			<dl>
 				<dt>배송비</dt>
@@ -161,7 +173,8 @@ $(function(){
 			</dl>
 			<dl>
 				<dt>결제 금액</dt>
-				<dd id="total">원</dd>
+				<dd class="priceTotal">원</dd>
+				<input type="hidden" name="priceTotal" id="priceTotal" value="">
 			</dl>
 		</div>
 		<%-- <div class="btnArea"><a href="#" onclick="location.href='${pageContext.request.contextPath}/mycart?type=1'" class="genric-btn success radius">주문하기</a></div> --%>
@@ -170,51 +183,6 @@ $(function(){
 	</form>
 </div>
 
-
-
-<%-- <form id="cartForm">
-<table border="1">
-		<thead>
-			<tr>
-				<th></th>
-				<th>상품명</th>
-				<th>수량</th>
-				<th>가격</th>
-				<th>총 가격</th>
-			</tr>
-		</thead>
-		<tbody>
-		
-		<c:forEach var="cartCommand" items="${cartCommandList}" >
-		<c:if test="${!cartCommand.hasItems()}">
-			<div class="loginBtn hearer_icon d-flex align-items-center">
-				<a href="<c:url value="/store" />" class="genric-btn primary-border circle">상품 담으러 가기</a>
-			</div>
-		</c:if>
-			<tr>
-				<!--  주문하기용 데이터 : 상품, 수량, 가격-->
-				<td><input type="checkbox" name="cartCheckbox" ></td>
-				<td><c:out value="${cartCommand.itemName}" /></td>
-				<td><c:out value="${cartCommand.amount}" />
-				<input type="number" id="updateAmount${cartCommand.cartNo}" name="newAmount${cartCommand.cartNo}" min="0" />
-				<input type="button" onclick="javascript:amountUpdate(${cartCommand.cartNo});" value="변경"/>
-				<input type="button" onclick="javascript:amountDelete(${cartCommand.cartNo});" value="삭제"/>
-				</td>
-				<td><c:out value="${cartCommand.price}" /></td>
-				<td><c:out value="${cartCommand.price * cartCommand.amount}" /></td>
-			</tr>
-
-		</c:forEach>
-		</tbody>
-	</table>
-	<input type="checkbox" id="checkAll" onclick="cAll();"><label for="checkAll">전체선택</label>
-	<p>총 가격 : <span id="totalPrice"></span></p>
-	<!-- 수량 변경용 데이터 -->
-	<input type="hidden" id="updateCartNo" name="updateCartNo" />
-	<input type="hidden" id="updateAmount" name="updateAmount"  />
-	<!-- 전체 주문하기 -->
-	<input type="button" onclick="location.href='${pageContext.request.contextPath}/mycart?type=1'" value="전체주문">
-</form> --%>
 </div>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>

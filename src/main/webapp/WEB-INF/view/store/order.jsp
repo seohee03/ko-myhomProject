@@ -81,52 +81,107 @@ function orderBtn(){
 
 </head>
 <body>
-<p>order page</p>
-<form id="orderForm" method="post">
+<%@ include file="/WEB-INF/view/include/nav.jsp"%>
 
-<table border="1">
-	<thead>
-			<tr>
-				<th>상품명</th>
-				<th>수량</th>
-				<th>가격</th>
-				<th>총 가격</th>
-			</tr>
-	</thead>
-	<tbody>
-		
-		<c:forEach var="cartCommand" items="${cartCommandList}" >
-			<tr>
-				<!--  주문하기용 데이터 : 상품, 수량, 가격-->
-				<td><c:out value="${cartCommand.itemName}" /></td>
-				<td><c:out value="${cartCommand.amount}" /></td>
-				<td><c:out value="${cartCommand.price}" /></td>
-				<td><c:out value="${cartCommand.price * cartCommand.amount}" />
+
+<div class="container">
+	<form id="orderForm" method="post">
+	<div class="orderPage">
+		<div class="title">주문/결제</div>
+		<div class="ttl">주문상품</div>
+		<div class="cartArea">
+			<ul>
+				<c:forEach var="cartCommand" items="${cartCommandList}" >
+				<li>
+					<div class="orderPd clearfix">
+						<div class="imgSec">
+							<img alt="" src="${pageContext.request.contextPath }${cartCommand.thumbUrl}">
+						</div>
+						<div class="infoSec">
+							<div class="txt"><c:out value="${cartCommand.itemName}" /></div>
+							<div class="option"><c:out value="${cartCommand.price}" />원 | <c:out value="${cartCommand.amount}" />개  | 합계 <c:out value="${cartCommand.price * cartCommand.amount}" /> </div>
+						</div>
+					<%-- <c:out value="${cartCommand.price}" />
+					<c:out value="${cartCommand.amount}" />
+					<c:out value="${cartCommand.price * cartCommand.amount}" /> --%>
+					</div>
+				</li>
+				<input type="hidden" name="allPrice${cartCommand.cartNo}" value="${cartCommand.price * cartCommand.amount}">
 				<input type="hidden" value="${cartCommand.cartNo}" id="cartNo${cartCommand.cartNo}" name="cartNoArr" ></td>
-			</tr>
-		</c:forEach>
-		<!-- hidden값으로 cartNo를 배열로 보내고 나머지 주문 상세 내용은 입력값으로 보냄 -->
-	</tbody>
-</table>
-<!-- cartNo 배열로 -->
-<!--  	<input type="hidden" id="cartNoArr" name="cartNoArr" />  -->
-	이름 : <input type="text" name="memberName" value="">
-	<br />
-	전화번호 : <input type="text" name="memberTel" >
-	<br />
-	<input type="text" id="sample4_postcode" name="postcode" placeholder="우편번호">
-	<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-	<input type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소">
-	<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
-	<span id="guide" style="color:#999;display:none"></span>
-	<input type="text" id="sample4_detailAddress" name="detailAddr" placeholder="상세주소">
-	<input type="text" id="sample4_extraAddress" placeholder="참고항목">
-	<br />
-	배송메모 : <input type="text" name="orderMessage" >
-	<br />
+				</c:forEach>
+			</ul>
+		</div>
+		
+		<div class="ttl">배송지</div>
+		<div class="orderArea">
+			<div class="field">
+				<div class="label">이름</div>
+				<div class="input"><input type="text" name="memberName"></div>
+			</div>
+			<div class="field">
+				<div class="label">전화번호</div>
+				<div class="input"><input type="text" name="memberTel"></div>
+			</div>
+			<div class="field">
+				<div class="label">우편번호</div>
+				<div class="input">
+					<input type="text" id="sample4_postcode" name="postcode" placeholder="우편번호">
+					<input type="button" onclick="sample4_execDaumPostcode()" class="genric-btn success radius" value="우편번호 찾기">
+				</div>
+			</div>
+			<div class="field">
+				<div class="label">주소</div>
+				<div class="input">
+					<input type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소">
+					<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+				</div>
+			</div>
+			<div class="field">
+				<div class="label"> </div>
+				<div class="input">
+					<input type="text" id="sample4_detailAddress" name="detailAddr" placeholder="상세주소">
+					<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+				</div>
+			</div>
+			<div class="field">
+				<div class="label">배송메모</div>
+				<div class="input"><input type="text" name="orderMessage" ></div>
+			</div>
+		</div>
+		<c:set var="priceTotal" value="${priceTotal }" />
+		<div class="ttl">최종 결제 금액</div>
+		<div class="priceArea">
+			<div class="txt">총 상품 금액 : ${priceTotal }</div>
+			<div class="txt">배송비 : 0</div>
+			<div class="totalTxt">${priceTotal }원</div>
+		</div>
+		<input type="button" onclick="orderBtn();" value="결제하기" class="genric-btn success radius orderBtn">
 	
-	<input type="button" onclick="orderBtn();" value="주문">
-</form>
+	
+	</div>
+	
+	
+			<%-- <c:forEach var="cartCommand" items="${cartCommandList}" >
+				<tr>
+					<!--  주문하기용 데이터 : 상품, 수량, 가격-->
+					<td><c:out value="${cartCommand.itemName}" /></td>
+					<td><c:out value="${cartCommand.amount}" /></td>
+					<td><c:out value="${cartCommand.price}" /></td>
+					<td><c:out value="${cartCommand.price * cartCommand.amount}" />
+					<input type="hidden" value="${cartCommand.cartNo}" id="cartNo${cartCommand.cartNo}" name="cartNoArr" ></td>
+				</tr>
+			</c:forEach> --%>
+			<!-- hidden값으로 cartNo를 배열로 보내고 나머지 주문 상세 내용은 입력값으로 보냄 -->
 
+	<!-- cartNo 배열로 -->
+	<!--  	<input type="hidden" id="cartNoArr" name="cartNoArr" />  -->
+		
+		
+	</form>
+</div>
+
+
+
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>
 </html>

@@ -75,7 +75,7 @@ public class CartController {
 		
 		if(authInfo != null) {
 			//로그인 한거면
-			writer.println("<script>location.href='" + request.getContextPath() + "/mycart?type=0';</script>");
+			writer.println("<script>location.href='" + request.getContextPath() + "/mycart?type=0&priceTotal=0';</script>");
 		} else {
 			writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='" + request.getContextPath() + "/login';</script>");
 		}
@@ -84,7 +84,7 @@ public class CartController {
 	//장바구니 리스트 보여줌 / 주문페이지 넘어가기
 	@RequestMapping(value = "/mycart")
 	public String myCart(
-			@Param("type") int type,  @Param("cartNoArr") int[] cartNoArr, 
+			@Param("type") int type,  @Param("cartNoArr") int[] cartNoArr, @Param("priceTotal") int priceTotal,
 			HttpSession session, HttpServletRequest request, Model model) throws Exception {
 		
 		String urlStr = "store/cart";
@@ -100,6 +100,7 @@ public class CartController {
 			System.out.println(">>>>>>>>>>>>>>>>>>>>" + cartNoArr);
 			//로그인 한 회원의 번호로 장바구니 리스트 조회
 			cartCommandList = cartService.selectOrderList(authInfo.getMemberNo(), cartNoArr);
+			model.addAttribute("priceTotal", priceTotal);
 		}else {
 			//로그인 한 회원의 번호로 장바구니 리스트 조회
 			cartCommandList = cartService.selectCartList(authInfo.getMemberNo());

@@ -38,7 +38,7 @@
 .recentArea{padding: 10px;position: fixed;top: 20%;right: 10px;background: #f8f9fa;text-align: center;padding-top:10px}
 .recentArea .topBtn{width: 100%;padding:10px 15px;border:1px solid #ddd;background:none;display: inline-block;}
 .recentArea ul{width: 80px;padding:0; margin-top:10px;list-style:none;}
-.recentArea li{margin-top:10px;border:1px solid #000;}
+.recentArea li{margin-top:10px;}
 .recentArea li:first-child{margin-top:0px}
 .recentArea li img{width: 100%;} 
 
@@ -186,5 +186,93 @@
 }
 
 
+/* order page */
+.orderPage{max-width: 760px;margin:0 auto;}
+.orderPage .title{font-size: 28px;font-weight: bold;font-family: "Noto Sans KR", "맑은 고딕";margin: 13px 0 40px 0;}
+.orderPage .ttl{font-size: 20px;font-weight: bold;font-family: "Noto Sans KR", "맑은 고딕";border-bottom: solid 2px #ddd;
+    padding-bottom: 15px;}
+.orderPage .orderBtn{
+	width:100%;
+    margin: 40px 0 40px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 50px;
+    background: #35c5f0;
+    border-radius: 4px;
+    cursor: pointer;
+	}
+.cartArea{margin-bottom: 45px;}
+.cartArea .orderPd{padding: 10px 0px 0px 10px;}
+.cartArea .imgSec{float: left;
+    width: 70px;
+    margin: 0 13px 10px 0;
+    height: 70px;
+    border-radius: 6px;
+    background-color: #ededed;
+    overflow: hidden;}
+.cartArea ul{margin-bottom: 20px;}
+.cartArea li{border-bottom: solid 1px #ddd}
+.orderPd .infoSec{margin-top: 10px;}
+.infoSec .txt{font-size: 15px;color: #424242;margin-bottom: 5px;font-weight: bold;letter-spacing: -0.4px;}
+.infoSec .option{font-size: 15px;color: #757575;margin-bottom: 5px;}
+.orderArea{margin-bottom: 45px;}
+.orderArea .field{display: flex;margin: 20px 0 0 0;}
+.orderArea .label{
+	text-align: left;
+	flex: 0 0 auto;
+    width: 140px;
+    padding-left: 10px;
+    font-size: 15px;
+    color: #424242;
+    line-height: 40px;}
+.orderArea input[type=text]{
+	border: 1px solid #dcdcdc;
+    margin: 0;
+    padding: 0 15px;
+    line-height: 38px;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: 14px;
+    width:40%;}
+.orderArea input[name=memberName]{width:50%;}
+.orderArea input[name=memberTel]{width:50%;}
+.orderArea input[name=postcode]{width:25%;}
+.orderArea input[name=orderMessage]{width:81%;}
+.field .input{    flex: auto;}
+.field .genric-btn{height: 40px;
+    line-height: 40px;
+    color: white;
+    background: #35c5f0;
+    margin-left: 10px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;}
 
-
+    
+    
+    
+/* order success page */
+.orderSuccessPage{max-width: 760px;margin:0 auto;padding: 30px;text-align: center;}
+.orderSuccessPage .txt{margin: 45px 0;color: #424242;    font-family: "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕", "Malgun Gothic", sans-serif;}
+.orderSuccessPage a{color: white;}
+.orderSuccessPage .orderBtn{
+	height: 40px;
+    line-height: 40px;
+    color: white;
+    background: #35c5f0;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 0 0 30px 0;
+}
+.priceArea .totalTxt{
+	margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}}

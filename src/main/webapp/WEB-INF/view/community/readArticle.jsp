@@ -29,12 +29,6 @@
       
    });
    
-   
-   
-   /* $(document).ready(function(){
-       
-   }); */
-
    </script>
 </head>
 <body>
@@ -68,8 +62,9 @@
          <a href="<c:url value="/community/writeDo" />">[글쓰기]</a>
 
             <c:if test="${authInfo.memberId == article.writerId}">
-               <a href="<c:url value='/community/modifyDo/${article.articleNo}'/>">[수정]</a>
-               <a href="<c:url value='#'/>" id="deleteBtn">[삭제]</a>
+	            <form:hidden path="articleNo" value="${article.articleNo }" />
+    		    <a href="<c:url value='/community/modifyDo/${article.articleNo}'/>">[수정]</a>
+                <a href="<c:url value='#'/>" id="deleteBtn">[삭제]</a>
             </c:if>
 
    </div>

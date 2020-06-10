@@ -142,6 +142,8 @@ public class StoreController {
 			 
 			 itemCommandList = itemService.selectItemByCategoryNo(item);
 		 }
+		 System.out.println("--------------------------------------------");
+		 System.out.println(itemCommandList.get(0).getItem().getItemName());
 		 model.addAttribute("itemCommandList", itemCommandList);
 		 model.addAttribute("listCnt", listCnt);
 		 model.addAttribute("pagination", pagination);

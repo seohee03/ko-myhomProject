@@ -65,17 +65,16 @@ img {
 		<ul class="clearfix">
 			<c:set var="path" value="${pageContext.request.contextPath }" />
 			<c:forEach var="itemC" items="${itemCommandList}">
-			<li onclick="javascript:moveItemViewPage('${path }','${itemC.item.itemNo} ','${path }${itemC.itemImg.thumbUrl}'); return false;">
-				
-				<a>
-				<div class="imgArea">
-					<img alt="" src="${path }${itemC.itemImg.thumbUrl}">
-				</div>
-				<div class="infoArea">
-				 	<p class="brand"><c:out value="${itemC.categorie.categorieName}" /></p>
-				 	<p class="ttl"><c:out value="${itemC.item.itemName}" /></p>
-				 	<p class="pdSum"><c:out value="${itemC.item.price}" />원</p>
-				</div>
+			<li>
+				<a href="<c:url value="/itemDetail?itemNo=${itemC.item.itemNo }"/>">
+					<div class="imgArea">
+						<img alt="" src="${path }${itemC.itemImg.thumbUrl}">
+					</div>
+					<div class="infoArea">
+					 	<p class="brand"><c:out value="${itemC.categorie.categorieName}" /></p>
+					 	<p class="ttl"><c:out value="${itemC.item.itemName}" /></p>
+					 	<p class="pdSum"><c:out value="${itemC.item.price}" />원</p>
+					</div>
 				</a>
 				
 			</li>

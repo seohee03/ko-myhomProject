@@ -185,7 +185,7 @@
 	</select>
 <!-- 카테고리별 상품 조회 -->
 	<select id="selectItemByCategoryNo" resultMap="itemCommand" parameterType="item">
-		select c.categorie_name, i.item_name, i.price, m.thumb_url
+		select c.categorie_name, i.item_name, i.price, m.thumb_url, i.item_no
 		from project1.item i, project1.categorie c, project1.item_img m
 		where i.categorie_no = c.categorie_no 
 		and m.item_no = i.item_no

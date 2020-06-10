@@ -26,7 +26,8 @@
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
                     <c:forEach var="article" items="${articleList}">
-                        <article class="blog_item">
+                       <article class="blog_item">
+                        <div onclick="location.href='community/readArticle/${article.articleNo}'">
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0" src="${article.articleContent}" alt="">
                                 <a href="#" class="blog_item_date">
@@ -36,36 +37,37 @@
                                 </a>
                             </div>
 <%-- <a href="<c:url value="/community/writeDo" />" class="genric-btn info circle arrow">글쓰기</a>
-			<table border="1"> --%>
-				<!-- <thead>
-					<tr>
-						<th>번호</th>
-						<th>이미지</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>게시일</th>
-						<th>조회수</th>
-					</tr>
-				</thead> -->
-				<%-- <tbody>
-					<c:forEach var="article" items="${articleList}">
-						<tr
-							onclick="location.href='community/readArticle/${article.articleNo}'">
-							<td>${article.articleNo}</td>
-							<td><img src="${path }${itemC.itemImg.thumbUrl}" style="width: 50px"></td>
-							<td>${article.articleTitle}</td>
-							<td>${article.writerId}</td>
-							<td>${article.regdate}</td>
-							<td>${article.readCount}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table> --%>
+         <table border="1"> --%>
+            <!-- <thead>
+               <tr>
+                  <th>번호</th>
+                  <th>이미지</th>
+                  <th>제목</th>
+                  <th>작성자</th>
+                  <th>게시일</th>
+                  <th>조회수</th>
+               </tr>
+            </thead> -->
+            <%-- <tbody>
+               <c:forEach var="article" items="${articleList}">
+                  <tr
+                     onclick="location.href='community/readArticle/${article.articleNo}'">
+                     <td>${article.articleNo}</td>
+                     <td><img src="${path }${itemC.itemImg.thumbUrl}" style="width: 50px"></td>
+                     <td>${article.articleTitle}</td>
+                     <td>${article.writerId}</td>
+                     <td>${article.regdate}</td>
+                     <td>${article.readCount}</td>
+                  </tr>
+               </c:forEach>
+            </tbody>
+         </table> --%>
                             <div class="blog_details">
                                 <a class="d-inline-block" href="single-blog.html">
                                     <h2>${article.articleTitle}</h2>
                                 </a>
                                 <p>${article.articleContent}</p>
+                                </div>
                                 <ul class="blog-info-link">
                                     <li><a href="#"><i class="far fa-user"></i> Travel, Lifestyle</a></li>
                                     <li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li>
