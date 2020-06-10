@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.myhome.www.article.dto.Pagination;
 import com.myhome.www.member.dto.Member;
 import com.myhome.www.member.service.AuthInfo;
 import com.myhome.www.member.service.MemberService;
@@ -105,12 +107,26 @@ public class MemberController {
 	
 	//회원 리스트
 	@RequestMapping(value = "/admin/memberList", method = RequestMethod.GET)
-	public String memberListForAdmin(Model model) throws Exception {
+	public String memberListForAdmin(@ModelAttribute("member") Member member, @RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
 		System.out.println(">>>>>>>>>>>>>>>>컨트롤러 진입");
-		List<Member> memberList = memberService.selectMemberList();
+		
+		int listCnt = memberService.selectAllCount();
+		Pagination pagination = new Pagination(listCnt, curPage);
+		member.setStartIndex(pagination.getStartIndex());
+		member.setCntPerPage(pagination.getPageSize());
+		System.out.println("listCnt>>>>>>"+listCnt);
+		System.out.println("curPage>>>>>" + curPage);
+		System.out.println("pagination.getStartIndex()>>>>"+pagination.getStartIndex());
+		System.out.println("pagination.getPageSize()>>>>"+pagination.getPageSize());
+		System.out.println("member.getStartIndex()>>>>>"+member.getStartIndex());
+		System.out.println("member.getCntPerPage()>>>>>"+member.getCntPerPage());
+		
+		List<Member> memberList = memberService.selectMemberList(member);
 		model.addAttribute("memberList",memberList);
-		System.out.println("memberList"+memberList);
-	return "admin/memberManager/memberList";
+		model.addAttribute("listCnt", listCnt);
+		model.addAttribute("pagination", pagination);
+	
+		return "admin/memberManager/memberList";
 		}
 	
 	//회원 탈퇴

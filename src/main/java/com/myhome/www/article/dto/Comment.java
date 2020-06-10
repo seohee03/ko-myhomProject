@@ -10,6 +10,8 @@ public class Comment {
 	private String commentContent;
 	private LocalDateTime regdate;
 	private LocalDateTime moddate;
+	private int startIndex;
+	private int cntPerPage;
 	
 	public int getCommentNo() {
 		return commentNo;
@@ -47,6 +49,23 @@ public class Comment {
 	public void setModdate(LocalDateTime moddate) {
 		this.moddate = moddate;
 	}
+	public int getStartIndex() {
+		return startIndex;
+	}
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
+	}
+	public int getCntPerPage() {
+		return cntPerPage;
+	}
+	public void setCntPerPage(int cntPerPage) {
+		this.cntPerPage = cntPerPage;
+	}
 	
+	@Override
+	public String toString() {
+		return "Comment [commentNo=" + commentNo + ", articleNo=" + articleNo + ", memberNo=" + memberNo
+				+ ", commentContent=" + commentContent + ", regdate=" + regdate + ", moddate=" + moddate + "]";
+	}
 	
 }

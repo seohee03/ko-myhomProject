@@ -226,18 +226,19 @@ public class ArticleController {
 	// 리스트
    @RequestMapping(value = "/admin/articleList", method = RequestMethod.GET)
    public String articleListForAdim(@ModelAttribute("article") Article article, @RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
-	   int listCnt = articleService.selectAllCount();
+	    System.out.println("article>>>>>>>>>"+article);
+	    int listCnt = articleService.selectAllCount();
 		Pagination pagination = new Pagination(listCnt, curPage);
 		article.setStartIndex(pagination.getStartIndex());
 		article.setCntPerPage(pagination.getPageSize());
-		
+		System.out.println("pagination.getStartIndex()>>>>>>"+	pagination.getStartIndex());
+		System.out.println("article.getStartIndex()>>>>>>"+	article.getStartIndex());
+		System.out.println("article.getCntPerPage()>>>>>>"+	article.getCntPerPage());
 		List<Article> articleList = articleService.selectArticleList(article);
 
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("listCnt", listCnt);
 		model.addAttribute("pagination", pagination);
-		
-		
 		
       return "admin/articleManager/articleList";
    }

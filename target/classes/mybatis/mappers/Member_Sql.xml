@@ -29,11 +29,13 @@
 	<delete id="deleteMember" parameterType="int" >
 	delete from member where member_no=#{memberNo}
 	</delete>
-	
-	
 <!-- 중복회원 카운트 조회 -->
 	<select id="idCheck" resultType="int">
 	SELECT count(*) FROM member where member_id = #{memberId}
+	</select>
+<!-- 회원 수 조회 -->
+	<select resultType="int" id="selectAllCount">
+		select count(*) from project1.member where member_no > 0 
 	</select>
 	
 </mapper>

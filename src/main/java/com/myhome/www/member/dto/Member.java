@@ -12,6 +12,8 @@ public class Member {
 	private String power;			//권한
 	private boolean agree;			//동의여부(사용안함)
 	private String key;				//비밀번호 복호화 키
+	private int startIndex;
+	private int cntPerPage;
 
 //	public Member(String memberId, String name, String memberPw, LocalDateTime regdate) {
 //		this.memberId = memberId;
@@ -97,5 +99,21 @@ public class Member {
 		this.key = key;
 	}
 
+	public int getStartIndex() {
+		return startIndex;
+	}
 
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
+	}
+
+	public int getCntPerPage() {
+		return cntPerPage;
+	}
+
+	public void setCntPerPage(int cntPerPage) {
+		this.cntPerPage = cntPerPage;
+	}
+
+	
 }

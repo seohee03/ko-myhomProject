@@ -52,9 +52,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	//회원 리스트 조회
 	@Override
-	public List<Member> selectMemberList() throws Exception {
+	public List<Member> selectMemberList(Member member) throws Exception {
 		System.out.println(">>>>서비스 진입");
-		return memberDao.selectMemberList();
+		return memberDao.selectMemberList(member);
 	}
 
 	//회원 수정
@@ -72,13 +72,9 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("memberNo"+memberNo);
 		return memberDao.deleteMember(memberNo);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
-}
+	//전체 회원 조회
+		@Override
+		public int selectAllCount() throws Exception {
+			return memberDao.selectAllCount();
+		}
+	}

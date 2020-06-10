@@ -1,32 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/include/header.jsp" %>
+<%@ include file="/WEB-INF/view/admin/include/header.jsp" %>
 </head>
 <body>
-<h1>게시판 조회</h1>
-   <table border="1" >
-      <thead>
-         <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>게시일</th>
-            <th>조회수</th>
-         </tr>
-      </thead>
-      <tbody>
-      <c:forEach var="article" items="${articleList}">
-         <tr>
-            <td><c:out value="${article.articleNo}" /></td>
-            <td><%-- <a href="<c:url value="community/readArticle/${article.articleNo}"/>"> --%>${article.articleTitle}</td>
-            <td><c:out value="${article.writerId}" /></td>
-            <td><c:out value="${article.regdate}" /></td>
-            <td><c:out value="${article.readCount}" /></td>
-         </tr>
-      </c:forEach>
-      </tbody>
-   </table>
-   <div>
+<%@ include file="/WEB-INF/view/admin/include/nav.jsp"%>
+<section>
+	<div id="main-wrapper">
+		<div class="main-content">
+			<section id="member">
+			<!-- 제목  -->
+			
+			<div class="content-header">
+				<h1>&nbsp게시판 관리</h1>
+			</div>
+			<!-- 내용 -->
+			<div class="features">
+				<table class="itemListTable" >
+		      <thead>
+		         <tr>
+		            <th>번호</th>
+		            <th>제목</th>
+		            <th>작성자</th>
+		            <th>게시일</th>
+		            <th>조회수</th>
+		         </tr>
+		      </thead>
+		      <tbody>
+		      <c:forEach var="article" items="${articleList}">
+		         <tr 
+		         	  onclick="location.href='${pageContext.request.contextPath}/community/readArticle/${article.articleNo}'">
+		            <td><c:out value="${article.articleNo}" /></td>
+		            <td><%-- <a href="<c:url value="/community/readArticle/${article.articleNo}"/>"> --%>${article.articleTitle}</td>
+		            <td><c:out value="${article.writerId}" /></td>
+		            <%-- <td><c:out value="${article.regdate}" /></td> --%>
+		            <td><tf:formatDateTime value ="${article.regdate}" pattern="yyyy-MM-dd" /></td>
+		            <td><c:out value="${article.readCount}" /></td>
+		         </tr>
+		      </c:forEach>
+
+		<tr>
+			<td colspan="5">
           <c:if test="${pagination.curRange ne 1 }">
               <a href="#" onClick="fn_paging(1)">[처음]</a> 
           </c:if>
@@ -49,11 +62,14 @@
           <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
               <a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a> 
           </c:if>
-      </div>
-      
-      <div>
-          총 게시글 수 : ${pagination.listCnt } /    총 페이지 수 : ${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 : ${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }
-      </div>
+		      </td>
+		      </tr>
+		      </tbody>
+			</table>
+		</div>
+		</section>
+	</div>
+	</div>	
 	</section>
 	
 	<script type="text/javascript">

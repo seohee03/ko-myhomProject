@@ -28,4 +28,8 @@
     <delete id="deleteComment" parameterType="int">
         DELETE FROM COMMENT WHERE comment_no = #{commentNo}
     </delete>
+<!-- 댓글 갯수 조회 -->
+    <select resultType="int" parameterType="int" id="selectAllCount">
+    	select count(*) from project1.COMMENT where comment_no > 0 and article_No=#{articleNo} 
+    </select>
  </mapper>
