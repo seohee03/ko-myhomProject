@@ -1,5 +1,7 @@
 package com.myhome.www.article.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,11 @@ public class CommentController {
 	//댓글 등록 버튼을 누르면
 	@ResponseBody
 	@RequestMapping(value = "/community/insertComment", method = RequestMethod.POST)
-	public int insertComment(Comment comment, HttpSession session) throws Exception {
+	public int insertComment(Comment comment, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>" + comment);
 		AuthInfo authInfo = null;
 		authInfo = (AuthInfo) session.getAttribute("authInfo");
+		//PrintWriter writer = response.getWriter();
 		int data = 0;
 		if(authInfo != null) {
 			comment.setMemberNo(authInfo.getMemberNo());
@@ -41,7 +44,12 @@ public class CommentController {
 			} else {
 				data = 9;
 			}
+				
+		} else {
+			//writer.println("<script>alert('로그인을 먼저 해주세요!'); location.href='" + request.getContextPath() + "/login';</script>");
+			data = 5;
 		}
+		System.out.println("data>>>>>>>>>>>>>>>>>>>>>>>"+data);
 		return data;
 	}
 	

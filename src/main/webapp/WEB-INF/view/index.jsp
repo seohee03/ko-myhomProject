@@ -81,87 +81,46 @@
 
 <!-- trending item start-->
 <section class="trending_items">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="section_tittle text-left">
-					<h4>베스트 사진</h4>
-					<a href="${pageContext.request.contextPath}/community" >전체보기</a>
-					<hr>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-4 col-sm-6">
-				<div class="single_product_item">
-					<div class="single_product_item_thumb">
-						<img src="img/tranding_item/tranding_item_1.png" alt="#"
-							class="img-fluid">
-					</div>
-					<h3>
-						<a href="single-product.html">Cervical pillow for airplane car
-							office nap pillow</a>
-					</h3>
-					<p>From $5</p>
-				</div>
-			</div>
-			<div class="col-lg-4 col-sm-6">
-				<div class="single_product_item">
-					<img src="img/tranding_item/tranding_item_2.png" alt="#"
-						class="img-fluid">
-					<h3>
-						<a href="single-product.html">Foam filling cotton slow rebound pillows</a>
-					</h3>
-					<p>From $5</p>
-				</div>
-			</div>
-			<div class="col-lg-4 col-sm-6">
-				<div class="single_product_item">
-					<img src="img/tranding_item/tranding_item_3.png" alt="#"
-						class="img-fluid">
-					<h3>
-						<a href="single-product.html">Memory foam filling cotton Slow
-							rebound pillows</a>
-					</h3>
-					<p>From $5</p>
-				</div>
-			</div>
-			<div class="col-lg-4 col-sm-6">
-				<div class="single_product_item">
-					<img src="img/tranding_item/tranding_item_4.png" alt="#"
-						class="img-fluid">
-					<h3>
-						<a href="single-product.html">Cervical pillow for airplane car
-							office nap pillow</a>
-					</h3>
-					<p>From $5</p>
-				</div>
-			</div>
-			<div class="col-lg-4 col-sm-6">
-				<div class="single_product_item">
-					<img src="img/tranding_item/tranding_item_5.png" alt="#"
-						class="img-fluid">
-					<h3>
-						<a href="single-product.html">Foam filling cotton slow rebound
-							pillows</a>
-					</h3>
-					<p>From $5</p>
-				</div>
-			</div>
-			<div class="col-lg-4 col-sm-6">
-				<div class="single_product_item">
-					<img src="img/tranding_item/tranding_item_6.png" alt="#"
-						class="img-fluid">
-					<h3>
-						<a href="single-product.html">Memory foam filling cotton Slow
-							rebound pillows</a>
-					</h3>
-					<p>From $5</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="section_tittle text-left">
+                  <h4>커뮤니티</h4>
+                  <a href="${pageContext.request.contextPath}/community">전체보기</a>
+                  <hr>
+               </div>
+            </div>
+         </div>
+         <div class="pdList">
+            <ul class="clearfix">
+               <c:forEach var="itemC" items="${articleList}">
+                  <li>
+                     <a href="<c:url value="/community/readArticle/${article.articleNo}"/>">
+                        <div class="imgArea">
+                           <img class="card-img rounded-0" src="${article.articleContent}" alt="">
+                           <img src="${pageContext.request.contextPath }${article.articleThumbUrl}">
+                           <img alt="" src="${path }${article.articleThumbUrl}">
+                        </div>
+                        <div class="infoArea">
+                           <div class="blog_details">
+                              <h5>
+                                 ${article.articleTitle} | 작성자 : <c:out value="${article.writerId}" /> | 조회수 - ${article.readCount}
+                              </h5>
+                              <h5>${article.regdate}</h5>
+                           </div>
+                        </div>
+                     </a>
+                  </li>
+                  <ul class="blog-info-link">
+                     <li><a href="<c:url value="/byWriterId" />"><i
+                           class="far fa-user"></i> <c:out value="${article.writerId}" /></a></li>
+                     <li><a href="#"><i class="far fa-comments"></i>Comments &{pagination.listCnt}</a></li>
+                  </ul>
+               </c:forEach>
+            </ul>
+         </div>
+      </div>
+   </section>
 <!-- trending item end-->
 
 <div class="container">

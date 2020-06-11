@@ -5,22 +5,23 @@
  <mapper namespace="com.myhome.www.article.service.impl.CommentDao">
  
  <!-- 댓글 조회 -->
-	 <select id="selectCommentByNo" parameterType="int" resultType="comment">
+	 <select id="selectComment" parameterType="int" resultType="comment">
 	 	select * from project1.comment 
 	 	where article_no = #{articleNo} 
-	 	order by comment_no
+	 	order by comment_no desc limit #{startIndex}, #{cntPerPage}
 	 </select>
 	 
  <!-- 댓글 등록 -->
 	<insert parameterType="comment" id="insertComment">
-		INSERT INTO COMMENT (article_no, comment_content, member_no, regdate) VALUES(#{articleNo}, #{commentContent}, #{memberNo}, now()) 
+		INSERT INTO COMMENT (article_no, comment_content, member_no, regdate,moddate ) VALUES(#{articleNo}, #{commentContent}, #{memberNo}, now(), now()) 
 	</insert>
 	
 <!-- 댓글 수정 -->
      <update id="modifyComment" parameterType="comment">
         UPDATE COMMENT
             SET
-            comment_content = #{commentContent}
+            comment_content = #{commentContent},
+            moddate = now()
         WHERE comment_no = #{commentNo}
       </update>
       

@@ -92,15 +92,21 @@
 		</form>
 		<br>
 		<br>
-		<hr>
+		<section>
 		<h4>Comments</h4>
+		<hr>
 		<c:forEach var="comment" items="${commentList}">
 			<div>
 				<c:out value="${comment.commentContent}" />
 				<div>
 					<p>
 						<c:out value="${comment.memberNo}" />
-						<c:out value="${comment.regdate}" />
+						등록날짜 : <tf:formatDateTime value="${comment.regdate}" pattern="yyyy-MM-dd" />
+						<%-- 등록날짜 : <c:out value="${comment.regdate}" /> --%>
+						<%-- 수정날짜 : <tf:formatDateTime value="${comment.moddate}" pattern="yyyy-MM-dd" /> --%>
+						<%-- 수정날짜 : <c:out value="${comment.moddate}" /> --%>
+						
+						<%-- <c:out value="${comment.regdate}" /> --%>
 					</p>
 				</div>
 
@@ -116,91 +122,121 @@
 			<br>
 			<hr>
 		</c:forEach>
+<div>
+            <c:if test="${pagination.curRange ne 1 }">
+                <a href="#" onClick="fn_paging(1)">[처음]</a> 
+            </c:if>
+            <c:if test="${pagination.curPage ne 1}">
+                <a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a> 
+            </c:if>
+            <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
+                <c:choose>
+                    <c:when test="${pageNum eq  pagination.curPage}">
+                        <span style="font-weight: bold;"><a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a></span> 
+                    </c:when>
+                    <c:otherwise>
+                        <a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a> 
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+                <a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a> 
+            </c:if>
+            <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+                <a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a> 
+            </c:if>
+        </div>
+                
+                <div>
+                    총 게시글 수 : ${pagination.listCnt } /    총 페이지 수 : ${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 : ${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }
+                </div>
+</section>
+</section>
 
-	</section>
-	<script type="text/javascript">
-		function commmentInsertBtn() {
-			var commentBox = $('#commentBox').val().trim();
-			if (commentBox == '') {
-				$('#commentBox').focus();
-				return false;
-			} else {
-				$
-						.ajax({
-							url : "${pageContext.request.contextPath}/community/insertComment",
-							type : "post",
-							dataType : "json",
-							data : $('#commentForm').serialize(),
-							success : function(data) {
-								if (data == 0) {
-									//alert('등록 성공');
-									location.reload();
-								} else if (data == 9) {
-									alert('등록 실패');
-								}
-							}
-						});
+<script type="text/javascript">
+function fn_paging(curPage) {
+	var articleNo = "${article.articleNo}"
+	location.href = articleNo +"?curPage=" + curPage;
+	}
+
+function commmentInsertBtn(){
+	var commentBox = $('#commentBox').val().trim();
+	if(commentBox == ''){
+		$('#commentBox').focus();
+		return false;
+	}else{
+		$.ajax({
+			url : "${pageContext.request.contextPath}/community/insertComment",
+			type : "post",
+			dataType : "json",
+			data : $('#commentForm').serialize(),
+			success : function(data){
+				if(data == 0){
+					alert('등록 성공');
+					location.reload();
+				} else if(data == 9) {
+					alert('등록 실패');
+				} else if (data == 5) {
+					location.href='${pageContext.request.contextPath}/login';
+				}
+			
 			}
-		}
+		});
+	}
+}
 
-		function commentModifyBtn(commentNo, commentContent) {
-			/* var commentNo = "${comment.commentNo}"; */
-			var a = '';
+function commentModifyBtn(commentNo, commentContent){
+	/* var commentNo = "${comment.commentNo}"; */
+    var a ='';
+    
+    a += '<div class="input-group">';
+    a += '<input type="text" class="contentText" name="content_'+commentNo+'" value="'+commentContent+'"/>';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+commentNo+');">완료</button> </span>';
+    a += '</div></td>';
+    
+    $('.commentList'+commentNo).html(a);
+}
 
-			a += '<div class="input-group">';
-			a += '<input type="text" class="contentText" name="content_'+commentNo+'" value="'+commentContent+'"/>';
-			a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('
-					+ commentNo + ');">완료</button> </span>';
-			a += '</div></td>';
+function commentUpdateProc(commentNo){
+    var updateContent = $('[name=content_'+commentNo+']').val();
+    var articleNo = "${comment.articleNo}"
+    $.ajax({
+        url : '${pageContext.request.contextPath}/community/commentUpdate',
+        type : 'post',
+        dataType : "json",
+        data : {'commentContent' : updateContent, 'commentNo' : commentNo},
+        success : function(data){
+            if(data == 0) {
+            	alert("수정완료");
+            	location.reload();
+            }else if(data == 9){
+            	alert("수정실패");
+            	$('.contentText').focus();
+            }
+        }
+    });
+}
 
-			$('.commentList' + commentNo).html(a);
-		}
+function commentDeleteBtn(commentNo){
+    var articleNo = "${comment.articleNo}"
+	$.ajax({
+		url : '${pageContext.request.contextPath}/community/commentDelete/'+ commentNo,
+		type : 'post',
+		dataType : "json",
+		success : function(data){
+			confirm('삭제하시겠습니까?');
+			if(data == 0){
+				alert("삭제성공")
+				location.reload();
+			} else if(data == 9){
+				alert("삭제실패")
+			}
+		}	
+	});
+	
+}
 
-		function commentUpdateProc(commentNo) {
-			var updateContent = $('[name=content_' + commentNo + ']').val();
-			var articleNo = "${comment.articleNo}"
-			$
-					.ajax({
-						url : '${pageContext.request.contextPath}/community/commentUpdate',
-						type : 'post',
-						dataType : "json",
-						data : {
-							'commentContent' : updateContent,
-							'commentNo' : commentNo
-						},
-						success : function(data) {
-							if (data == 0) {
-								alert("수정완료");
-								location.reload();
-							} else if (data == 9) {
-								alert("수정실패");
-								$('.contentText').focus();
-							}
-						}
-					});
-		}
-
-		function commentDeleteBtn(commentNo) {
-			var articleNo = "${comment.articleNo}"
-			$
-					.ajax({
-						url : '${pageContext.request.contextPath}/community/commentDelete/'
-								+ commentNo,
-						type : 'post',
-						dataType : "json",
-						success : function(data) {
-							confirm('삭제하시겠습니까?');
-							if (data == 0) {
-								alert("삭제성공")
-								location.reload();
-							} else if (data == 9) {
-								alert("삭제실패")
-							}
-						}
-					});
-		}
-	</script>
-
+</script>
 	<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>
 </html>

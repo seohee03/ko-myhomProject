@@ -18,7 +18,7 @@ public class ContextDataSource {
 	public DataSource dataSource() {
 		DataSource dataSource = new DataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/project1?serverTimezone=UTC");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/project1?serverTimezone=Asia/Seoul");
 		dataSource.setUsername("root");
 		dataSource.setPassword("admin");
 		dataSource.setDefaultAutoCommit(false);

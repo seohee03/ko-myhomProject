@@ -221,12 +221,14 @@ public class ItemServiceImpl implements ItemService{
 	//상품 삭제
 	@Override
 	public int itemDelete(ItemCommand itemCommand) throws Exception {
-		
+		int optionRs = 0;
 		int itemNo = itemCommand.getItem().getItemNo();
 		//아이템 삭제
 		int itemRs = itemDao.deleteItem(itemNo);
-		//옵션1, 옵션2 삭제
-		int optionRs = itemDao.deleteOption(itemNo);
+		if(itemCommand.getOption1() != null && itemCommand.getOption2() != null) {
+			//옵션1, 옵션2 삭제
+			optionRs = itemDao.deleteOption(itemNo);
+		}
 		//이미지 삭제
 		int itemImgRs = itemDao.deleteImg(itemNo);
 		return itemRs + optionRs + itemImgRs;

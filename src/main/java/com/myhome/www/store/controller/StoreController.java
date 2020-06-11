@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myhome.www.article.dto.Pagination;
 import com.myhome.www.item.dto.Item;
@@ -49,7 +50,7 @@ public class StoreController {
 	 @RequestMapping(value = "/store/{pageNum}") 
 	 public String itemListForMember(@PathVariable("pageNum") String pageNum, 
 			 Model model) throws Exception {
-		 
+		
 		String pageNoVal = pageNum;
 			int pageNo = 1;
 			if (pageNoVal != null) {
@@ -171,5 +172,36 @@ public class StoreController {
 //		 model.addAttribute("itemList", itemList);
 //		 return "search";
 //	 }
+	 
+	 //상품 리스트
+	@RequestMapping(value = "/ajax") 
+	 public String ajax() throws Exception { 
+
+		return "forward:/ajax/1";
+	 }
 	
+	//상품 리스트 & 스토어 홈
+	 @RequestMapping(value = "/ajax/{pageNum}") 
+	 public String ajax(@PathVariable("pageNum") String pageNum, 
+			 Model model) throws Exception {
+		
+		String pageNoVal = pageNum;
+			int pageNo = 1;
+			if (pageNoVal != null) {
+				pageNo = Integer.parseInt(pageNoVal);
+			}
+		ItemPage itemPage = itemService.getItemPage(pageNo);
+	
+		model.addAttribute("itemPage", itemPage);
+		
+		return "store/ex"; 
+	 }
+	 
+	 
+	
+	 @RequestMapping(value = "/ajax/ex")
+	 @ResponseBody
+	 public void getList(com.myhome.www.util.Param param) {
+		 
+	 }
 }

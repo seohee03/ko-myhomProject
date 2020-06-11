@@ -35,8 +35,6 @@ public class MyhomeController {
 		return "index";
 	}
 	
-	
-	
 	 // 검색하기
 	 @RequestMapping(value = "/search")
 	 public String searchItem(@RequestParam("keyword") String keyword, Model model) throws Exception {

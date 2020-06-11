@@ -82,7 +82,7 @@ public class WebContextConfiguration  implements WebMvcConfigurer {
 		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/mypage/**");
 		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/order");
 		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/orderSuccess");
-		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/community/insertComment");
+		//registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/community/insertComment");
 		registry.addInterceptor(adminauthCheckInterceptor()).addPathPatterns("/admin/*");
 	}
 

@@ -1,7 +1,8 @@
 /* 전체 배경색  */
 body{
 	background-color:#F6F7FB;
-	font-color : "black"
+	font-color : "black";
+	line-height: 25px;
 }
 .reg{
 	margin-bottom:20px;
@@ -19,6 +20,7 @@ body{
     background-color: #404E67;
     display:block;
 }
+.left-nav li{line-height: 30px;font-weight: 400;}
 
 .product-content{
 	background-color: #fff;

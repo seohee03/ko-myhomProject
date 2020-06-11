@@ -16,10 +16,10 @@ public class CommentServiceImpl implements CommentService{
 	@Autowired
 	private CommentDao commentDao;
 
-	//글번호로 댓글 조회
+	//댓글 조회
 	@Override
-	public List<Comment> selectCommentByNo(int articleNo) throws Exception {
-		return commentDao.selectCommentByNo(articleNo);
+	public List<Comment> selectComment(Comment comment) throws Exception {
+		return commentDao.selectComment(comment);
 	}
 
 	@Override
@@ -36,6 +36,11 @@ public class CommentServiceImpl implements CommentService{
 	public int deleteComment(int commentNo) throws Exception {
 		System.out.println("service진입>>>>>>>>");
 		return commentDao.deleteComment(commentNo);
+	}
+
+	@Override
+	public int selectAllCount(int articleNo) throws Exception {
+		return commentDao.selectAllCount(articleNo);
 	}
 
 	

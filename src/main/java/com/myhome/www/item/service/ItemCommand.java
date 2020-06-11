@@ -17,6 +17,7 @@ public class ItemCommand {
 	private ItemImg itemImg;
 	private MultipartFile[] files;
 	
+	
 	public ItemCommand() {
 		// TODO Auto-generated constructor stub
 	}

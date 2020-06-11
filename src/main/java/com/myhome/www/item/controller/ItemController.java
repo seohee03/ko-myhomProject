@@ -117,7 +117,7 @@ public class ItemController {
 			//삭제 성공 여부
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			if(result > 2) {
+			if(result >= 2) {
 		         writer.println("<script>alert('삭제 성공!'); location.href='" + request.getContextPath() + "/admin/itemList';</script>");
 			}else {
 				writer.println("<script>alert('삭제 실패!'); location.href='" + request.getContextPath() + "/admin/itemModify/"+itemCommand.getItem().getItemNo()+"';</script>");

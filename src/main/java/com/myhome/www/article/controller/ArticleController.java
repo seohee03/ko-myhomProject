@@ -206,19 +206,33 @@ public class ArticleController {
 					+ article.getArticleNo() + "';</script>");
 		}
 	}
-
 	// 글 보기(조회수 증가)
-	@RequestMapping(value = "/community/readArticle/{articleNo}", method = RequestMethod.GET)
-	public String readArticle(@PathVariable("articleNo") int articleNo, Model model) throws Exception {
-		// System.out.println(articleNo);
-		Article article = articleService.selectArticleByNo(articleNo);
-		model.addAttribute("article", article);
-		
-		List<Comment> commentList = commentService.selectCommentByNo(articleNo);
-		model.addAttribute("commentList", commentList);
-		
-		return "community/readArticle";
-	}
+		@RequestMapping(value = "/community/readArticle/{articleNo}", method = RequestMethod.GET)
+		public String readArticle(@PathVariable("articleNo") int articleNo, @ModelAttribute("comment") Comment comment, @RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+			// System.out.println(articleNo);
+			Article article = articleService.selectArticleByNo(articleNo);
+			model.addAttribute("article", article);
+			
+			//해당 글의 댓글 갯수
+			int listCnt = commentService.selectAllCount(articleNo);
+			Pagination pagination = new Pagination(listCnt, curPage);
+			comment.setStartIndex(pagination.getStartIndex());
+			comment.setCntPerPage(pagination.getPageSize());
+			System.out.println("listCnt>>>>>>"+listCnt);
+			System.out.println("curPage>>>>>" + curPage);
+			System.out.println("pagination.getStartIndex()>>>>"+pagination.getStartIndex());
+			System.out.println("pagination.getPageSize()>>>>"+pagination.getPageSize());
+			System.out.println("comment.getStartIndex()>>>>>"+comment.getStartIndex());
+			System.out.println("comment.getCntPerPage()>>>>>"+comment.getCntPerPage());
+			System.out.println("articleNo"+ comment.getArticleNo());
+			
+			List<Comment> commentList = commentService.selectComment(comment);
+			model.addAttribute("commentList", commentList);
+			model.addAttribute("listCnt", listCnt);
+			model.addAttribute("pagination", pagination);
+			
+			return "community/readArticle";
+		}
 	
 	
 	/* ********************************** */
