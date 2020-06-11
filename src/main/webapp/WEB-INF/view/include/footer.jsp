@@ -1,8 +1,20 @@
 
 	<div>
   	<hr noshade size="2">
-    <address style="font-size: 10px; text-align:center">&copy; My Home Interior Community</address>
+    	<!-- <address style="font-size: 10px; text-align:center">&copy; My Home Interior Community</address> -->
 	</div>
+	<footer id="footer">
+		<div class="inner">
+			<ul class="actions">
+				<li>(000) 000-0000</li>
+				<li>information@untitled.tld</li>
+				<li>123 Somewhere Road, Nashville, TN 00000</li>
+			</ul>
+		</div>
+		<div class="copyright">
+			&copy; My Home Interior Community
+		</div>
+	</footer>
 	
 	
 <!-- jquery plugins here-->

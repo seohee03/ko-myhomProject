@@ -24,8 +24,10 @@
 .loginBtn a{padding: 0 10px !important; font-family: 'Noto Sans KR', sans-serif !important;}
 
 /* index */
-.section_tittle h4{font-family: 'Noto Sans KR', sans-serif; display: inline-block;}
-.section_tittle a{float: right;}
+.carousel{margin-top: 50px;}
+.section_tittle{margin-bottom: 50px;}
+.section_tittle h4{font-family: 'Noto Sans KR', sans-serif; display: inline-block;margin-left: 15px;}
+.section_tittle a{float: right;margin-right: 15px;}
 
 /* login form */
 .buttonArea{
@@ -84,7 +86,8 @@
     white-space: nowrap;}
 .gnbList ul{
     max-width: 1200px;
-    margin: 0 auto;}
+    margin: 0 auto;
+    margin-left: 40px;}
 .gnbList li{position: relative;
     display: inline-block;
     font-size: 13px;
@@ -241,7 +244,7 @@
 .orderArea input[name=memberTel]{width:50%;}
 .orderArea input[name=postcode]{width:25%;}
 .orderArea input[name=orderMessage]{width:81%;}
-.field .input{    flex: auto;}
+.field .input{flex: auto;}
 .field .genric-btn{height: 40px;
     line-height: 40px;
     color: white;
@@ -253,9 +256,6 @@
     cursor: pointer;
     border-radius: 3px;}
 
-    
-    
-    
 /* order success page */
 .orderSuccessPage{max-width: 760px;margin:0 auto;padding: 30px;text-align: center;}
 .orderSuccessPage .txt{margin: 45px 0;color: #424242;    font-family: "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕", "Malgun Gothic", sans-serif;}
@@ -272,8 +272,13 @@
     border-radius: 3px;
     margin: 0 0 30px 0;
 }
-.priceArea .totalTxt{
-	margin-top: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}}
+.priceArea .totalTxt{margin-top: 20px;font-size: 24px;font-weight: bold;}
+
+
+
+
+/* footer */
+#footer{padding: 6em 0 4em 0;
+    /* background: #35c5f0; */
+    text-align: center;
+    color: #313131;}

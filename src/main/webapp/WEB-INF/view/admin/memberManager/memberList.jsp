@@ -4,14 +4,6 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/view/admin/include/nav.jsp"%>
-<!-- admin은 탈퇴버튼 안나오게 해주세요 태용씨~~~~~ -->
-
-	<%-- <a href="<c:url value="/admin/memberList" />">[회원관리]</a>
-    <a href="<c:url value="/admin/itemList" />">[상품관리]</a>
-    <a href="<c:url value="/admin/itemRegister" />">[상품등록]</a>
-    <a href="<c:url value="/admin" />">[주문관리]</a>
-    <a href="<c:url value="/admin" />">[게시글 관리]</a>
-	<a href="<c:url value="/admin" />">[비회원 관리]</a> --%>
 <section>
 	<div id="main-wrapper">
 		<div class="main-content">

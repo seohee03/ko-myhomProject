@@ -2,12 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/include/header.jsp"%>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-<style>
-img {
-	max-width: 100%;
-	height: auto;
-}
-</style>
 
 </head>
 <body>
@@ -116,8 +110,7 @@ img {
 					<img src="img/tranding_item/tranding_item_2.png" alt="#"
 						class="img-fluid">
 					<h3>
-						<a href="single-product.html">Foam filling cotton slow rebound
-							pillows</a>
+						<a href="single-product.html">Foam filling cotton slow rebound pillows</a>
 					</h3>
 					<p>From $5</p>
 				</div>

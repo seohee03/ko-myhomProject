@@ -2,6 +2,7 @@ package com.myhome.www.store.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,11 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myhome.www.member.service.AuthInfo;
 import com.myhome.www.store.dto.OrderDetail;
+import com.myhome.www.store.dto.OrderHistory;
 import com.myhome.www.store.service.OrderService;
 
 @Controller
@@ -46,6 +49,14 @@ public class OrderController {
 	@RequestMapping(value = "/orderSuccess")
 	public String orderSuccess() {
 		return "store/orderSuccess";
+	}
+	
+	//관리자 주문 리스트 조회 
+	@RequestMapping(value = "/admin/orderList")
+	public String orderList(Model model) throws Exception {
+		List<OrderHistory> orderHistoryList = orderService.selectOrderList();
+		model.addAttribute("orderHistoryList", orderHistoryList);
+		return "admin/orderList";
 	}
 	
 }

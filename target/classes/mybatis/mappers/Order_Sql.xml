@@ -4,21 +4,25 @@
 <!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
 <mapper namespace="com.myhome.www.store.service.impl.OrderDao">
 
-	
+<!-- 주문정보(주소 등) 저장 -->
 	<insert id="insertOrder" parameterType="orderDetail">
-		
-	insert into project1.order(member_no, member_name, member_tel, order_date, postcode, address, detail_addr, order_message)
-	values(#{memberNo}, #{memberName}, #{memberTel}, #{orderDate}, #{postcode}, #{address}, #{detailAddr}, #{orderMessage})
-	<selectKey keyProperty="orderNo" resultType="Integer" order="AFTER">
-		select LAST_INSERT_ID()
-	</selectKey>
+		insert into project1.order(member_no, member_name, member_tel, order_date, postcode, address, detail_addr, order_message)
+		values(#{memberNo}, #{memberName}, #{memberTel}, #{orderDate}, #{postcode}, #{address}, #{detailAddr}, #{orderMessage})
+		<selectKey keyProperty="orderNo" resultType="Integer" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
 	</insert>
-	
+<!-- 주문 내역 저장 -->	
 	<insert id="insertOrderHistory" parameterType="orderHistory">
-	insert into project1.order_history(member_no, item_no, item_name, order_date, price, amount, order_no)
-	values(#{memberNo}, #{itemNo}, #{itemName}, #{orderDate}, #{price}, #{amount}, #{orderNo})
+		insert into project1.order_history(member_no, item_no, item_name, order_date, price, amount, order_no)
+		values(#{memberNo}, #{itemNo}, #{itemName}, #{orderDate}, #{price}, #{amount}, #{orderNo})
 	</insert>
 	
+<!-- 주문내역 리스트(admin) -->
+	<select id="selectOrderList" resultType="orderHistory">
+		select * from project1.order_history 
+		order by history_no desc
+	</select>
 	
 	<!-- <insert id="insertItemInCart" parameterType="cart">
 	insert into cart(member_no, amount, item_no, price) values(#{memberNo}, #{amount}, #{itemNo}, #{price})

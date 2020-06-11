@@ -57,6 +57,13 @@ public class OrderServiceImpl implements OrderService{
 		return result;
 	}
 
+	//주문 내역 리스트(admin)
+	@Override
+	public List<OrderHistory> selectOrderList() throws Exception {
+		 
+		return orderDao.selectOrderList();
+	}
+
 	
 
 }
