@@ -101,12 +101,10 @@
 				<div>
 					<p>
 						<c:out value="${comment.memberNo}" />
-						등록날짜 : <tf:formatDateTime value="${comment.regdate}" pattern="yyyy-MM-dd" />
-						<%-- 등록날짜 : <c:out value="${comment.regdate}" /> --%>
-						<%-- 수정날짜 : <tf:formatDateTime value="${comment.moddate}" pattern="yyyy-MM-dd" /> --%>
-						<%-- 수정날짜 : <c:out value="${comment.moddate}" /> --%>
-						
-						<%-- <c:out value="${comment.regdate}" /> --%>
+						등록 날짜 : <tf:formatDateTime value="${comment.regdate}" pattern="yyyy-MM-dd" />
+						<c:if test="${!empty comment.moddate }">
+						수정한 날짜 :<tf:formatDateTime value ="${comment.moddate}" pattern="yyyy-MM-dd" />
+                        </c:if>
 					</p>
 				</div>
 

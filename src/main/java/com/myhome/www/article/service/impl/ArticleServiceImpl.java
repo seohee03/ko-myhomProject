@@ -35,6 +35,12 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<Article> selectArticleList(Article article) throws Exception {
 		return articleDao.selectArticleList(article);
 	}
+	
+	//인덱스에 표시할 게시글 8개
+	@Override
+	public List<Article> selectArticleForIndex() throws Exception {
+		return articleDao.selectArticleForIndex();
+	}
 
 	@Override
 	public int insertArticle(Article article) throws Exception {

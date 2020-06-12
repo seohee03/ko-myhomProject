@@ -60,12 +60,22 @@ public class StoreController {
 	 }
 	 
 	 @ResponseBody
-	 @RequestMapping(value = "/storeMorePage")
-	 public ItemPage storeMorePage(@PathVariable("cPno") int cPno, Model model) throws Exception{
-		 //cPno = 현재 페이지에서 +1된 상태
-		 ItemPage itemPage = itemService.getItemPage(cPno);
-
-		 return itemPage;
+	 @RequestMapping(value = "/storeMorePage/{cPno}")
+	 public List<ItemCommand> storeMorePage(@PathVariable("cPno") int cPno, @ModelAttribute("item") Item item) throws Exception{
+		System.out.println("ajax>>>>>>>>>>>>>>>>>>");
+		//cPno = 현재 페이지에서 +1된 상태
+		//ItemPage itemPage = itemService.getItemPage(cPno);
+		
+		int listCnt = 0;
+		listCnt = itemService.selectCountItem();
+		Pagination pagination = new Pagination(listCnt, cPno);
+		
+		item.setStartIndex(pagination.getStartIndex());
+		item.setCntPerPage(pagination.getPageSize());
+		
+		//현재페이지의 리스트 조회
+		List<ItemCommand> itemCommandList = itemService.selectItemPage(item);
+		return itemCommandList;
 	 }
 	 
 	 //상품 상세보기 페이지

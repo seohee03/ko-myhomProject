@@ -7,8 +7,8 @@ $(function(){
     $('#submit').click(function(){
     	var memberId = $('#memberId').val();
     	var memberName = $('#memberName').val();
-    	var memberPw = $('#memberPw').val();
-    	var confirmPassword = $('#confirmPassword').val();
+    	var memberPw = $('#pw1').val();
+    	var confirmPassword = $('#pw2').val();
     	
     	if(memberId.length == 0){
     		$('.memberId').text("아이디를 입력해주세요");

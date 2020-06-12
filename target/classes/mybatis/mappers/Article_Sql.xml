@@ -5,81 +5,102 @@
 <!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
 <mapper namespace="com.myhome.www.article.service.impl.ArticleDao">
 
-	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 있습니다. -->
-	<!-- <select id="selectArticleList" resultType="articleDTO"> 
-	SELECT * FROM project1.ARTICLE ORDER BY ARTICLE_NO DESC
-	</select> -->
-	<select id="selectArticleList" resultType="articleDTO" parameterType="articleDTO"> 
-		SELECT * FROM project1.ARTICLE 
+	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
+		있습니다. -->
+	<!-- <select id="selectArticleList" resultType="articleDTO"> SELECT * FROM 
+		project1.ARTICLE ORDER BY ARTICLE_NO DESC </select> -->
+	<select id="selectArticleList" resultType="articleDTO" parameterType="articleDTO">
+		SELECT * FROM project1.ARTICLE
 		ORDER BY ARTICLE_NO DESC limit #{startIndex}, #{cntPerPage}
 	</select>
-	
+
+	<!-- 게시글 8개만 조회 -->
+	<select id="selectArticleForIndex" resultType="articleDTO">
+		select * from project1.article 
+		where article_no 
+		order by article_no desc limit 0, 8;
+	</select>
+
 	<insert id="insertArticle" parameterType="com.myhome.www.article.dto.Article">
 		INSERT
-			INTO project1.ARTICLE
-				(WRITER_ID, WRITER_NAME, ARTICLE_TITLE, ARTICLE_CONTENT, ARTICLE_IMG_URL, ARTICLE_THUMB_URL, REGDATE)
-			VALUES
-				(#{writerId}, #{writerName}, #{articleTitle}, #{articleContent}, #{articleImgUrl}, #{articleThumbUrl}, now())
+		INTO project1.ARTICLE
+		(WRITER_ID, WRITER_NAME, ARTICLE_TITLE, ARTICLE_CONTENT, ARTICLE_IMG_URL,
+		ARTICLE_THUMB_URL, REGDATE)
+		VALUES
+		(#{writerId}, #{writerName}, #{articleTitle}, #{articleContent}, #{articleImgUrl},
+		#{articleThumbUrl}, now())
 	</insert>
-	
+
 	<select id="selectArticleByNo" resultType="articleDTO">
-		SELECT * FROM project1.ARTICLE
-			WHERE ARTICLE_NO = #{articleNo}
+		SELECT * FROM
+		project1.ARTICLE
+		WHERE ARTICLE_NO = #{articleNo}
 	</select>
-	
+
 	<select id="selectArticleByWriterId" resultType="articleDTO">
-		SELECT * FROM project1.ARTICLE
-			WHERE WRITER_ID = #{writerId}
+		SELECT * FROM
+		project1.ARTICLE
+		WHERE WRITER_ID = #{writerId}
 	</select>
 
 	<select id="selectLastArticleNo" resultType="int">
-		SELECT DISTINCT LAST_INSERT_ID() FROM project1.ARTICLE
+		SELECT DISTINCT
+		LAST_INSERT_ID() FROM project1.ARTICLE
 	</select>
-	
-	<update id="updateArticle" parameterType="com.myhome.www.article.dto.Article">
+
+	<update id="updateArticle"
+		parameterType="com.myhome.www.article.dto.Article">
 		UPDATE project1.ARTICLE
-			SET ARTICLE_TITLE=#{articleTitle}, ARTICLE_CONTENT=#{articleContent}, MODDATE=now()
-		 WHERE ARTICLE_NO=#{articleNo}
+		SET ARTICLE_TITLE=#{articleTitle}, ARTICLE_CONTENT=#{articleContent},
+		MODDATE=now()
+		WHERE ARTICLE_NO=#{articleNo}
 	</update>
 
-	<update id="increaseReadCount" parameterType="com.myhome.www.article.dto.Article">
+	<update id="increaseReadCount"
+		parameterType="com.myhome.www.article.dto.Article">
 		UPDATE project1.ARTICLE
-			SET READ_COUNT = READ_COUNT + 1
-			WHERE ARTICLE_NO = #{articleNo}
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE ARTICLE_NO = #{articleNo}
 	</update>
-	
-	<delete id="deleteArticle" parameterType="int" >
+
+	<delete id="deleteArticle" parameterType="int">
 		DELETE
-			FROM project1.ARTICLE
-			WHERE ARTICLE_NO=#{articleNo}
+		FROM project1.ARTICLE
+		WHERE ARTICLE_NO=#{articleNo}
 	</delete>
-	
-	<select id="selectSearchArticleList" resultType="articleDTO" parameterType="String"> 
+
+	<select id="selectSearchArticleList" resultType="articleDTO"
+		parameterType="String">
 		SELECT * FROM project1.ARTICLE
 		<if test="keyword != ''">
 			where article_title like concat('%', #{keyword}, '%')
 		</if>
-	 	ORDER BY ARTICLE_NO DESC
+		ORDER BY ARTICLE_NO DESC
 	</select>
-	
-	<select id="selectSearchTypeArticleList" resultType="articleDTO" parameterType="String">
+
+	<select id="selectSearchTypeArticleList" resultType="articleDTO"
+		parameterType="String">
 		SELECT * FROM project1.ARTICLE
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="searchType=='title' and keyword != null and keyword != '' ">
+			<if
+				test="searchType=='title' and keyword != null and keyword != '' ">
 				and article_title like CONCAT('%', #{keyword}, '%')
 			</if>
-			<if test="searchType=='content' and keyword != null and keyword != '' ">
+			<if
+				test="searchType=='content' and keyword != null and keyword != '' ">
 				and ARTICLE_CONTENT like CONCAT('%', #{keyword}, '%')
 			</if>
-			<if test="searchType=='writer' and keyword != null and keyword != '' ">
+			<if
+				test="searchType=='writer' and keyword != null and keyword != '' ">
 				and WRITER_ID like CONCAT('%', #{keyword}, '%')
 			</if>
 		</trim>
-		 ORDER BY ARTICLE_NO DESC
+		ORDER BY ARTICLE_NO DESC
 	</select>
-	
+
 	<select id="selectAllCount" resultType="int">
-		select count(*) from project1.ARTICLE where article_no > 0
+		select count(*) from
+		project1.ARTICLE where article_no > 0
 	</select>
-	
+
 </mapper>

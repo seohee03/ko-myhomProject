@@ -15,9 +15,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom.css">
 <%-- <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script> --%>
 <title>오늘의집</title>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-<!-- font -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+ -->
+ <!-- font -->
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <!-- 
 font-family: 'Jua', sans-serif;

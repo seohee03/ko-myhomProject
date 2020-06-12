@@ -79,7 +79,8 @@
 </section>
 <!-- trending item end-->
 
-<!-- trending item start-->
+
+<!-- 게시판 글 내용 -->
 <section class="trending_items">
       <div class="container">
          <div class="row">
@@ -93,13 +94,12 @@
          </div>
          <div class="pdList">
             <ul class="clearfix">
-               <c:forEach var="itemC" items="${articleList}">
+               <c:forEach var="article" items="${articleList}">
                   <li>
                      <a href="<c:url value="/community/readArticle/${article.articleNo}"/>">
                         <div class="imgArea">
-                           <img class="card-img rounded-0" src="${article.articleContent}" alt="">
-                           <img src="${pageContext.request.contextPath }${article.articleThumbUrl}">
-                           <img alt="" src="${path }${article.articleThumbUrl}">
+                           <%-- <img src="${path }${article.articleThumbUrl}"> --%>
+                           <img alt="" src="${pageContext.request.contextPath }${article.articleThumbUrl}">
                         </div>
                         <div class="infoArea">
                            <div class="blog_details">
@@ -111,17 +111,12 @@
                         </div>
                      </a>
                   </li>
-                  <ul class="blog-info-link">
-                     <li><a href="<c:url value="/byWriterId" />"><i
-                           class="far fa-user"></i> <c:out value="${article.writerId}" /></a></li>
-                     <li><a href="#"><i class="far fa-comments"></i>Comments &{pagination.listCnt}</a></li>
-                  </ul>
                </c:forEach>
             </ul>
          </div>
       </div>
    </section>
-<!-- trending item end-->
+<!-- 커뮤니티 끝 -->
 
 <div class="container">
 	<header>

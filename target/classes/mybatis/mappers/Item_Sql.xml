@@ -207,4 +207,19 @@
 		select img_url from project1.item_img
 		where item_no = #{itemNo}
 	</select>
+	
+<!-- 상품 개수(페이징 - ajax로 스크롤페이징할때) -->	
+	<select id="selectCountItem" resultType="int">
+		select count(*) from project1.item
+	</select>
+	
+<!-- 다음 페이지 상품 조회 -->
+	<select id="selectItemPage" resultMap="itemCommand" parameterType="item">
+		select c.categorie_name, i.item_name, i.price, m.thumb_url, i.item_no, c.categorie_no
+		from project1.item i, project1.categorie c, project1.item_img m
+		where i.categorie_no = c.categorie_no 
+		and m.item_no = i.item_no
+		and m.is_thumb = 1
+		order by i.item_no desc limit #{startIndex}, #{cntPerPage}
+	</select>
 </mapper>

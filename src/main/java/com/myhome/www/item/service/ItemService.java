@@ -32,9 +32,15 @@ public interface ItemService {
 	
 	//카테고리번호로 상품 개수 조회
 	int selectCountByCategorieNo(int categorieNo) throws Exception;
+	
 	//카테고리 번호별 상품 조회
 	List<ItemCommand> selectItemByCategoryNo(Item item) throws Exception;
 	
+	//상품 개수(페이징 - ajax로 스크롤페이징할때)
+	int selectCountItem() throws Exception;
+	
+	//상품 페이징
+	List<ItemCommand> selectItemPage(Item item) throws Exception;
 	
 	//크롤링으로 상품 등록
 	void insertCrawlingItem(CrawlingItem crawlingItem) throws Exception;

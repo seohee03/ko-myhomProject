@@ -1,6 +1,5 @@
 package com.myhome.www.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,6 +20,7 @@ public class MyhomeController {
 
 	@Resource(name = "itemService")
 	private ItemService itemService;
+	
 	@Resource(name = "articleService")
 	private ArticleService articleService;
 	
@@ -32,6 +32,11 @@ public class MyhomeController {
 		//상품 8개만 조회
 		List<ItemCommand> itemCommandList = itemService.selectItemForIndex();
 		model.addAttribute("itemCommandList", itemCommandList);
+		
+		//상품 8개만 조회
+		List<Article> articleList = articleService.selectArticleForIndex();
+		System.out.println("========= articleForIndexList ==========");
+		model.addAttribute("articleList", articleList);
 		return "index";
 	}
 	

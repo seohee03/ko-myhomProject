@@ -35,4 +35,6 @@ public interface ArticleDao {
 	List<Article> selectSearchTypeArticleList(@Param("searchType") String searchType, @Param("keyword") String keyword) throws Exception;
 	//전체 글 갯수 조회
 	int selectAllCount() throws Exception;
+	//인덱스에 표시할 게시글 8개
+	List<Article> selectArticleForIndex() throws Exception;
 }

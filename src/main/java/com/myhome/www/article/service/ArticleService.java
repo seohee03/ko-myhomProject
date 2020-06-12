@@ -28,4 +28,6 @@ public interface ArticleService {
 		int selectAllCount() throws Exception;
 		//파일등록
 		Article store(Article article);
+		//인덱스에 표시할 게시글 8개
+		List<Article> selectArticleForIndex() throws Exception;
 }

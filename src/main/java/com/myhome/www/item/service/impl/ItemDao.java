@@ -68,4 +68,10 @@ public interface ItemDao {
 	
 	//아이템 이미지 리스트
 	List<ItemImg> selectItemImgByItemNo(@Param("itemNo") int itemNo) throws Exception;
+
+	//상품 개수(페이징 - ajax로 스크롤페이징할때)
+	int selectCountItem() throws Exception;
+	
+	//상품 페이징
+	List<ItemCommand> selectItemPage(Item item) throws Exception;
 }

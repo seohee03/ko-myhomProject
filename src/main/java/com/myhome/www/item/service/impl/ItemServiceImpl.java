@@ -332,6 +332,18 @@ public class ItemServiceImpl implements ItemService{
 		return itemDao.selectItemImgByItemNo(itemNo);
 	}
 
+	//상품 개수(페이징 - ajax로 스크롤페이징할때)
+	@Override
+	public int selectCountItem() throws Exception {
+		return itemDao.selectCountItem();
+	}
+
+	//상품 페이징
+	@Override
+	public List<ItemCommand> selectItemPage(Item item) throws Exception {
+		return itemDao.selectItemPage(item);
+	}
+
 	
 	
 	
