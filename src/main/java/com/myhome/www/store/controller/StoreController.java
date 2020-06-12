@@ -48,19 +48,24 @@ public class StoreController {
 	
 	//상품 리스트 & 스토어 홈
 	 @RequestMapping(value = "/store/{pageNum}") 
-	 public String itemListForMember(@PathVariable("pageNum") String pageNum, 
-			 Model model) throws Exception {
+	 public String itemListForMember(@PathVariable("pageNum") int pageNum, Model model) throws Exception {
 		
-		String pageNoVal = pageNum;
-			int pageNo = 1;
-			if (pageNoVal != null) {
-				pageNo = Integer.parseInt(pageNoVal);
-			}
-		ItemPage itemPage = itemService.getItemPage(pageNo);
-	
-		model.addAttribute("itemPage", itemPage);
-		
-		return "store/storeHome"; 
+		 int pageNo = 1;
+		 if(pageNum>0) {
+			 pageNo = pageNum;
+		 }
+		 ItemPage itemPage = itemService.getItemPage(pageNo);
+		 model.addAttribute("itemPage", itemPage);
+		 return "store/storeHome"; 
+	 }
+	 
+	 @ResponseBody
+	 @RequestMapping(value = "/storeMorePage")
+	 public ItemPage storeMorePage(@PathVariable("cPno") int cPno, Model model) throws Exception{
+		 //cPno = 현재 페이지에서 +1된 상태
+		 ItemPage itemPage = itemService.getItemPage(cPno);
+
+		 return itemPage;
 	 }
 	 
 	 //상품 상세보기 페이지
@@ -173,35 +178,5 @@ public class StoreController {
 //		 return "search";
 //	 }
 	 
-	 //상품 리스트
-	@RequestMapping(value = "/ajax") 
-	 public String ajax() throws Exception { 
-
-		return "forward:/ajax/1";
-	 }
 	
-	//상품 리스트 & 스토어 홈
-	 @RequestMapping(value = "/ajax/{pageNum}") 
-	 public String ajax(@PathVariable("pageNum") String pageNum, 
-			 Model model) throws Exception {
-		
-		String pageNoVal = pageNum;
-			int pageNo = 1;
-			if (pageNoVal != null) {
-				pageNo = Integer.parseInt(pageNoVal);
-			}
-		ItemPage itemPage = itemService.getItemPage(pageNo);
-	
-		model.addAttribute("itemPage", itemPage);
-		
-		return "store/ex"; 
-	 }
-	 
-	 
-	
-	 @RequestMapping(value = "/ajax/ex")
-	 @ResponseBody
-	 public void getList(com.myhome.www.util.Param param) {
-		 
-	 }
 }
