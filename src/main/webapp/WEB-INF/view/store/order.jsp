@@ -83,7 +83,6 @@ function orderBtn(){
 <body>
 <%@ include file="/WEB-INF/view/include/nav.jsp"%>
 
-
 <div class="container">
 	<form id="orderForm" method="post">
 	<div class="orderPage">
@@ -179,8 +178,6 @@ function orderBtn(){
 		
 	</form>
 </div>
-
-
 
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>

@@ -1,8 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/include/header.jsp"%>
+
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
 <script type="text/javascript">
-   $(function() {
+$(function() {
+	  $('#summernote').summernote();
+	      var fileTarget = $('#file');
+	      fileTarget.on('change', function() { // 값이 변경되면
+	         var cur = $(".filebox input[type='file']").val();
+	         $(".upload-name").val(cur);
+	      });
       $('#submit').click(function() {
          var articleTitle = $('#articleTitle').val();
          var articleContent = $('#articleContent').val();
@@ -29,81 +44,12 @@
       });
    });
 </script>
-<!-- include libraries(jQuery, bootstrap) -->
-<link
-   href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
-   rel="stylesheet">
-<script
-   src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script
-   src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-<!-- include summernote css/js-->
-<link
-   href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css"
-   rel="stylesheet">
-<script
-   src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-<script>
-   $(document).ready(function() {
-      var fileTarget = $('#file');
-      fileTarget.on('change', function() { // 값이 변경되면
-         var cur = $(".filebox input[type='file']").val();
-         $(".upload-name").val(cur);
-      });
-   });
-</script>
-<style>
-.filebox input[type="file"] {
-   position: absolute;
-   width: 0;
-   height: 0;
-   padding: 0;
-   overflow: hidden;
-   border: 0;
-}
-.filebox input[type="submit"] {
-   position: absolute;
-   width: 0;
-   height: 0;
-   padding: 0;
-   overflow: hidden;
-   border: 0;
-}
 
-.filebox label {
-   display: inline-block;
-   padding: 10px 20px;
-   color: #999;
-   vertical-align: middle;
-   background-color: #fdfdfd;
-   cursor: pointer;
-   border: 1px solid #ebebeb;
-   border-radius: 5px;
-}
-
-/* named upload */
-.filebox .upload-name {
-   display: inline-block;
-   height: 35px;
-   font-size: 18px;
-   padding: 0 10px;
-   vertical-align: middle;
-   background-color: #f5f5f5;
-   border: 1px solid #ebebeb;
-   border-radius: 5px;
-}
-</style>
-<script type="text/javascript">
-   $(document).ready(function() {
-      $('#summernote').summernote();
-   });
-</script>
 </head>
 <body>
    <%@ include file="/WEB-INF/view/include/nav.jsp"%>
    <section class="checkout_area section_padding">
-      <form:form modelAttribute="article" enctype="multipart/form-data"
-         class="row contact_form">
+      <form:form modelAttribute="article" enctype="multipart/form-data" class="row contact_form">
          <div class="billing_details" style="margin: auto;">
             <div class="row">
                <div class="col-lg-12  form-group">
@@ -115,8 +61,7 @@
                   </div>
                   <div class="col-md-12 form-group p_star">
                      내용<br>
-                     <form:textarea path="articleContent" id="summernote"
-                        class="form-control" rows="1" />
+                     <form:textarea path="articleContent" id="summernote" class="form-control" rows="1" />
                   </div>
                   <span class="filebox">
                      <label class="filebox">썸네일 <form:input
@@ -134,5 +79,46 @@
       </form:form>
    </section>
 <%-- <%@ include file="/WEB-INF/view/include/footer.jsp"%> --%>
+
+<div>
+  	<hr noshade size="2">
+    	<!-- <address style="font-size: 10px; text-align:center">&copy; My Home Interior Community</address> -->
+	</div>
+	<footer id="footer">
+		<div class="inner">
+			<ul class="actions">
+				<li>(000) 000-0000</li>
+				<li>information@untitled.tld</li>
+				<li>123 Somewhere Road, Nashville, TN 00000</li>
+			</ul>
+		</div>
+		<div class="copyright">
+			&copy; My Home Interior Community
+		</div>
+	</footer>
+	
+	
+<!-- jquery plugins here-->
+<%--     <script src="${pageContext.request.contextPath}/js/jquery-1.12.1.min.js"></script> --%>
+	<!-- popper js -->
+	<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<!-- magnific popup js -->
+	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.js"></script>
+	<!-- carousel js -->
+	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>
+	<!-- slick js -->
+	<script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.counterup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/contact.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.ajaxchimp.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.validate.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mail-script.js"></script>
+	<!-- custom js -->
+	<script src="${pageContext.request.contextPath}/js/custom.js"></script>
 </body>
 </html>

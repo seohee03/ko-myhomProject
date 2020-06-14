@@ -50,6 +50,11 @@ $(function(){
 		}else if(idChkVal == "Y"){
 			$("#regForm").submit();
 		}
+		
+		if(memberPw != confirmPassword){
+			alert("비밀번호를 확인해주세요");
+			return false;
+		}
 
     });
     
@@ -93,36 +98,52 @@ function fn_idChk(){
 </script>
 </head>
 <body>
-    <h2>회원가입</h2>
 
-  <form:form action="step3" modelAttribute="registerRequest" id="regForm" method="POST">
-    <p>
-        <label>아이디:<br>
-        <form:input path="memberId" id="memberId" />
-        <button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
-        <span class="errStr memberId"></span>
-        </label>
-    </p>
-    <p>
-        <label>이름:<br>
-        <form:input path="memberName" />
-        <span class="errStr memberName"></span>
-        </label>
-    </p>
-    <p>
-        <label>비밀번호:<br>
-        <form:password path="memberPw" class="pw" id="pw1" />
-        <span class="errStr memberPw"></span>
-        </label>
-    </p>
-    <p>
-        <label>비밀번호 확인:<br>
-        <form:password path="confirmPassword" class="pw" id="pw2" />
-        </label>
-        <span class="errStr confirmPassword" id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
-        <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
-    </p>
-    <button type="submit" id="submit" >가입</button>
-    </form:form> 
+<%@ include file="/WEB-INF/view/include/nav.jsp"%>
+<div class="container">
+	<div class="regPageStepTwo">
+		<form:form action="step3" modelAttribute="registerRequest" id="regForm" method="POST">
+		<div class="title">회원가입</div>
+		<div class="regArea">
+			<div class="field">
+				<div class="label">아이디</div>
+				<div class="inputTxt">
+					<form:input path="memberId" class="inputTxt" placeholder="아이디" />
+					<button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
+				</div>
+				<span class="errStr memberId" style="line-height: 40px;"></span> 
+			</div>
+			<div class="field">
+				<div class="label">이름</div>
+				<div class="inputTxt">
+					<form:input path="memberName" placeholder="이름" />
+					<span class="errStr memberName" style="line-height: 40px;"></span>
+				</div>
+			</div>
+			<div class="field">
+				<div class="label">비밀번호</div>
+				<div class="inputTxt">
+					<form:password  path="memberPw" class="pw" id="pw1" placeholder="비밀번호" />
+					<span class="errStr memberPw" style="line-height: 40px;"></span>
+				</div>
+			</div>
+			<div class="field">
+				<div class="label">비밀번호 확인</div>
+				<div class="inputTxt">
+					<form:password  path="confirmPassword" class="pw" id="pw2" placeholder="비밀번호 확인" />
+					<span class="errStr confirmPassword" id="alert-success" style="display: none;">비밀번호가 일치합니다.</span> 
+					<span id="alert-danger" style="display: none; color: #d92742; font-weight: bold;">비밀번호가 일치하지 않습니다.</span>
+				</div>
+			</div>
+			<div class="field">		
+				<button type="submit" id="submit" class="regBtn">가입</button>
+				<!-- <input type="button" id="submit" value="가입" class="regBtn"> -->
+			</div>
+		</div>
+		</form:form>
+	</div>
+</div>
+    
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>
 </html>

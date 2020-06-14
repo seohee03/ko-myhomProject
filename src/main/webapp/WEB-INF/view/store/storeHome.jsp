@@ -2,61 +2,49 @@
    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/include/header.jsp"%>
  <c:set var="path" value="${pageContext.request.contextPath }" />
-<!--  <script type="text/javascript">
-$(function(){
-    $('#searchForm').submit(function(){   
-      var keyword = $('#keyword').val().trim();
-      console.log(keyword);
-      if(keyword.length == ''){
-         $('#keyword').focus();
-         return false;
-      }else{
-         return true;
-      }
-   }); 
-}); </script> -->
+
 
 <script>
 //var path = ${pageContext.request.contextPath };
 $(document).ready(function() {
-var win = $(window);
-var cPno = ${itemPage.currentPage};
-
-// Each time the user scrolls
-$(window).scroll(function() {
-	//스크롤 bottom인경우 more list
-	if ($(document).height() - win.height() == win.scrollTop()) {
-		cPno++;
-		var values = []; //ArrayList 값을 받을 변수를 선언
-		$.ajax({
-			url : '${pageContext.request.contextPath }/storeMorePage/'+cPno,
-			dataType : 'json',
-			success : function(itemCommandList) {
-				console.log(itemCommandList);
-				
-				//values = itemCommandList;	//컨트롤러에서 보낸 list 담음
-				//리스트 html <li></li> 가공한 후 append()
-				$.each(itemCommandList, function(index, value) {
-					console.log(value);
-					console.log(value.categorie.categorieName);
-					console.log(value.itemImg.thumbUrl);
-					console.log(value.item.itemName);
-					var html = "<li><a><div><img alt='' src=${path }"
-					+value.itemImg.thumbUrl+"></div></a></li>";
-					$('#itemList').append(html);
-				});
-			}
-			
+	var win = $(window);
+	var cPno = ${itemPage.currentPage};
+	
+	// Each time the user scrolls
+	$(window).scroll(function() {
+		//스크롤 bottom인경우 more list
+		if ($(document).height() - win.height() == win.scrollTop()) {
+			cPno++;
+			var values = []; //ArrayList 값을 받을 변수를 선언
+			$.ajax({
+				url : '${path}/storeMorePage/'+cPno,
+				dataType : 'json',
+				success : function(itemCommandList) {
+					console.log(itemCommandList);
+					//리스트 html <li></li> 가공한 후 append()
+					$.each(itemCommandList, function(index, value) {
+						console.log(value);
+						console.log(value.categorie.categorieName);
+						console.log(value.itemImg.thumbUrl);
+						console.log(value.item.itemName);
+						var html = "<li><a><div class='imgArea'><img alt='' src=${path }"+value.itemImg.thumbUrl+"></div>"
+						+"<div class='infoArea'>"
+						+"<p class='brand'>"+value.categorie.categorieName+"</p>"
+						+"<p class='ttl'>"+value.item.itemName+"</p>"
+						+"<p class='pdSum'>"+value.item.price+"원</p></div></a></li>";
+						$('#itemList').append(html);
+					});
+				}
+			});
+		}
+		//topBtn evt
+		$('.top').click(function() {
+			$('html, body').animate({
+				scrollTop : 0
+			}, 400);
+			return false;
 		});
-	}
-	//topBtn evt
-	$('.top').click(function() {
-	$('html, body').animate({
-	scrollTop : 0
-	}, 400);
-	return false;
 	});
-});
 });
 </script>
 
@@ -112,14 +100,6 @@ $(window).scroll(function() {
       </ul>
    </div>
    <div class="container">
-
-      <!--    <form action="searchItem" method="get" id="searchForm">
-      <input type="text" placeholder="검색" name="keyword" value="" id="keyword">
-      <input type="button" value="검색" id="searchBtn">
-   </form> -->
-
-      
-
       <div class="pdList">
          <ul class="clearfix" id="itemList">
             <!-- 상품리스트 -->
@@ -166,66 +146,6 @@ $(window).scroll(function() {
             </c:forEach>
          </ul>
       </div>
-
-
-      <%-- <table border="1">
-      <thead>
-         <tr>
-            <th>이미지</th>
-            <th>번호</th>
-            <th>카테고리</th>
-            <th>상품코드</th>
-            <th>상품명</th>
-            <th>가격</th>
-            <th>재고</th>
-            <th>옵션1</th>
-            <th>옵션2</th>
-            <th>이미지 경로</th>
-            <th>등록일</th>
-         </tr>
-      </thead>
-      <c:if test="${itemPage.hasNoItems()}">
-         <tr>
-            <td colspan="11">등록된 상품이 없습니다.</td>
-         </tr>
-      </c:if>
-      <tbody>
-         <c:set var="path" value="${pageContext.request.contextPath }" />
-         <input type="hidden" id="path" value="${pageContext.request.contextPath }">
-         <c:forEach var="itemC" items="${itemPage.content}">
-            <tr onclick="javascript:moveItemViewPage('${path }','${itemC.item.itemNo} ','${path }${itemC.itemImg.thumbUrl}'); return false;">
-            <tr onclick="javascript:itemDetailBtn('${path }','${itemC.item.itemNo}','${itemC.itemImg.thumbUrl}');">
-               <td><img src="${path }${itemC.itemImg.thumbUrl}"
-                  style="width: 50px"></td>
-               <td><c:out value="${itemC.item.itemNo}" /></td>
-               <td><c:out value="${itemC.categorie.categorieName}" /></td>
-               <td><c:out value="${itemC.item.itemCode}" /></td>
-               <td><c:out value="${itemC.item.itemName}" /></td>
-               <td><c:out value="${itemC.item.price}" /></td>
-               <td><c:out value="${itemC.item.stock}" /></td>
-               <td><c:out value="${itemC.option1.option1Name}" /></td>
-               <td><c:out value="${itemC.option2.option2Name}" /></td>
-               <td><c:out value="${itemC.itemImg.thumbUrl}" /></td>
-               <td><tf:formatDateTime value="${itemC.item.itemRegDateTime }"
-                     pattern="yyyy-MM-dd" /></td>
-            </tr>
-         </c:forEach>
-         
-      </tbody>
-   </table> --%>
-      <%-- <c:if test="${itemPage.hasItems()}">
-      <tr>
-         <td colspan="11"><c:if test="${itemPage.startPage > 5}">
-               <a href="<c:url value="/store/${itemPage.startPage - 5}" />">[이전]</a>
-            </c:if> <c:forEach var="pNo" begin="${itemPage.startPage}"
-               end="${itemPage.endPage}">
-               <a href="<c:url value="/store/${pNo}" />">[${pNo}]</a>
-            </c:forEach> <c:if test="${itemPage.endPage < itemPage.totalPages}">
-               <a href="<c:url value="/store/${itemPage.startPage + 5}" />">[다음]</a>
-            </c:if></td>
-      </tr>
-   </c:if> --%>
-
       <div id="latelyViewItemListPageing_div" class="recentArea">
          <button class="topBtn">
             <a href="#" class="top">TOP</a>
@@ -235,7 +155,7 @@ $(window).scroll(function() {
          <!-- <strong id="nowLatelyViewItemPage_strong"></strong>
       <span id="totalLatelyViewItemPage_span"></span> -->
       </div>
-   </div>
+</div>
 
    <script type="text/javascript">
       //최근본 아이템 삭제 기간
