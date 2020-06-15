@@ -12,8 +12,6 @@ public interface ArticleService {
 		int insertArticle(Article article) throws Exception;
 		//글번호로 조회
 		Article selectArticleByNo(int articleNo) throws Exception;
-		//아이디로 글조회
-		List<Article> selectArticleByWriterId(String writerId) throws Exception;
 		//글수정
 		int updateArticle(Article article) throws Exception;
 		//글삭제
@@ -30,4 +28,9 @@ public interface ArticleService {
 		Article store(Article article);
 		//인덱스에 표시할 게시글 8개
 		List<Article> selectArticleForIndex() throws Exception;
+		
+		//아이디로 글조회
+		List<Article> selectArticleByWriterId(Article article) throws Exception;
+		//멤버페이지 게시글갯수 조회
+		int selectWriterPageCount(Article article) throws Exception;
 }

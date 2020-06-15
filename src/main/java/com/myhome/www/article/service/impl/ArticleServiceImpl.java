@@ -21,11 +21,6 @@ public class ArticleServiceImpl implements ArticleService {
 	@Autowired
 	private ArticleDao articleDao;
 
-//	@Autowired
-//	private ArticleMapper ArticleMapper;
-	
-	// 리눅스 기준으로 파일 경로를 작성 ( 루트 경로인 /으로 시작한다. )
-	// upload 폴더를 생성해 놓아야 한다.
 	private static final String SAVE_PATH = "c:/upload";
 	private static final String THUMBNAIL_PATH = SAVE_PATH +"/thumb";
 	private static final String PREFIX_IMG_URL = "/upload/";
@@ -54,9 +49,53 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleDao.selectArticleByNo(articleNo);
 	}
 
+	//글 수정
 	@Override
 	public int updateArticle(Article article) throws Exception {
-		return articleDao.updateArticle(article);
+		String url = "";
+		int result = 0;
+		try {
+			String originFilename = null;
+			String extName = null;
+			String saveFileName = null;
+			System.out.println('1');
+			
+			if (url != null) {
+				System.out.println("url이 null아니면 여기를 타는거야");
+				if (article.getMultipartFile().getOriginalFilename() != null
+						&& !article.getMultipartFile().getOriginalFilename().isEmpty()) {
+					
+					System.out.println("파일이 있으면 여기를 타는거고");
+					
+					originFilename = article.getMultipartFile().getOriginalFilename();
+					extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
+					saveFileName = genSaveFileName(extName);
+
+					writeFile(article.getMultipartFile(), saveFileName);
+					article.setArticleImgUrl(PREFIX_IMG_URL + saveFileName);
+					article.setArticleThumbUrl(PREFIX_THUMB_URL + saveFileName);
+
+					System.out.println(article);
+					result = articleDao.updateArticle(article);
+					url = PREFIX_THUMB_URL + saveFileName;
+				} else {
+					System.out.println("file이 없어 ㅋㅋ");
+				}
+			} else if(url==null) {
+				url = "";
+				result = 0;
+			} else {
+				url= article.getArticleThumbUrl();
+				result = -1;
+			}
+		} catch (Exception e) {
+			System.out.println("파일 업로드 익셉션: " + e.getMessage());
+			// 원래라면 RuntimeException 을 상속받은 예외가 처리되어야 하지만
+			// 편의상 RuntimeException을 던진다.
+			// throw new FileUploadException();
+			throw new RuntimeException(e);
+		}
+			return result;
 	}
 
 	@Override
@@ -107,12 +146,6 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<Article> selectArticleByWriterId(String writerId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Article store(Article article) {
 		String url = "";
 		int result = 0;
@@ -130,9 +163,7 @@ public class ArticleServiceImpl implements ArticleService {
 				writeFile(article.getMultipartFile(), saveFileName);
 				article.setArticleImgUrl(PREFIX_IMG_URL + saveFileName);
 				article.setArticleThumbUrl(PREFIX_THUMB_URL + saveFileName);
-//				Date date = article.getRegdate();
-//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//				article.setRegdate(sdf.format(article.getRegdate()));
+
 				System.out.println(article);
 				result = articleDao.insertArticle(article);
 				url = PREFIX_THUMB_URL + saveFileName;
@@ -171,11 +202,6 @@ public class ArticleServiceImpl implements ArticleService {
 		String filePath = SAVE_PATH + "/" + saveFileName;
 		String thumbfilePath = THUMBNAIL_PATH + "/" + saveFileName;
 
-//						byte[] data = multipartFile.getBytes();
-//						FileOutputStream fos = new FileOutputStream(filePath);
-//						fos.write(data);
-//						fos.close();
-
 		File file = new File(filePath);
 		multipartFile.transferTo(file);
 
@@ -185,5 +211,17 @@ public class ArticleServiceImpl implements ArticleService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//아이디로 게시글 리스트 조회
+	@Override
+	public List<Article> selectArticleByWriterId(Article article) throws Exception {
+		return articleDao.selectArticleByWriterId(article.getWriterId());
+	}
+	
+	//멤버페이지 게시글갯수 조회
+	@Override
+	public int selectWriterPageCount(Article article) throws Exception {
+		return articleDao.selectWriterPageCount(article.getWriterId());
 	}
 }

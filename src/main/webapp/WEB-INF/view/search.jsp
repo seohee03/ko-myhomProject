@@ -5,7 +5,7 @@
 <body>
 <%@ include file="/WEB-INF/view/include/nav.jsp"%>
 
-<!-- trending item start-->
+<!-- item start-->
 <section class="trending_items">
 	<div class="container">
 		<div class="row">
@@ -39,33 +39,45 @@
 	</div>
 	</div>
 </section>
-<!-- trending item end-->
+<!-- item end-->
 
-	
-	<hr/>
-	<table border="1">
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>게시일</th>
-						<th>조회수</th>
-					</tr>
-				</thead>
-				<tbody>
+<!-- article start-->
+<section class="trending_items">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="section_tittle text-left">
+                  <h4>커뮤니티</h4>
+                  <a href="${pageContext.request.contextPath}/community">전체보기</a>
+                  <hr>
+               </div>
+            </div>
+         </div>
+         <article class="blog_item">
+			<div class="pdList">
+				<ul class="clearfix">
 					<c:forEach var="article" items="${articleList}">
-						<tr
-							onclick="location.href='community/readArticle/${article.articleNo}'">
-							<td>${article.articleNo}</td>
-							<td>${article.articleTitle}</td>
-							<td>${article.writerId}</td>
-							<td>${article.regdate}</td>
-							<td>${article.readCount}</td>
-						</tr>
+					<li>
+						<div class="imgArea" onclick="location.href='community/readArticle/${article.articleNo}'">
+							<%-- <img class="card-img rounded-0" src="${article.articleContent}" alt=""> --%>
+		                    <img src="${pageContext.request.contextPath }${article.articleThumbUrl}">
+						</div>
+						<div class="blog_details">
+							<h5 onclick="location.href='community/readArticle/${article.articleNo}'">${article.articleTitle}</h5>
+							<div class="blog-info-link">
+								<a href="<c:url value="/community/writerPage/${article.writerId }" />"><i class="far fa-user"></i><c:out value="${article.writerId}" /></a></br>
+								<i class="far fa-comments"></i>Comments ${article.readCount}
+							</div>
+						</div>
+						
+					</li>
 					</c:forEach>
-				</tbody>
-			</table>
+				</ul>
+			</div>
+		</article>
+      </div>
+   </section>
+
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>
 </html>

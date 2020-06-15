@@ -5,10 +5,6 @@
 <!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
 <mapper namespace="com.myhome.www.article.service.impl.ArticleDao">
 
-	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
-		있습니다. -->
-	<!-- <select id="selectArticleList" resultType="articleDTO"> SELECT * FROM 
-		project1.ARTICLE ORDER BY ARTICLE_NO DESC </select> -->
 	<select id="selectArticleList" resultType="articleDTO" parameterType="articleDTO">
 		SELECT * FROM project1.ARTICLE
 		ORDER BY ARTICLE_NO DESC limit #{startIndex}, #{cntPerPage}
@@ -37,27 +33,26 @@
 		WHERE ARTICLE_NO = #{articleNo}
 	</select>
 
-	<select id="selectArticleByWriterId" resultType="articleDTO">
+	<!-- <select id="selectArticleByWriterId" resultType="articleDTO">
 		SELECT * FROM
 		project1.ARTICLE
 		WHERE WRITER_ID = #{writerId}
-	</select>
+	</select> -->
 
 	<select id="selectLastArticleNo" resultType="int">
 		SELECT DISTINCT
 		LAST_INSERT_ID() FROM project1.ARTICLE
 	</select>
 
-	<update id="updateArticle"
-		parameterType="com.myhome.www.article.dto.Article">
-		UPDATE project1.ARTICLE
-		SET ARTICLE_TITLE=#{articleTitle}, ARTICLE_CONTENT=#{articleContent},
-		MODDATE=now()
-		WHERE ARTICLE_NO=#{articleNo}
-	</update>
+<!-- 글 수정 쿼리 -->
+   <update id="updateArticle" parameterType="com.myhome.www.article.dto.Article">
+      UPDATE project1.ARTICLE
+         SET ARTICLE_TITLE=#{articleTitle}, ARTICLE_CONTENT=#{articleContent},
+          ARTICLE_IMG_URL=#{articleImgUrl}, ARTICLE_THUMB_URL=#{articleThumbUrl}, MODDATE=now()
+       WHERE ARTICLE_NO=#{articleNo}
+   </update>
 
-	<update id="increaseReadCount"
-		parameterType="com.myhome.www.article.dto.Article">
+	<update id="increaseReadCount" parameterType="com.myhome.www.article.dto.Article">
 		UPDATE project1.ARTICLE
 		SET READ_COUNT = READ_COUNT + 1
 		WHERE ARTICLE_NO = #{articleNo}
@@ -78,8 +73,7 @@
 		ORDER BY ARTICLE_NO DESC
 	</select>
 
-	<select id="selectSearchTypeArticleList" resultType="articleDTO"
-		parameterType="String">
+	<select id="selectSearchTypeArticleList" resultType="articleDTO" parameterType="String">
 		SELECT * FROM project1.ARTICLE
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if
@@ -102,5 +96,16 @@
 		select count(*) from
 		project1.ARTICLE where article_no > 0
 	</select>
+	
+<!-- 아이디로 게시글 리스트 조회 -->
+   <select id="selectArticleByWriterId" resultType="articleDTO">
+     SELECT * FROM project1.ARTICLE
+        WHERE WRITER_ID = #{writerId}
+   </select>
+	
+<!-- 멤버페이지 게시글 전체갯수 -->
+   <select id="selectWriterPageCount" resultType="int">
+      select count(*) from project1.ARTICLE where writer_id = #{writerId}
+   </select>
 
 </mapper>

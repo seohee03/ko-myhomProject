@@ -14,7 +14,6 @@ public interface ArticleDao {
 	//게시글 전체 리스트
 	List<Article> selectArticleList(Article article) throws Exception;	
 	
-	List<Article> selectArticleByWriterId(String writerId) throws Exception;
 	//글쓰기
 	int insertArticle(Article article) throws Exception;
 	//파일등록
@@ -37,4 +36,8 @@ public interface ArticleDao {
 	int selectAllCount() throws Exception;
 	//인덱스에 표시할 게시글 8개
 	List<Article> selectArticleForIndex() throws Exception;
+	//아이디로 게시글 리스트 조회
+	List<Article> selectArticleByWriterId(String writerId) throws Exception;
+	//멤버페이지 게시글 갯수 조회
+	int selectWriterPageCount(String writerId) throws Exception;
 }

@@ -5,6 +5,6 @@
 	              type="java.time.temporal.TemporalAccessor" %>
 <%@ attribute name="pattern" type="java.lang.String" %>
 <%
-	if (pattern == null) pattern = "yyyy-MM-dd";
+	if (pattern == null) pattern = "yyyy-MM-dd HH:mm:ss";
 %>
 <%= DateTimeFormatter.ofPattern(pattern).format(value) %>

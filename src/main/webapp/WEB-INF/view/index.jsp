@@ -92,28 +92,28 @@
                </div>
             </div>
          </div>
-         <div class="pdList">
-            <ul class="clearfix">
-               <c:forEach var="article" items="${articleList}">
-                  <li>
-                     <a href="<c:url value="/community/readArticle/${article.articleNo}"/>">
-                        <div class="imgArea">
-                           <%-- <img src="${path }${article.articleThumbUrl}"> --%>
-                           <img alt="" src="${pageContext.request.contextPath }${article.articleThumbUrl}">
-                        </div>
-                        <div class="infoArea">
-                           <div class="blog_details">
-                              <h5>
-                                 ${article.articleTitle} | 작성자 : <c:out value="${article.writerId}" /> | 조회수 - ${article.readCount}
-                              </h5>
-                              <h5>${article.regdate}</h5>
-                           </div>
-                        </div>
-                     </a>
-                  </li>
-               </c:forEach>
-            </ul>
-         </div>
+         <article class="blog_item">
+			<div class="pdList">
+				<ul class="clearfix">
+					<c:forEach var="article" items="${articleList}">
+					<li>
+						<div class="imgArea" onclick="location.href='community/readArticle/${article.articleNo}'">
+							<%-- <img class="card-img rounded-0" src="${article.articleContent}" alt=""> --%>
+		                    <img src="${pageContext.request.contextPath }${article.articleThumbUrl}">
+						</div>
+						<div class="blog_details">
+							<h5 onclick="location.href='community/readArticle/${article.articleNo}'">${article.articleTitle}</h5>
+							<div class="blog-info-link">
+								<a href="<c:url value="/community/writerPage/${article.writerId }" />"><i class="far fa-user"></i><c:out value="${article.writerId}" /></a></br>
+								<i class="far fa-comments"></i>Comments ${article.readCount}
+							</div>
+						</div>
+						
+					</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</article>
       </div>
    </section>
 <!-- 커뮤니티 끝 -->

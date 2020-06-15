@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/include/header.jsp"%>
- <c:set var="path" value="${pageContext.request.contextPath }" />
-
+<c:set var="path" value="${pageContext.request.contextPath }" />
 
 <script>
 //var path = ${pageContext.request.contextPath };
@@ -15,7 +14,6 @@ $(document).ready(function() {
 		//스크롤 bottom인경우 more list
 		if ($(document).height() - win.height() == win.scrollTop()) {
 			cPno++;
-			var values = []; //ArrayList 값을 받을 변수를 선언
 			$.ajax({
 				url : '${path}/storeMorePage/'+cPno,
 				dataType : 'json',
@@ -23,10 +21,10 @@ $(document).ready(function() {
 					console.log(itemCommandList);
 					//리스트 html <li></li> 가공한 후 append()
 					$.each(itemCommandList, function(index, value) {
-						console.log(value);
+						/* console.log(value);
 						console.log(value.categorie.categorieName);
 						console.log(value.itemImg.thumbUrl);
-						console.log(value.item.itemName);
+						console.log(value.item.itemName); */
 						var html = "<li><a><div class='imgArea'><img alt='' src=${path }"+value.itemImg.thumbUrl+"></div>"
 						+"<div class='infoArea'>"
 						+"<p class='brand'>"+value.categorie.categorieName+"</p>"
